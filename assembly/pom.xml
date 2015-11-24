@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- 
+       controlls final assembly after all modules are
+       built.  basically copies files into a distro
+       directory for easy deployment 
+  -->
+
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>mil.navy.spawar.swif</groupId>
+    <artifactId>swif-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>swif-distribution-assembly</artifactId> 
+  <name>SWIF Distribution Assembly</name>
+  <description>SWIF Distribution Assembly</description>
+  <packaging>pom</packaging>
+
+  <properties>
+    <distro.name>swif-latest-release</distro.name>
+  </properties>
+
+  
+  <!-- 
+       these dependency declarations are here to ensure 
+       this project is built last in the multi module build. 
+  -->
+  <dependencies>
+
+	<!-- swif core -->
+        <dependency>		
+           <groupId>mil.navy.spawar.swif</groupId>
+       	   <artifactId>swif-core</artifactId>
+	   <version>${project.version}</version>
+        </dependency>
+
+	<!-- security-modules -->
+        <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-classification-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-sap-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-sci-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-relto-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+	<!-- services -->
+        <dependency>		
+           <groupId>mil.navy.spawar.swif</groupId>
+       	   <artifactId>swif-services-webapp</artifactId>
+	   <version>${project.version}</version>
+           <type>war</type>	
+        </dependency>
+
+	<!-- widgets -->
+        <dependency>		
+           <groupId>mil.navy.spawar.swif</groupId>
+       	   <artifactId>swif-widgets-webapp</artifactId>
+	   <version>${project.version}</version>
+           <type>war</type>		
+        </dependency>
+
+  </dependencies>
+
+
+  <build>
+    <plugins>
+
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-site-plugin</artifactId>
+		<version>3.3</version>
+		<configuration>
+		   <skip>true</skip>
+		   <skipDeploy>true</skipDeploy>
+		</configuration>
+	</plugin>
+
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>distro-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <attach>false</attach>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>assembly.xml</descriptor>
+              </descriptors>
+	      <finalName>${distro.name}</finalName>	
+              <outputDirectory>${project.parent.basedir}</outputDirectory>	
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-clean-plugin</artifactId>
+		<version>2.5</version>
+		<configuration>
+			<filesets>
+				<fileset>
+					<directory>${project.parent.basedir}/${distro.name}</directory>	
+				</fileset>
+			</filesets>
+		</configuration>
+	</plugin>
+
+
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,9 @@
+# To re-dump the DB
+In this directory:
+
+    mongodump --db swifDB
+
+# To restore the DB
+In this directory:
+
+    mongorestore --db swifDB dump/swifDB

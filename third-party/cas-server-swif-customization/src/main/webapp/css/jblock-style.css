@@ -1,0 +1,48 @@
+.classificationBanner{
+  font-weight:bold;
+  font-size: 11px;
+  color:#ffff00;
+  text-align: center;
+  padding:0;
+  margin:0;
+  white-space:nowrap!important;
+}
+
+div#northBanner {
+  position:absolute;
+  width:100%;
+  top:0px;
+  left:0px;
+  z-index:30000;
+}
+
+div#southBanner{
+  position:absolute;
+  width:100%;
+  z-index:30000;
+  bottom:0px;
+  left:-2px;
+}
+
+table.classificationBannerBottomLB {
+  bottom: 15px;
+}
+
+.classificationBanner table,
+.classificationBanner tbody,
+.classificationBanner tr,
+.classificationBanner td {
+  padding:0;
+  margin:0;
+  white-space:nowrap!important;
+}
+
+td.classificationBanner {
+	font:normal 11px Verdana, Arial, Helvetica, sans-serif;
+	color:#ffff00;
+	text-align:center;
+	padding:2px;
+	border-top:1px solid #000000;
+	border-bottom:1px solid #000000;
+	white-space:nowrap!important;
+}

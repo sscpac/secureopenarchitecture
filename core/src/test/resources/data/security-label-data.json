@@ -1,0 +1,29 @@
+{ 
+"classification":
+[
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1c9" }, "Key" : "TS", "Label" : "Top Secret", "securityLabel" : { "classification" : [ "TS" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1ca" }, "Key" : "S", "Label" : "Secret", "securityLabel" : { "classification" : [ "S" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1cb" }, "Key" : "C", "Label" : "Confidential", "securityLabel" : { "classification" : [ "C" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1cc" }, "Key" : "U", "Label" : "Unclassified", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } }
+],
+"RELTO":
+[
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d1" }, "Key" : "AUS", "Label" : "Australia", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d2" }, "Key" : "CAN", "Label" : "Canada", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d3" }, "Key" : "USA", "Label" : "USA", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d4" }, "Key" : "GBR", "Label" : "United Kingdom", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } }
+],
+"SAP":
+[
+{ "_id" : { "$oid" : "51dc6a347409199ee4f8e1c6" }, "Key" : "BP", "Label" : "BUTTERED POPCORN", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [  ], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a347409199ee4f8e1c7" }, "Key" : "SWAGGER", "Label" : "SWAGGER", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [ ], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a347409199ee4f8e1c8" }, "Key" : "MULTIPLE", "Label" : "MULTIPLE PROGRAMS", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [  ], "RELTO" : [] } }
+],
+"SCI":
+[
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1be" }, "Key" : "HCS", "Label" : "HUMINT Control System", "securityLabel" : { "classification" : [ "U" ], "SCI" : [  ], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1bf" }, "Key" : "KLONDIKE", "Label" : "KLONDIKE", "securityLabel" : { "classification" : [ "U" ], "SCI" : [  ], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1c0" }, "Key" : "COMINT", "Label" : "COMINT", "securityLabel" : { "classification" : [ "U" ], "SCI" : [  ], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1c1" }, "Key" : "TK", "Label" : "TALENT KEYHOLE", "securityLabel" : { "classification" : [ "U" ], "SCI" : [  ], "SAP" : [], "RELTO" : [] } }
+]
+}

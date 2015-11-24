@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+ 
+	<bean id="userService" class="org.springframework.security.ldap.userdetails.LdapUserDetailsService">
+         	<constructor-arg ref="ldapUserSearch" />
+         	<constructor-arg ref="ldapRoleSearch" />
+		<property name="userDetailsMapper" ref="userDetailsMapper" />
+    	</bean>
+	
+    	<bean id="ldapUserSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+		<constructor-arg value="ou=Users,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil"/>
+       		<constructor-arg value="(uid={0})"/>
+       		<constructor-arg ref="contextSource" />
+    	</bean>
+	
+    	<bean id="ldapRoleSearch" class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">
+          	<constructor-arg ref="contextSource" />
+		<constructor-arg value="ou=Groups,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil" />
+          	<property name="groupRoleAttribute" value="cn"/>
+          	<property name="groupSearchFilter" value="(member={0})"/>
+          	<property name="rolePrefix" value="ROLE_"/>
+          	<property name="searchSubtree" value="true"/>
+          	<property name="convertToUpperCase" value="true"/>
+    	</bean>
+
+   	 <bean id="userDetailsMapper" class="ozone.securitysample.authentication.ldap.SWIFUserDetailsContextMapper">
+        	<constructor-arg ref="contextSource" />
+        	<constructor-arg value="ou=OWFRoles,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil" /> 
+        	<constructor-arg value="(member={0})" /> 
+    	</bean>
+
+  	<bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+        	<constructor-arg  value="ldap://kona.vmnet"/>
+        	<property name="userDn" value="cn=manager,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil" />
+    		<property name="password" value="swif123" />
+    	</bean>
+
+</beans>
+

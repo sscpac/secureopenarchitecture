@@ -1,0 +1,51 @@
+{ "binary":
+[
+{
+  "_id":{"$oid": "000000000000000000000001"},
+  "contentType" : "text/plain",
+  "fileName" : "test1.txt",
+  "securityLabel" : {
+    "classification" : ["U"],
+    "RELTO" : ["USA"],
+    "SCI" : ["TK"],
+    "SAP" : ["BP"]
+  },
+  "data" : {
+  	"$binary":"ZmlsZS1jb250ZW50cw==",
+  	"$type":0
+  } 
+}
+,
+{
+  "_id":{"$oid": "000000000000000000000002"},
+  "contentType" : "text/plain",
+  "fileName" : "test2.txt",
+  "securityLabel" : {
+    "classification" : ["S"],
+    "RELTO" : ["USA"],
+    "SCI" : ["TK"],
+    "SAP" : ["BP"]
+  },
+  "data" : {
+  	"$binary":"ZmlsZS1jb250ZW50cw==",
+  	"$type":0
+  } 
+}
+,
+{
+  "contentType" : "text/plain",
+  "fileName" : "file.txt",
+  "securityLabel" : {
+    "classification" : ["C"],
+    "RELTO" : ["USA"],
+    "SCI" : ["TK"],
+    "SAP" : ["BP"]
+  },
+  "data" : {
+  	"$binary":"ZmlsZS1jb250ZW50cw==",
+  	"$type":0
+  } 
+}
+]
+}
+

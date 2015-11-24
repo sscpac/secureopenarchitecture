@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <!--
+  target maven version: 3.0.4
+  -->
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>mil.navy.spawar.swif</groupId>
+  <artifactId>swif-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>SWIF Build</name>
+  <description>SWIF Build</description>
+  <version>1.0.0-SNAPSHOT</version>
+
+
+  <properties>
+    <root.dir>${project.basedir}</root.dir>
+    <mongo.java.driver.version>3.0.0-rc0</mongo.java.driver.version>
+    <spring.version>4.0.3.RELEASE</spring.version>
+    <spring.security.version>3.2.7.RELEASE</spring.security.version>
+    <spring.ldap.version>2.0.2.RELEASE</spring.ldap.version>
+    <spring.webflow.version>2.3.2.RELEASE</spring.webflow.version>
+    <cas.client.version>3.1.11</cas.client.version>  
+    <jackson.version>1.9.12</jackson.version>
+    <slf4j.version>1.7.5</slf4j.version>
+    <log4j.version>1.2.17</log4j.version>
+    <servlet.api.version>2.5</servlet.api.version>
+    <commons.beanutils.version>1.8.3</commons.beanutils.version>
+    <commons.codec.version>1.8</commons.codec.version>
+    <commons.collections.version>3.2.1</commons.collections.version>
+    <commons.fileupload.version>1.3</commons.fileupload.version>
+    <commons.io.version>2.4</commons.io.version>
+    <commons.lang.version>2.6</commons.lang.version>
+    <commons.logging.version>1.1.3</commons.logging.version>
+    <junit.version>4.11</junit.version>
+    <mockito.version>1.9.5</mockito.version>
+    <nosqlunit.version>0.7.6</nosqlunit.version>
+    <embed.mongo.version>1.34</embed.mongo.version>
+    <embed.process.version>1.29</embed.process.version>
+    <project.build.sourceVersion>1.6</project.build.sourceVersion>
+    <project.build.targetVersion>1.6</project.build.targetVersion>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <skip.integration.tests>true</skip.integration.tests>
+    <skip.unit.tests>false</skip.unit.tests>
+  </properties>
+
+  <modules>
+    <module>core</module> 
+    <module>classification-module</module>
+    <module>sap-module</module>
+    <module>sci-module</module>
+    <module>relto-module</module>
+    <module>generic-module</module>
+    <module>services</module>
+    <module>widgets</module>
+    <module>assembly</module>
+  </modules>
+
+  <profiles>
+    <profile>
+        <id>unit-test</id>
+        <properties>
+            <skip.integration.tests>true</skip.integration.tests>
+            <skip.unit.tests>false</skip.unit.tests>
+        </properties>
+    </profile>
+    <profile>
+        <id>integration-test</id>
+        <properties>
+            <skip.integration.tests>false</skip.integration.tests>
+            <skip.unit.tests>true</skip.unit.tests>
+        </properties>
+    </profile>
+    <profile>
+        <id>no-test</id>
+        <properties>
+            <skip.integration.tests>true</skip.integration.tests>
+            <skip.unit.tests>true</skip.unit.tests>
+        </properties>
+    </profile>
+    <profile>
+        <id>full-test</id>
+        <properties>
+            <skip.integration.tests>false</skip.integration.tests>
+            <skip.unit.tests>false</skip.unit.tests>
+        </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+          	<source>${project.build.sourceVersion}</source>
+         	<target>${project.build.targetVersion}</target>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.15</version>
+        </plugin>
+
+       <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.15</version>
+        </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.8</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-javadoc-plugin</artifactId>
+	<version>2.9.1</version>
+      </plugin>   
+
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>jdepend-maven-plugin</artifactId>
+	<version>2.0-beta-2</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>cobertura-maven-plugin</artifactId>
+	<version>2.5.2</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>emma-maven-plugin</artifactId>
+        <version>1.0-alpha-3</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>taglist-maven-plugin</artifactId>
+	<version>2.4</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jxr-plugin</artifactId>
+	<version>2.3</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-pmd-plugin</artifactId>
+	<version>3.0.1</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-project-info-reports-plugin</artifactId>
+	<version>2.7</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-site-plugin</artifactId>
+	<version>3.3</version>
+      </plugin>
+
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-checkstyle-plugin</artifactId>
+	<version>2.10</version>
+      </plugin>
+ 
+
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+	<!-- site generation -->
+	<plugin>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-site-plugin</artifactId>
+	  <configuration>
+            
+            <!-- site reports -->		
+	    <reportPlugins>
+
+	      <plugin>  
+		<groupId>org.apache.maven.plugins</groupId>  
+		<artifactId>maven-project-info-reports-plugin</artifactId>  
+		<configuration>  
+		    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>  
+		    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>  
+		</configuration>  
+		<reports>  
+		    <report>index</report>
+		    <report>summary</report>  
+		    <report>dependencies</report> 
+		    <report>project-team</report>  
+		    <report>issue-tracking</report>  
+		    <report>scm</report>  
+                    <!-- <report>cim</report> -->
+		    <report>modules</report>  
+		    <report>plugins</report>  
+		</reports>  
+	      </plugin>  
+
+	      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-report-plugin</artifactId>
+            	<configuration>
+                   <aggregate>true</aggregate>
+                </configuration>
+	      </plugin>
+
+	      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-javadoc-plugin</artifactId>
+            	<configuration>
+                   <aggregate>true</aggregate>
+                </configuration>
+	      </plugin>     
+
+ 	      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-checkstyle-plugin</artifactId>
+            	<configuration>
+                   <configLocation>${root.dir}/checkstyle-rules.xml</configLocation>
+                   <suppressionsLocation>${root.dir}/checkstyle-suppressions.xml</suppressionsLocation>
+                </configuration>
+	      </plugin>
+ 
+	      <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>jdepend-maven-plugin</artifactId>
+	      </plugin>
+
+	      <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>emma-maven-plugin</artifactId>
+	      </plugin>
+
+	      <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>cobertura-maven-plugin</artifactId>
+ 	      </plugin>
+
+	      <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>taglist-maven-plugin</artifactId>
+            	<configuration>
+                   <aggregate>true</aggregate>
+                </configuration>
+	      </plugin>
+
+	      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jxr-plugin</artifactId>
+            	<configuration>
+                   <aggregate>true</aggregate>
+                </configuration>
+	      </plugin>
+
+	      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-pmd-plugin</artifactId>
+		<configuration>
+                  <aggregate>true</aggregate>
+                  <!--
+		  <minimumPriority>3</minimumPriority>
+                  -->
+		  <targetJdk>${project.build.targetVersion}</targetJdk>
+		</configuration>
+	      </plugin>
+	    </reportPlugins>
+	  </configuration>
+	</plugin>
+
+	<!-- 
+	   unit testing - define default classes identified as unit tests
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+      	  <executions>
+             <execution>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+	        <configuration>
+                   <skipTests>${skip.unit.tests}</skipTests>
+		   <includes>
+		      <include>**/Test*.java</include>
+		      <include>**/*Test.java</include>
+		      <include>**/*Tests.java</include>
+		      <include>**/*TestCase.java</include>
+		   </includes>
+                 </configuration>
+               </execution>
+           </executions>
+        </plugin>
+
+	<!-- 
+	   integration testing - define default classes identified as integration tests
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+       	  <executions>
+             <execution>
+               <goals>
+                 <goal>integration-test</goal>
+                 <goal>verify</goal>
+               </goals>
+ 	       <configuration>
+                 <skipTests>${skip.integration.tests}</skipTests>
+		 <includes>
+		   <include>**/IT*.java</include>
+		   <include>**/*IT.java</include>
+		   <include>**/*ITs.java</include>
+		   <include>**/*ITCase.java</include>
+		 </includes>
+               </configuration>
+              </execution>
+           </executions>
+        </plugin>
+
+   </plugins>
+
+  </build>
+
+  <!--
+	project wide dependency defaults
+  -->
+  <dependencies>
+
+	<!-- spring -->
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <exclusions>
+              <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+              </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-expression</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+        </dependency>
+
+         <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-webmvc</artifactId>
+         </dependency>
+
+	<!-- spring security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+
+     	<dependency>
+       	  <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-cas</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>commons-logging</groupId>
+              <artifactId>commons-logging</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+
+     	<dependency>
+       	  <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+          <version>${spring.security.version}</version>
+        </dependency>
+
+        <!-- spring ldap -->
+        <dependency>
+          <groupId>org.springframework.ldap</groupId>
+          <artifactId>spring-ldap-core</artifactId>
+        </dependency>
+
+	<!-- cas client -->
+        <dependency>
+          <groupId>org.jasig.cas.client</groupId>
+          <artifactId>cas-client-core</artifactId>
+        </dependency>
+
+	<!-- mongo -->
+        <dependency>
+           <groupId>org.mongodb</groupId>
+       	   <artifactId>mongo-java-driver</artifactId>
+        </dependency>
+
+        <!-- apache commons -->	
+        <dependency>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>commons-collections</groupId>
+          <artifactId>commons-collections</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>commons-lang</groupId>
+          <artifactId>commons-lang</artifactId>
+        </dependency>
+
+	<!-- junit -->
+   	<dependency>
+      	  <groupId>junit</groupId>
+     	  <artifactId>junit</artifactId>
+          <scope>test</scope>
+        </dependency>
+
+	<!-- mockito -->	
+	<dependency>
+	  <groupId>org.mockito</groupId>
+	  <artifactId>mockito-all</artifactId>
+	  <scope>test</scope>
+	</dependency>
+
+    	<!-- nosqlunit -->
+        <dependency>
+	  <groupId>com.lordofthejars</groupId>
+	  <artifactId>nosqlunit-core</artifactId>
+	  <scope>test</scope>
+        </dependency>
+
+        <dependency>
+	  <groupId>com.lordofthejars</groupId>
+	  <artifactId>nosqlunit-mongodb</artifactId>
+	  <scope>test</scope>
+       </dependency>
+
+       <!-- embeded mongo -->
+       <dependency>
+  	  <groupId>de.flapdoodle.embed</groupId>
+	  <artifactId>de.flapdoodle.embed.mongo</artifactId>
+	  <scope>test</scope>
+       </dependency>
+
+       <dependency>
+	  <groupId>de.flapdoodle.embed</groupId>
+	  <artifactId>de.flapdoodle.embed.process</artifactId>
+	  <scope>test</scope>
+       </dependency>
+
+
+  </dependencies>
+
+  <repositories />
+ 
+  <pluginRepositories />
+
+  <!-- 
+	project wide dependency version defaults
+  --> 
+  <dependencyManagement>
+    <dependencies>
+   
+    <!-- slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+      <type>jar</type>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- log4j -->	
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
+    <!-- junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- mockito -->
+    <dependency>
+	<groupId>org.mockito</groupId>
+	<artifactId>mockito-all</artifactId>
+	<version>${mockito.version}</version>
+	<scope>test</scope>
+    </dependency>
+
+    <!-- nosqlunit -->
+    <dependency>
+	<groupId>com.lordofthejars</groupId>
+	<artifactId>nosqlunit-core</artifactId>
+	<version>${nosqlunit.version}</version>
+	<scope>test</scope>
+    </dependency>
+
+    <dependency>
+	<groupId>com.lordofthejars</groupId>
+	<artifactId>nosqlunit-mongodb</artifactId>
+	<version>${nosqlunit.version}</version>
+	<scope>test</scope>
+    </dependency>
+
+    <!-- embeded mongo -->
+    <dependency>
+	<groupId>de.flapdoodle.embed</groupId>
+	<artifactId>de.flapdoodle.embed.mongo</artifactId>
+	<version>${embed.mongo.version}</version>
+	<scope>test</scope>
+    </dependency>
+
+    <dependency>
+	<groupId>de.flapdoodle.embed</groupId>
+	<artifactId>de.flapdoodle.embed.process</artifactId>
+	<version>${embed.process.version}</version>
+	<scope>test</scope>
+    </dependency>
+
+      <!-- mongo client -->
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongo-java-driver</artifactId>
+        <version>${mongo.java.driver.version}</version>
+      </dependency>
+
+      <!-- apache commons -->	
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>${commons.beanutils.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons.codec.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>${commons.collections.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>${commons.fileupload.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons.io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons.lang.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons.logging.version}</version>
+      </dependency>
+
+      <!-- codehaus jackson -->
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+     <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-core-asl</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <!--cas -->
+      <dependency>
+        <groupId>org.jasig.cas.client</groupId>
+        <artifactId>cas-client-core</artifactId>
+        <version>${cas.client.version}</version>
+      </dependency>
+
+      <!-- spring ldap -->
+      <dependency>
+        <groupId>org.springframework.ldap</groupId>
+        <artifactId>spring-ldap-core</artifactId>
+        <version>${spring.ldap.version}</version>
+      </dependency>
+
+      <!-- spring security -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-ldap</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-cas</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <!-- spring  -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-expression</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-oxm</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <!-- servlet api -->	
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>${servlet.api.version}</version>
+	<scope>provided</scope>
+      </dependency>
+
+    </dependencies>
+
+  </dependencyManagement>
+
+
+
+</project>

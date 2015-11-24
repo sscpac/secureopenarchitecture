@@ -1,0 +1,73 @@
+[{
+	"_id":"1",
+	"name":"doc-1",
+	"securityLabel":{
+		"classification":["CLASSIFICATION-1"],
+		"RELTO":["USA"],
+		"SCI" : ["SCI-1"],
+		"SAP" : ["SAP-1"],
+        "unacknowledged" : "true"
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"2",
+	"name":"doc-2",
+	"securityLabel":{
+		"classification":["CLASSIFICATION-1","CLASSIFICATION-2"],
+		"RELTO":["USA"],
+		"SCI" : ["SCI-1","SCI-2"],
+		"SAP" : ["SAP-1","SAP-2"],
+        "unacknowledged" : "true"
+    },
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"3",
+	"name":"doc-3",
+	"securityLabel":{
+		"classification":["CLASSIFICATION-1","CLASSIFICATION-2","CLASSIFICATION-3"],
+		"RELTO":["USA"],
+		"SCI" : ["SCI-1"],
+		"SAP" : ["SAP-1"],
+        "unacknowledged" : "true"
+    },
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"4",
+	"name":"doc-4",
+	"securityLabel":{
+		"classification":["CLASSIFICATION-1"],
+		"RELTO":["USA"],
+		"SCI" : ["SCI-1","SCI-2","SCI-3"],
+		"SAP" : ["SAP-1"],
+        "unacknowledged" : "true"
+    },
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"5",
+	"name":"doc-5",
+	"securityLabel":{
+		"classification":["CLASSIFICATION-1"],
+		"RELTO":["USA"],
+		"SCI" : ["SCI-1"],
+		"SAP" : ["SAP-1","SAP-2","SAP-3"],
+        "unacknowledged" : "true"
+    },
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"6",
+	"name":"doc-6",
+	"securityLabel":{
+		"classification":["CLASSIFICATION-1"],
+		"RELTO":["USA"],
+		"SCI" : ["SCI-2"],
+		"SAP" : ["SAP-1"],
+        "unacknowledged" : "true"
+    },
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+}]

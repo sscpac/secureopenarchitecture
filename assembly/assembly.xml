@@ -1,0 +1,81 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+  <!-- 
+	create swif distribution 
+
+	packages up various files and directories for deployment
+  -->
+
+  <id>distribution</id>
+
+  <formats>
+    <format>dir</format>
+  </formats>
+
+  <includeBaseDirectory>false</includeBaseDirectory>
+
+  <fileSets>
+
+    <!-- copy swif webapp -->	
+    <!--
+    <fileSet>
+      <outputDirectory>/swif/swif</outputDirectory>	
+      <directory>${parent.basedir}/services/target/swif-services-webapp-${project.version}</directory>
+    </fileSet>
+    -->
+
+    <!-- copy widgets webapp -->
+    <!--		
+    <fileSet>
+      <outputDirectory>/swif/widgets</outputDirectory>	
+      <directory>${parent.basedir}/widgets/target/swif-widgets-webapp-${project.version}</directory>
+    </fileSet>
+    -->
+
+    <!-- copy mongo data import files -->	
+    <fileSet>
+      <outputDirectory>/mongo/data-import</outputDirectory>	
+      <directory>${parent.basedir}/data</directory>
+    </fileSet>
+
+    <!-- copy mongo javascript files -->	 
+    <fileSet>
+      <outputDirectory>/mongo/javascript</outputDirectory>	
+      <directory>${parent.basedir}/core/src/main/resources/mongo-database-files</directory>
+    </fileSet>
+
+    <!-- copy ldif config files -->	
+    <fileSet>
+      <outputDirectory>/ldap</outputDirectory>	
+      <directory>${parent.basedir}/core/src/main/resources/ldif-files</directory>
+    </fileSet>
+
+    <!--copy owf files-->
+    <fileSet>
+      <outputDirectory>/owf-configuration</outputDirectory>	
+      <directory>${parent.basedir}/third-party/OwfSecurityCustomizations/owf-config</directory>
+    </fileSet>        
+
+
+  </fileSets>
+
+
+  <files>
+	
+    <!-- copy war files -->
+    <file>
+      <source>${parent.basedir}/services/target/swif-services-webapp-${project.version}.war</source>
+      <outputDirectory>/swif</outputDirectory>
+      <destName>swif.war</destName>
+    </file>
+
+    <file>
+      <source>${parent.basedir}/widgets/target/swif-widgets-webapp-${project.version}.war</source>
+      <outputDirectory>/swif</outputDirectory>
+      <destName>widgets.war</destName>
+    </file>
+   
+  </files>
+
+
+</assembly>

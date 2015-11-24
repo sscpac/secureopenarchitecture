@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans" 
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+		
+	
+	<bean id="securityContext" class="java.lang.String" >
+		<constructor-arg value="securityLabel" />
+	</bean>
+
+    <bean id="aggregateSecurityContext" class="java.lang.String" >
+        <constructor-arg value="securityAggregate" />
+    </bean>
+
+    <bean id="idLabel" class="java.lang.String" >
+        <constructor-arg value="_id" />
+    </bean>
+
+    <bean id="authFilters" class="mil.navy.spawar.swif.security.MongoAuthDecisionManagerImpl">
+        <property name="unacknowledgedConfig" ref="unacknowledgedConfig"/>
+        <property name="aggregateLabel" ref="aggregateSecurityContext"/>
+        <property name="databaseLabel" ref="securityContext" />
+        <property name="idLabel" ref="idLabel"/>
+
+		<property name="queryFilters" >
+			<list>
+				<bean class="mil.navy.spawar.swif.security.filters.ClassificationMongoQueryFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="classificationConfig" />
+				</bean>
+				<bean class="mil.navy.spawar.swif.security.filters.SCIMongoQueryFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="sciConfig" />
+				</bean>
+				<bean class="mil.navy.spawar.swif.security.filters.SAPMongoQueryFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="sapConfig" />
+				</bean>
+				<bean class="mil.navy.spawar.swif.security.filters.RelToMongoQueryFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="relToConfig" />
+				</bean>
+			</list>
+		</property>
+		<property name="recordFilters" >
+			<list>
+				<bean class="mil.navy.spawar.swif.security.filters.ClassificationMongoRecordFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="classificationConfig" />
+                </bean>
+				<bean class="mil.navy.spawar.swif.security.filters.SCIMongoRecordFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="sciConfig" />
+				</bean>
+				<bean class="mil.navy.spawar.swif.security.filters.SAPMongoRecordFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="sapConfig" />
+				</bean>
+				<bean class="mil.navy.spawar.swif.security.filters.RelToMongoRecordFilter" >
+					<property name="databaseLabel" ref="securityContext" />
+					<property name="attributeConfig" ref="relToConfig" />
+				</bean>
+			</list>
+		</property>
+        <property name="nodeFilters">
+            <list>
+                <!-- bean class="mil.navy.spawar.swif.security.filters.ClassificationMongoNodeFilter" >
+                    <property name="databaseLabel" ref="securityContext" />
+                    <property name="attributeConfig" ref="classificationConfig" />
+                </bean>
+                <bean class="mil.navy.spawar.swif.security.filters.SCIMongoNodeFilter" >
+                    <property name="databaseLabel" ref="securityContext" />
+                    <property name="attributeConfig" ref="sciConfig" />
+                </bean>
+                <bean class="mil.navy.spawar.swif.security.filters.SAPMongoNodeFilter" >
+                    <property name="databaseLabel" ref="securityContext" />
+                    <property name="attributeConfig" ref="sapConfig" />
+                </bean>
+                <bean class="mil.navy.spawar.swif.security.filters.RelToMongoNodeFilter" >
+                    <property name="databaseLabel" ref="securityContext" />
+                    <property name="attributeConfig" ref="relToConfig" />
+                </bean -->
+            </list>
+        </property>
+	</bean>
+			
+    <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="swifUserClassification"/>
+        <property name="dbAttributeName" value="classification"/>
+        <property name="userDetailsName" value="classification"/>
+        <property name="displayName" value="Classification"/>
+        <property name="valueType" value="single"/>
+        <property name="rank" value="1"/>
+        <property name="rankings">
+            <map>
+                <entry key="U" value="1" />
+                <entry key="C" value="2" />
+                <entry key="S" value="3" />
+                <entry key="TS" value="4" />
+            </map>
+        </property>
+        <property name="secLabelRequirement" value="RECORD"/>
+    </bean>
+
+    <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="swifUserScimarking"/>
+        <property name="dbAttributeName" value="SCI"/>
+        <property name="userDetailsName" value="sciMarking"/>
+        <property name="displayName" value="SCI Marking"/>
+        <property name="valueType" value="multiple"/>
+        <property name="rank" value="2"/>
+    </bean>
+
+    <bean id="sapConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="swifUserSapmarking"/>
+        <property name="dbAttributeName" value="SAP"/>
+        <property name="userDetailsName" value="sapMarking"/>
+        <property name="displayName" value="SAP Marking"/>
+        <property name="valueType" value="multiple"/>
+        <property name="rank" value="3"/>
+    </bean>
+    
+   <bean id="relToConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="swifUserCountry"/>
+        <property name="dbAttributeName" value="RELTO"/>
+        <property name="userDetailsName" value="country"/>
+        <property name="displayName" value="Release To"/>
+        <property name="valueType" value="multiple"/>
+        <property name="rank" value="4"/>
+    </bean>
+
+    <!-- acknowledged attribute config -->
+    <bean id="unacknowledgedConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
+        <property name="dbAttributeName" value="unacknowledged"/>
+        <property name="displayName" value="Unacknowledged"/>
+        <property name="valueType" value="boolean"/>
+        <property name="defaultValue" value="false"/>
+        <property name="rank" value="5"/>
+    </bean>
+
+	<bean id="authKey" class="java.lang.String">
+		<constructor-arg value="swifUser"/>
+	</bean>	
+	
+	<bean id="authDn" class="java.lang.String">
+		<constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
+	</bean>	
+
+	<bean id="authCredentials" class="java.lang.String">
+		<constructor-arg value="password"/>
+	</bean>	
+
+	<util:list id="authAuthorities">
+		<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+			<constructor-arg>
+				<value>ROLE-1</value>
+			</constructor-arg>
+		</bean>
+		<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+			<constructor-arg>
+				<value>ROLE-2</value>
+			</constructor-arg>
+		</bean>
+	</util:list>
+	
+	<util:list id="classifications">
+        <value>U</value>
+        <value>S</value>
+        <value>C</value>
+        <value>TS</value>
+        <value>CLASSIFICATION-1</value>
+	      <value>CLASSIFICATION-2</value>
+	</util:list>
+	
+	<util:list id="countrys">
+	     <value>USA</value>
+	</util:list>
+
+	<util:list id="sciMarkings">
+	      <value>SCI-1</value>
+	      <value>SCI-2</value>
+	</util:list>
+
+	<util:list id="sapMarkings">
+	      <value>SAP-1</value>
+	      <value>SAP-2</value>
+	</util:list>
+
+  	<util:map id="customAttrs" value-type="java.util.List">
+      <entry key="classification" value-ref="classifications" />
+      <entry key="country" value-ref="countrys" />
+      <entry key="sciMarking" value-ref="sciMarkings" />
+      <entry key="sapMarking" value-ref="sapMarkings" />
+   	</util:map>	
+	
+    <bean id="authUserDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+		<constructor-arg ref="authKey" />	    	 
+		<constructor-arg ref="authAuthorities" />
+		<constructor-arg ref="authDn" />
+     	<property name="customAttributes" ref="customAttrs" />
+     </bean>
+	
+	<bean id="authAssertion" class="org.jasig.cas.client.validation.AssertionImpl">
+		<constructor-arg value="foobar"/>
+	</bean>	
+	
+	<bean id="authToken" class="org.springframework.security.cas.authentication.CasAuthenticationToken" >
+		 <constructor-arg ref="authKey" />
+		 <constructor-arg ref="authUserDetails" />
+		 <constructor-arg ref="authCredentials" />
+		 <constructor-arg ref="authAuthorities" />
+		 <constructor-arg ref="authUserDetails" />
+		 <constructor-arg ref="authAssertion" />
+	</bean>
+		
+</beans>

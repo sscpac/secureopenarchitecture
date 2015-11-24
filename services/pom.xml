@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>mil.navy.spawar.swif</groupId>
+    <artifactId>swif-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>swif-services-webapp</artifactId> 
+  <packaging>war</packaging>
+  <name>SWIF Services Web Application</name>
+  <description>SWIF Services Web Application</description>
+  
+  <properties>
+    <root.dir>${project.parent.basedir}</root.dir>
+  </properties>
+
+    <dependencies>
+	
+	<!-- swif core -->
+        <dependency>		
+           <groupId>mil.navy.spawar.swif</groupId>
+       	   <artifactId>swif-core</artifactId>
+	   <version>${project.version}</version>
+        </dependency>
+
+	<!-- swif security modules -->
+	<dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-generic-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+	<dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-sci-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+       <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-sap-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+       <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-classification-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+       <dependency>
+           <groupId>mil.navy.spawar.swif</groupId>
+       	    <artifactId>swif-relto-security-module</artifactId>
+           <version>${project.version}</version>
+        </dependency>
+
+      <!-- codehaus jackson -->
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+      </dependency>
+
+     <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-core-asl</artifactId>
+      </dependency>
+
+      <!-- commons -->	
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+      </dependency>
+ 
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+      </dependency>
+
+      <!-- log4j -->	
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+      </dependency>
+
+      <dependency>
+        <groupId>com.googlecode.json-simple</groupId>
+        <artifactId>json-simple</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+
+      <!-- logging -->	
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+	<version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+	<version>${slf4j.version}</version>
+      </dependency>
+
+      <!-- servlet api -->	
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+	<scope>provided</scope>
+      </dependency>
+
+      <!-- testing -->	
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+	<scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+          </exclusion>
+        </exclusions>      
+      </dependency>
+
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.3</version>
+	<scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.jayway.jsonpath</groupId>
+        <artifactId>json-path</artifactId>
+        <version>0.8.1</version>
+	<scope>test</scope>
+      </dependency>
+
+     <dependency>
+        <groupId>com.jayway.jsonpath</groupId>
+        <artifactId>json-path-assert</artifactId>
+        <version>0.8.1</version>
+	<scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+          </exclusion>
+        </exclusions>      
+      </dependency>
+
+  </dependencies>
+  
+   <build>
+    <plugins>
+
+      <!-- 
+	need to pull in some test stuff from core 
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+           <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test/java</source>
+ 		<source>${project.parent.basedir}/core/src/test/java/mil/navy/spawar/swif/testutils</source>
+              </sources>
+            </configuration>
+          </execution>
+	  <execution>
+	      <id>add-test-resource</id>
+	      <phase>generate-test-sources</phase>
+	      <goals>
+		<goal>add-test-resource</goal>
+	      </goals>
+	      <configuration>
+		<resources>
+		  <resource>
+		    <directory>${project.parent.basedir}/core/src/test/resources</directory>
+		  </resource>
+		</resources>
+	      </configuration>
+	    </execution> 
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

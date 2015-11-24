@@ -1,0 +1,137 @@
+environments {
+    production {
+	dataSource {
+           dbCreate = "update"
+           username = "owf_user"
+           password = "owf"
+           driverClassName = "org.postgresql.Driver"
+           url = "jdbc:postgresql://localhost:5432/owf"
+           dialect="org.hibernate.dialect.PostgreSQLDialect"
+           pooled = true
+           properties {
+               minEvictableIdleTimeMillis = 180000
+               timeBetweenEvictionRunsMillis = 180000
+               numTestsPerEvictionRun = 3
+               testOnBorrow = true
+               testWhileIdle = true
+               testOnReturn = true
+               validationQuery = "SELECT 1"
+           }
+       }
+
+        //enable uiperformance plugin which bundles and compresses javascript
+        uiperformance.enabled = true
+
+    }
+}
+
+//this section may modify any existing spring beans
+beans {
+
+}
+
+//main owf config object
+owf {
+
+    // log4j file watch interval in milliseconds
+    log4jWatchTime = 180000; // 3 minutes
+
+    enablePendingApprovalWidgetTagGroup = false
+
+    sendWidgetLoadTimesToServer = true
+    publishWidgetLoadTimes = true
+
+    //showLastLogin = false
+    lastLoginDateFormat = 'n/j/Y G:i'
+
+    defaultTheme = "a_default"
+
+    showAccessAlert = "true"
+    accessAlertMsg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum eleifend sapien dignissim malesuada. Sed imperdiet augue vitae justo feugiat eget porta est blandit. Proin ipsum ipsum, rutrum ac gravida in, ullamcorper a augue. Sed at scelerisque augue. Morbi scelerisque gravida sapien ut feugiat. Donec dictum, nisl commodo dapibus pellentesque, enim quam consectetur quam, at dictum dui augue at risus. Ut id nunc in justo molestie semper. Curabitur magna velit, varius eu porttitor et, tempor pulvinar nulla. Nam at tellus nec felis tincidunt fringilla. Nunc nisi sem, egestas ut consequat eget, luctus et nisi. Nulla et lorem odio, vitae pretium ipsum. Integer tellus libero, molestie a feugiat a, imperdiet sit amet metus. Aenean auctor fringilla eros, sit amet suscipit felis eleifend a."
+
+    // Specifies a freeTextEntryMessage to appear on all dialogs which allow text entry
+    // To turn off the warning message, use the following:
+    //     freeTextEntryWarningMessage=''
+    freeTextEntryWarningMessage=''
+
+    //use to specify a logout url
+    logoutURL = "/logout"
+
+    //sets the autoSave interval for saving dashboards in milliseconds 900000 is 15 minutes
+    autoSaveInterval = 900000
+
+    helpFileRegex = '^.*\\.(htm|html|gsp|jsp|pdf|doc|docx|mov|mp4|wmv)$'
+
+    //this value controls whether the OWF UI uses shims on floating elements, setting this to true will make
+    //Applet/Flex have less zindex issues, but browser performance may suffer due to the additional shim frames being created
+    useShims = false
+
+  //Locations for the optional external themes and help directories.
+  //Default: 'themes', 'help', and 'js-plugins' directories on the classpath.
+  //Can be configured to an arbitrary file path.  The following
+  //path styles are supported:
+  //  'file:/some/absolute/path' ('file:C:/some/absolute/path' on Windows)
+  //  'classpath:location/under/classpath'
+  //  'location/within/OWF/war/file'
+    external{
+        themePath = 'classpath:themes'
+        helpPath = 'classpath:help'
+        jsPluginPath = 'classpath:js-plugins'
+    }
+
+	// Optional Configuration elements for custom headers/footers.
+	// Example values are shown.  File locations are relative or absolute paths to
+	// resources hosted on the owf web server.  Heights are in pixel amounts.
+	customHeaderFooter {
+		header = '/swif/templates/owf/header.html'
+		headerHeight = 20		
+	//	footer = 'location/within/web/context/example.html'
+	//	footerHeight = 0
+		jsImports = ['/swif/js/jquery-ui-1.10.3.custom.min.js', '/swif/js/chosen.jquery.min.js', '/swif/js/swif-security.js', '/swif/js/swif-dialog.js']    
+		cssImports = ['/swif/css/banner.css', '/swif/css/chosen.css', '/swif/css/jquery-ui-1.10.3.custom.min.css']
+	}
+
+
+
+  metric {
+    enabled = false
+    url = 'https://localhost:8443/metric/metric'
+
+    //Optional additional properties with default values shown
+    //keystorePath = System.properties['javax.net.ssl.keyStore']
+    //keystorePass = System.properties['javax.net.ssl.keyStorePassword']
+    //truststorePath = System.properties['javax.net.ssl.trustStore']
+    //timeout = 1800000
+  }
+
+  dataguard {
+    // Option to restrict messages between widgets based on access levels.
+    // If this option is set to false, all other dataguard options are ignored.
+    restrictMessages = false
+
+    // Option to audit all messages between widgets, not just failed messages.
+    // restrictMessages must be set to true
+    auditAllMessages = false
+
+    // Option to allow widgets to send messages without specifying their access level.
+    // restrictMessages must be set to true
+    allowMessagesWithoutAccessLevel = true
+
+    // The amount of time (in milliseconds) to cache a widget's access level.
+    // restrictMessages must be set to true
+    accessLevelCacheTimeout = 3600000
+  }
+
+    // OZP-476: Marketplace (MP) Synchronization
+    mpSync {
+        // Process listing change notifications from Marketplace(s)
+        enabled = false
+
+        // Change notification from MP will cause a new widget to be created
+        // in OWF if it does not already exist
+        autoCreateWidget = false
+    }
+}
+
+
+println('OwfConfig.groovy completed successfully.')

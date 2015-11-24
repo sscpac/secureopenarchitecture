@@ -1,0 +1,17 @@
+.x-even-row {
+	background-color:#DDE6EB;
+}
+
+/*******************************************************************************
+   Custom CSS to override ExtJS's default styles
+*******************************************************************************/
+
+/* Make disabled input boxes look like plaintext */
+
+input[type="text"]:disabled {
+    background-image:none;
+    border:none;
+    color:black;
+}
+
+

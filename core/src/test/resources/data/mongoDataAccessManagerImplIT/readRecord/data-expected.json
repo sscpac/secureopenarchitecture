@@ -1,0 +1,83 @@
+{ "secureDocs":
+[
+{
+	"_id":{"$oid": "000000000000000000000001"},
+	"name":"doc-1",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["USA","CAN"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000002"},
+	"name":"doc-2",
+	"securityLabel":{
+		"classification":["S"],
+		"RELTO":[],
+		"SCI":[],
+		"SAP":[]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000003"},
+	"name":"doc-3",
+	"securityLabel":{
+		"classification":["S"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000004"},
+	"name":"doc-4",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["USA"],
+		"SCI" : ["FOO","BAR"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000005"},
+	"name":"doc-5",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["FOO","BAR"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000006"},
+	"name":"doc-6",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["CAN"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000007"},
+	"name":"doc-7",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"	
+}
+]
+
+}

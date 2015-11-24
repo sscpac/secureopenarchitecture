@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="mongodb" class="mil.navy.spawar.swif.data.MongoDatabaseFactory">
+        <property name="host"  value="${mongo.host}" />
+        <property name="port"  value="${mongo.port}"/>
+        <!--property name="user"  value="${mongo.username}"/>
+        <property name="password"  value="${mongo.password}"/-->
+        <property name="database" value="${mongo.dbname}"/>
+    </bean>
+
+</beans>

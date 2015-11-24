@@ -1,0 +1,69 @@
+/* "* html" hack used to hide styles from IE7 */
+#header, #content, #footer, .clearfix, #student .row, #student .col {zoom:1;} /* needs to be seen by IE7 to trigger hasLayout */
+
+/* FOOTER --------------------------------- */
+#footer {padding-bottom:1em;}
+
+* html #sidebar {display:inline;} /* double margin on float bug */
+
+* html input.btn-submit {padding:2px .25em; width:0; overflow:visible;} /* extra width fix */ 
+
+label.warnLabel {
+	padding-right:5px;	
+}
+
+.fm-v div.row {
+	right:-60px!important;
+
+}
+
+.messageContainer .msgWindow-mc{
+	border:0px;
+	padding:0;
+	margin:0;
+	font:normal 11px Arial,Verdana, Helvetica, sans-serif;
+	background:transparent;
+	position:relative;
+	left:15px;
+	width:425px!important;
+}
+
+
+.messageContainer .msgWindow-tl{
+	background:transparent url(../images/skin/left-cornersManage.gif) no-repeat 0 0;
+	padding-left:15px;
+	zoom:1;
+	z-index:1;
+	position:relative;
+}
+
+.messageContainer .msgWindow-tr{
+	background:transparent url(../images/skin/right-cornersManage.gif) no-repeat right 0;
+	padding-right:15px;
+}
+
+
+.messageContainer .msgWindow-bl{
+	background:transparent url(../images/skin/left-cornersManage.gif) no-repeat 0 bottom;
+	padding-left:15px;
+	zoom:1;
+}
+
+.messageContainer .msgWindow-br{
+	background:transparent url(../images/skin/right-cornersManage.gif) no-repeat right bottom;
+	padding-right:15px;
+	zoom:1;
+}
+
+.messageContainer .msgWindow-ml{
+	background:transparent url(../images/skin/ie6LeftManage.png) repeat-y 0 0;
+	padding-left:15px;
+	zoom:1;
+}
+
+.messageContainer .msgWindow-mr{
+	background:transparent url(../images/skin/ie6RightManage.png) repeat-y right 0;
+	position:relative;
+	left:-30px !important;
+	zoom:1;
+}

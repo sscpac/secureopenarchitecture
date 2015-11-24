@@ -1,0 +1,46 @@
+[{
+	"_id":"1",
+	"name":"doc-1",
+	"securityLabel":{
+		"classification":["LEVEL-1"],
+		"RELTO":["USA","CAN"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"2",
+	"name":"doc-2",
+	"securityLabel":{
+		"classification":["LEVEL-1","LEVEL-2"],
+		"RELTO":["USA"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"3",
+	"name":"doc-3",
+	"securityLabel":{
+		"classification":["LEVEL-1","LEVEL-2","LEVEL-3"],
+		"RELTO":["USA","GBR"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"4",
+	"name":"doc-4",
+	"securityLabel":{
+		"classification":["LEVEL-1","LEVEL-2","LEVEL-3","LEVEL-4"],
+		"RELTO":["USA"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"5",
+	"name":"doc-5",
+	"securityLabel":{
+		"classification":["LEVEL-1","LEVEL-2","LEVEL-3","LEVEL-4","LEVEL-5"],
+		"RELTO":["USA"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+}]

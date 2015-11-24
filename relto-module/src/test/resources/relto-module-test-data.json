@@ -1,0 +1,51 @@
+[{
+	"_id":"1",
+	"name":"doc-1",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["USA","CAN"],
+		"SCI" : ["TK"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"2",
+	"name":"doc-2",
+	"securityLabel":{
+		"classification":["U","C"],
+		"RELTO":["USA"],
+		"SCI" : []
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"3",
+	"name":"doc-3",
+	"securityLabel":{
+		"classification":["U","C","S"],
+		"RELTO":["USA","GBR"],
+		"SCI" : ["TB","TK"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"4",
+	"name":"doc-4",
+	"securityLabel":{
+		"classification":["U","C","S","T"],
+		"RELTO":["AUS"],
+		"SCI" : []
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":"5",
+	"name":"doc-5",
+	"securityLabel":{
+		"classification":["U","C"],
+		"RELTO":[],
+		"SCI" : ["TK"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+}]

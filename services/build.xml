@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="swif-services" default="dist" basedir=".">
+
+	<!-- ====================================================================== -->
+      	<!-- Build environment properties                                           -->
+      	<!-- ====================================================================== -->
+	<property name="war.name" value="swif"/>
+	
+	<property name="build.dir" location="build" />
+	<property name="dist.dir" location="${build.dir}/bin" />
+
+	<property name="src.dir" location="src/main/java" />
+	<property name="webapp.dir" location="src/main/webapp" />
+	<property name="resource.dir" location="src/main/resources"/>
+	<property name="test.src.dir" location="src/test/java"/>
+	<property name="test.resource.dir" location="src/test/resources"/>
+	<property name="test.report.dir" location="${build.dir}/test-reports" />
+
+	<property name="swif.dist.dir" location="../dist" />
+	<property name="swif.core" location="${swif.dist.dir}/swif-core.jar" />
+	<property name="class.module" location="${swif.dist.dir}/security-modules/swif-classification-module.jar" />
+	<property name="sci.module" location="${swif.dist.dir}/security-modules/swif-sci-module.jar" />
+	<property name="sap.module" location="${swif.dist.dir}/security-modules/swif-sap-module.jar" />
+
+	<property name="classes.dir" location="${build.dir}/classes" />
+     	<property name="test.dir" location="${build.dir}/test" />
+	<property name="test.classes.dir" location="${test.dir}/classes" />
+     	<property name="test.report.dir" location="${test.dir}/reports" />
+
+	<!-- ====================================================================== -->
+	<!-- Defining classpaths                                                    -->
+	<!-- ====================================================================== -->
+	  
+	<path id="compile.classpath">
+		<fileset dir="src/main/webapp/WEB-INF/lib" includes="*.jar"/>
+		<fileset dir="lib" includes="*.jar"/>
+		<pathelement location="${swif.core}" />
+	</path>
+
+      	<path id="test.classpath">
+	  	<path refid="compile.classpath" />
+     	</path>
+
+     	<!-- ====================================================================== -->
+      	<!-- Check Dependencies                                                     -->
+      	<!-- ====================================================================== -->
+
+	<target name="check-dependencies">
+		<echo>check for ${swif.core} dependency</echo>
+		<fail message="core dependency check failed" >
+			<condition><not><available file="${swif.core}" type="file" /></not></condition>
+		</fail>
+		<fail message="classification module dependency check failed" >
+			<condition><not><available file="${class.module}" type="file" /></not></condition>
+		</fail>
+		<fail message="sci module dependency check failed" >
+			<condition><not><available file="${sci.module}" type="file" /></not></condition>
+		</fail>
+		<fail message="sap module dependency check failed" >
+			<condition><not><available file="${sap.module}" type="file" /></not></condition>
+		</fail>
+     	</target>
+
+      	<!-- ====================================================================== -->
+      	<!-- Cleaning up target                                                     -->
+      	<!-- ====================================================================== -->
+
+      	<target name="clean" description="Clean the output directory">
+		<echo>removing ${build.dir} directory</echo>
+        	<delete dir="${build.dir}"/>
+      	</target>
+
+      <!-- ====================================================================== -->
+      <!-- Compilation target                                                     -->
+      <!-- ====================================================================== -->
+
+      <target name="compile" depends="clean,check-dependencies" description="Compile the code">
+		<mkdir dir="${classes.dir}" />
+       		<javac srcdir="${src.dir}" 
+			destdir="${classes.dir}" 
+			classpathref="compile.classpath"
+               		nowarn="false" 
+               		debug="true"
+               		optimize="false" 
+               		deprecation="true" 
+               		verbose="false" 
+               		fork="false" 
+               		includeantruntime="false">
+        	</javac>
+
+		<echo>Adding resources from: ${resource.dir} to: ${classes.dir}</echo>
+        	<copy todir="${classes.dir}">
+          		<fileset dir="${resource.dir}" />
+       		</copy>
+     	</target>
+
+	<!-- ====================================================================== -->
+	<!-- compile unit tests                                                     -->
+	<!-- ====================================================================== -->
+
+	<target name="compile-tests" depends="compile" description="compile unit tests"  >
+	    	<echo>compiling test src</echo>		
+	    	<mkdir dir="${test.classes.dir}"/>
+  	    	<javac destdir="${test.classes.dir}" 
+			classpathref="test.classpath"
+			classpath="${classes.dir}"
+              		nowarn="false" 
+               		debug="true"
+               		optimize="false" 
+               		deprecation="true" 
+             		verbose="false" 
+               		fork="false" 
+               		includeantruntime="false">
+			<src path="${test.src.dir}" />
+		 </javac>
+
+	   	<echo>copy test resources to ${test.classes.dir}</echo>	    
+	    	<copy todir="${test.classes.dir}">
+            		<fileset dir="${test.resource.dir}"/>
+       	    	</copy>
+
+	</target>
+
+
+      	<!-- ====================================================================== -->
+      	<!-- run unit tests                                                         -->
+      	<!-- ====================================================================== -->
+
+	<target name="unit-tests" depends="compile-tests" description="run unit tests">
+		<mkdir dir="${test.report.dir}" />
+	        <echo>running unit tests</echo>		
+		<junit printsummary="yes" haltonfailure="yes" showoutput="false">
+			<jvmarg value="-Dcatalina.home=${test.dir}/test-logs " />
+      			<classpath refid="test.classpath"/>
+      			<classpath path="${classes.dir}"/>
+      			<classpath path="${test.classes.dir}"/>
+ 			<formatter type="plain" />
+			<formatter type="xml" />
+			<batchtest fork="yes" todir="${test.report.dir}">
+				<fileset dir="${test.classes.dir}" />
+			</batchtest>		
+		</junit>
+	</target>
+
+	<!-- ====================================================================== -->
+	<!-- Javadoc target                                                         -->
+	<!-- ====================================================================== -->
+
+      	<target name="javadoc" description="Generates the Javadoc of the application">
+        	<javadoc sourcepath="${src.dir}" 
+			classpathref="compile.classpath"
+		         packagenames="*" 
+		         destdir="${build.dir}/javadocs" 
+		         access="protected" 
+		         old="false" 
+		         verbose="false" 
+		         version="true" 
+		         use="true" 
+		         author="true" 
+		         splitindex="false" 
+		         nodeprecated="false" 
+		         nodeprecatedlist="false" 
+		         notree="false" 
+		         noindex="false" 
+		         nohelp="false" 
+		         nonavbar="false" 
+		         serialwarn="false" 
+		         charset="ISO-8859-1" 
+		         linksource="false" 
+                 breakiterator="false"/>
+     	 </target>
+
+	<!-- ====================================================================== -->
+	<!-- create war                                                             -->
+	<!-- ====================================================================== -->
+
+	<target name="war" depends="unit-tests" description="create war file">
+		<echo>create ${dist.dir}/${war.name}.war file</echo>	
+		<war destfile="${dist.dir}/${war.name}.war">
+  			<fileset dir="${webapp.dir}"/>
+  			<classes dir="${classes.dir}"/>
+			<lib file="${swif.core}" />
+			<lib file="${class.module}" />
+			<lib file="${sci.module}" />
+			<lib file="${sap.module}" />
+		</war>
+		<unzip src="${dist.dir}/${war.name}.war" dest="${dist.dir}/${war.name}" />
+      	</target>
+
+
+	<!-- ====================================================================== -->
+	<!-- create dist                                                            -->
+	<!-- ====================================================================== -->
+
+	<target name="dist" depends="war" description="copy to dist">
+	   	<echo>copy files from "${dist.dir} to ${swif.dist.dir}</echo>	   
+		<mkdir dir="${swif.dist.dir}" />
+	    	<copy todir="${swif.dist.dir}">
+            		<fileset dir="${dist.dir}" />
+      	    	</copy>
+     	</target>
+
+
+</project>

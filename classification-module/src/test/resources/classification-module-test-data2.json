@@ -1,0 +1,283 @@
+[
+    {
+        "securityLabel":{
+            "classification":["LEVEL-1"]
+        },
+        "_id": "1",
+        "name":{
+            "value":"doc-1",
+            "securityLabel":{
+                "classification":["LEVEL-1"]
+            }
+        },
+        "foo-level2":{
+            "value":"bar-level-2",
+            "securityLabel":{
+                "classification":["LEVEL-2"],
+                "unacknowledged":"true"
+            }
+        },
+        "foo-level3":{
+            "value":"bar-level-3",
+            "securityLabel":{
+                "classification":["LEVEL-3"],
+                "unacknowledged":"true"
+            }
+        },
+
+        "bool-level1":{
+            "value":true,
+            "securityLabel":{
+                "classification":["LEVEL-1"]
+            }
+        },
+
+        "array-level1":{
+            "a1":{
+                "value":["one", "two", "three"],
+                "securityLabel":{
+                    "classification":["LEVEL-1"]
+                }
+            },
+            "a2":[
+                {
+                    "value":"random string1",
+                    "securityLabel":{
+                        "classification":["LEVEL-2", "LEVEL-3"],
+                        "unacknowledged":"true"
+                    }
+                },
+                {
+                    "v1":{
+                        "value":"v1-val",
+                        "securityLabel":{
+                            "classification":["LEVEL-1", "LEVEL-2"],
+                            "unacknowledged":"false"
+                        }
+                    },
+                    "securityLabel":{
+                        "classification":["LEVEL-1"]
+                    }
+                },
+                {
+                    "v2":{
+                        "value":"v2-val",
+                        "securityLabel":{
+                            "classification":["LEVEL-1"]
+                        }
+                    },
+                    "securityLabel":{
+                        "classification":["LEVEL-1"]
+                    }
+                },
+                [
+                    {
+                        "value":"random string2",
+                        "securityLabel":{
+                            "classification":["LEVEL-2", "LEVEL-3"],
+                            "unacknowledged":"true"
+                        }
+                    },
+                    {
+                        "v3":{
+                            "value":"v3-val",
+                            "securityLabel":{
+                                "classification":["LEVEL-1"]
+                            }
+                        },
+                        "securityLabel":{
+                            "classification":["LEVEL-1"]
+                        }
+
+                    },
+                    {
+                        "v4":{
+                            "value":"v4-val",
+                            "securityLabel":{
+                                "classification":["LEVEL-2"],
+                                "unacknowledged":"true"
+                            }
+                        },
+                        "securityLabel":{
+                            "classification":["LEVEL-1"]
+                        }
+                    }
+                ]
+            ],
+            "securityLabel":{
+                "classification":["LEVEL-1"]
+            }
+        },
+
+
+        "branch-level2":{
+            "leaf-level3":{
+                "value":"leaf3",
+                "securityLabel":{
+                    "classification":["LEVEL-3"],
+                    "unacknowledged":"true"
+                }
+            },
+            "securityLabel":{
+                "classification":["LEVEL-2"],
+                "unacknowledged":"true"
+            }
+        }
+    },
+    {
+        "securityLabel":{
+            "classification":["LEVEL-2"]
+        },
+        "_id": "2",
+        "name":{
+            "value":"doc-2",
+            "securityLabel":{
+                "classification":["LEVEL-2"]
+            }
+        },
+        "foo-1":{
+            "value":"bar-1",
+            "securityLabel":{
+                "classification":["LEVEL-3"]
+            }
+        },
+        "foo-2":{
+            "value":"bar-2",
+            "securityLabel":{
+                "classification":["LEVEL-3"],
+                "unacknowledged":"false"
+            }
+        },
+        "foo-3":{
+            "value":"bar-3",
+            "securityLabel":{
+                "classification":["LEVEL-3"],
+                "unacknowledged":"true"
+            }
+        },
+        "array":[
+            {
+                "value":"random string1",
+                "securityLabel":{
+                    "classification":["LEVEL-2"]
+                }
+            },
+            {
+                "v1":{
+                    "value":"v1-val",
+                    "securityLabel":{
+                        "classification":["LEVEL-2"]
+                    }
+                },
+                "securityLabel":{
+                    "classification":["LEVEL-3"]
+                }
+            },
+            {
+                "v2":{
+                    "value":"v2-val",
+                    "securityLabel":{
+                        "classification":["LEVEL-3"]
+                    }
+                },
+                "securityLabel":{
+                    "classification":["LEVEL-3"],
+                    "unacknowledged":"true"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "3",
+        "name":{
+            "value":"doc-3",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3"],
+                "RELTO":["USA, GBR"]
+            }
+        },
+        "securityLabel":{
+            "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3"],
+            "RELTO":["USA, GBR"]
+        },
+        "foo-1":{
+            "value":"bar-1",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3"],
+                "RELTO":["USA, GBR"]
+            }
+        },
+        "foo-2":{
+            "value":"bar-2",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3"],
+                "RELTO":["USA, GBR"]
+            }
+        }
+    },
+    {
+        "_id": "4",
+        "name":{
+            "value":"doc-4",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+                "RELTO":["USA"],
+                "unacknowledged":"true"
+            }
+        },
+        "securityLabel":{
+            "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+            "RELTO":["USA"],
+            "unacknowledged":"true"
+        },
+        "foo-1":{
+            "value":"bar-1",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+                "RELTO":["USA"],
+                "unacknowledged":"true"
+            }
+        },
+        "foo-2":{
+            "value":"bar-2",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+                "RELTO":["USA"],
+                "unacknowledged":"true"
+            }
+        }
+    },
+
+    {
+        "_id": "5",
+        "name":{
+            "value":"doc-5",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+                "RELTO":["USA"],
+                "unacknowledged":"true"
+            }
+        },
+        "securityLabel":{
+            "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4", "LEVEL-5"],
+            "RELTO":["USA"],
+            "unacknowledged":"true"
+        },
+        "foo-1":{
+            "value":"bar-1",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+                "RELTO":["USA"],
+                "unacknowledged":"true"
+            }
+        },
+        "foo-2":{
+            "value":"bar-2",
+            "securityLabel":{
+                "classification":["LEVEL-1", "LEVEL-2", "LEVEL-3", "LEVEL-4"],
+                "RELTO":["USA"],
+                "unacknowledged":"true"
+            }
+        }
+    }
+]

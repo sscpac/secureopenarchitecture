@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans" 
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<bean id="securityContext" class="java.lang.String" >
+		<constructor-arg value="securityLabel" />
+	</bean>
+
+
+    <!-- relto attribute config -->
+    <bean id="relToConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="swifUserCountry"/>
+        <property name="dbAttributeName" value="RELTO"/>
+        <property name="userDetailsName" value="country"/>
+        <property name="displayName" value="Release To"/>
+        <property name="valueType" value="multiple"/>
+        <property name="rank" value="4"/>
+        <property name="defaultValue" value="USA"/>
+    </bean>
+
+    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoQueryFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="relToConfig" />
+	</bean>
+
+	<bean id="reltoPostQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoRecordFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="relToConfig" />
+	</bean>
+
+	<util:list id="reltoMarkings">
+	      <value>USA</value>
+	</util:list>
+   
+    <bean id="userDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+		<constructor-arg>
+			<bean class="java.lang.String"><constructor-arg value="swifUser"/></bean>	
+		</constructor-arg>
+		<constructor-arg>
+			<util:list>
+				<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority"><constructor-arg><value>ADMIN</value></constructor-arg></bean>
+				<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority"><constructor-arg><value>DEVELOPER</value></constructor-arg></bean>
+			</util:list>
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="java.lang.String"><constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>	
+		</constructor-arg>
+     	<property name="customAttributes">
+   			<util:map value-type="java.util.List">
+      			<entry key="country" value-ref="reltoMarkings" />
+   			</util:map>	
+     	</property>
+    </bean>
+  		
+</beans>

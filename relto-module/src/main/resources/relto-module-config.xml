@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+   		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+
+
+	<!-- 
+		sample ReltoMongoQueryFilter config
+		
+		the ReltoMongoQueryFilter will build a mongo query where clause using security attrubutes
+		associated with the document being sought and the user doing the seeking (userdetails)
+		
+		databaseLabel is the security context attribute associated with the document
+		attributeConfig is the relto attribute config which defines the relto attr
+			name in the document and the userdetails
+	-->
+    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoQueryFilter" >
+        <property name="databaseLabel" ref="securityContext" />
+        <property name="attributeConfig" ref="relToConfig" />
+    </bean>
+
+
+	<!-- 
+		sample RelToMongoRecordFilter config
+		
+		the RelToMongoRecordFilter will examine a mongo query result set (documents) and
+		filter out any entries that do no satisfy the user security attribute (userdetails)   
+		
+		databaseLabel is the security context attribute associated with the document
+		attributeConfig is the relto attribute config which defines the relto attr
+			name in the document and the userdetails
+			
+		defaultValue is applied to all objects	
+	-->
+    <bean id="reltoPostQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoRecordFilter" >
+        <property name="databaseLabel" ref="securityContext" />
+        <property name="attributeConfig" ref="relToConfig" />
+    </bean>
+		
+		
+</beans>

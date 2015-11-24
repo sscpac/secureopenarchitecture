@@ -1,0 +1,102 @@
+{ "secureDocs":
+
+[{
+	"_id":{"$oid": "000000000000000000000001"},
+	"name":"doc-1",
+	"comment" : "user should be able to read this record",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA","CAN"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2",
+	"foo-3":"bar-3"
+},{
+	"_id":{"$oid": "000000000000000000000002"},
+	"name":"doc-2",
+	"comment" : "user should not be able to read this record b/c of the classification",
+	"securityLabel":{
+		"classification":["S"],
+		"RELTO":[],
+		"SCI":[],
+		"SAP":[]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000003"},
+	"name":"doc-3",
+	"comment" : "user should not be able to read this record b/c of the classification",
+	"securityLabel":{
+		"classification":["S"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000004"},
+	"name":"doc-4",
+	"comment" : "user should not be able to read this record b/c of the sci",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA"],
+		"SCI" : ["TK","COMINT"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000005"},
+	"name":"doc-5",
+	"comment" : "user should not be able to read this record b/c of the sap",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP","SWAGGER"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000006"},
+	"name":"doc-6",
+	"comment" : "user should not be able to read this record b/c of the relto",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["CAN"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000007"},
+	"name":"doc-7",
+	"comment" : "user should be able to read this record",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"	
+},{
+	"_id":{"$oid": "000000000000000000000008"},
+	"name":"doc-8",
+	"comment" : "user should be able to read this record",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":[],
+		"SCI":[],
+		"SAP":[]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"		
+}]
+
+}

@@ -1,0 +1,345 @@
+#cas form {
+	display:block;
+	margin:0;
+	padding:0;
+	width:100%;
+	/*background:#ffffff;*/
+}
+
+#cas fieldset {
+	border:0;
+	margin:0;
+	padding:0;
+	float:left;
+	clear:none;
+	width:auto;
+}
+
+#cas fieldset legend {
+	display:none;
+}
+
+#cas #login {
+	margin:0;
+	padding:0px;
+	/*background:#ffffff;*/
+	position:relative;
+	border:0;
+}
+
+#cas #login:before {
+	line-height:0.1;
+	font-size:1px;
+	/*background:transparent url("../images/key-point_tr.gif") no-repeat top right;*/
+	margin:-15px -15px 0 -15px;
+	height:15px;
+	display:block;
+	/*content:url("../images/key-point_tl.gif");*/
+}
+
+#cas #login:after {
+	display:block;
+	clear:both;
+	padding-top:15px;
+	line-height:0.1;
+	font-size:1px;
+	/*content:url("../images/key-point_bl.gif");*/
+	margin:-15px;
+	height:8px;
+	/*background:transparent url("../images/key-point_br.gif") scroll no-repeat bottom right;*/
+}
+
+#cas #login h2 {
+	border-bottom:0px;
+	padding:3px 0;
+	font:normal 14px Arial,Verdana,Helvetica,sans-serif;
+	color:#333333;
+}
+
+#cas #footer p {
+	margin:0 0 1em 0;
+	padding:0;
+}
+
+/* RESET --------------------------------- */
+/* reset some properties for elements since defaults are not crossbrowser - http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/ */
+
+html, body, div, span, h1, h2, h3, p, a, img, ul, li, fieldset, form, label, legend {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+}
+
+:focus {
+	outline:0;
+}
+
+ul {
+	list-style:none;
+	font-size:1.1em;
+	padding:0 0 18px 40px;
+}
+
+/* browser default font-size is 16px which is too big so we make it 16px x 62.5% = 10px */
+body {
+	font:normal 400 62.5%/1.0 Arial,Verdana,Helvetica,sans-serif;
+	min-width:960px;
+	background:#000;
+	color:#333;
+}
+
+/* CONTENT --------------------------------- */
+#content {
+	clear:both;
+	padding:0;
+	margin:0;
+}
+
+/* MESSAGES --------------------------------- */
+.info, .success {
+	clear:both;
+	margin:18px 0;
+	padding:20px 20px 20px 100px;
+	font-size:10px;
+}
+
+.info {
+	border:1px dotted 008;
+	/*background:#eff url(../images/info.gif) no-repeat 20px 18px;*/
+	color:#008;
+}
+
+.errors {
+	border:0px;
+	color:#ff0000;
+	padding: 5px 0 5px 0;
+	font-size:10px;
+}
+
+.success {
+	border:1px dotted #390;
+	/*background:#dfa url(../images/confirm.gif) no-repeat 20px 18px;*/
+	color:#390;
+}
+
+#content .errors h2, #content .success h2 {
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:18px;
+	line-height:48px;
+	font-weight:400;
+	margin:0 18px 0 0;
+	padding:0;
+}
+
+#content .success h2 {
+	color: #008 !important;
+}
+
+#content .errors h2 {
+	color:#b00 !important;
+}
+
+#content .success h2 {
+	color:#006600 !important;
+}
+
+/* static messages */
+#content #msg p {
+	padding:0;
+}
+
+
+#logoutMsgHdr {
+	color:#ffffff;	
+	font-weight:bold;
+	font-size:12px;
+	padding:5px 0 0 15px;
+}
+
+#logoutMsg {
+	color:#ffffff;	
+	font-weight:normal;
+	font-size:12px;
+	padding:15px;
+}
+
+
+/* FORMS --------------------------------- */
+
+#cas #login label {
+	font-size:11px;
+}
+
+#cas #login label span.warnText {
+	font-size:10px;
+	color:#000000;
+}
+
+#cas #login label span.accesskey {
+	text-decoration:underline;
+}
+
+#cas #login input {
+	letter-spacing:1px;
+}
+
+#cas #login .check input {
+	position:relative;
+	left:-4px;
+	height:auto;
+}
+
+#cas #login .check input#warn {
+	position:relative;
+	left:-4px;
+	top:5px !important;
+	*top:3px !important;
+	height:auto;
+}
+
+#cas #login .check label {
+	float:none;
+	xwidth:auto;
+	line-height:1.8;
+}
+
+#cas #login .btn-row {
+	position:relative;
+	top:15px;
+	padding-top:10px;
+	border-top:0px;
+}
+
+* html #cas #login .btn-row {
+	top:5px;
+} /* IE6 */
+
+
+label {
+	cursor:pointer;
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:11px;
+	color:#000;
+}
+
+label.warnLabel {
+	padding-right:20px;	
+}
+
+input {
+	font-family:Arial,Verdana,Helvetica,sans-serif;
+	font-size:11px;
+	color:#000;
+	padding:2px;
+	/*height:22px;*/
+	border:1px solid #dddddd;
+}
+
+input#warn {
+	border:0px !important;	
+}
+
+input#password, input#username {
+	width:250px !important;	
+}
+
+input.btn-submit, input.btn-reset {
+	background:#ffffff url(../images/skin/btn-sprite.gif) repeat-x 0 -42px !important;
+	width:auto;
+	height:21px;
+	display:inline !important;
+	padding:2px 11px !important;
+	border-right:1px solid #666666 !important;
+	border-left:1px solid #666666 !important;
+	/*float:right;*/
+	margin-left:5px;
+	position:relative;
+	*top:3px;
+}
+
+.fm-v div.row, .fm-v div.rowUser, .fm-v div.rowPwd {
+	/*float:left;*/
+	margin:0;
+	padding:0 0 10px 0;
+	position:relative;
+	right:-40px!important;
+	*right:-10px!important;
+	width:100%;
+	*width:435px;
+	background-color:transparent !important;
+}
+
+.fm-v div.row.check {
+	/*float:left;*/
+	margin:0;
+	padding:0 0 10px 0;
+	position:relative;
+	right:-90px!important;
+	*right:-70px!important;
+	width:100%;
+	*width:435px;
+	background-color:transparent !important;
+}
+
+.fm-v div.row label {
+	/*float:left;*/
+	width:100%;
+}
+
+.fm-v div.row input.btn-submit {
+
+}
+
+/* highlight errors */
+input.error {
+	background:#ffffff url(../images/skin/inputBkg.gif) repeat-x 0 0;
+	border:1px solid #ff0000;
+	color:#000000;
+}
+
+/* mark as required */
+.required {
+	background:#ffffff url(../images/skin/inputBkg.gif) repeat-x 0 0;
+	border:1px solid #dddddd;
+}
+
+.error {
+	background:#ffffff url(../images/skin/inputBkg.gif) repeat-x 0 0;
+	border:1px solid #ff0000 !important;
+}
+
+/* begin new styles  -----------------------------------------------------------------------------------------------*/
+
+body {
+	font-family:Arial, Verdana, Helvetica, sans-serif;
+	font-size: 62%;
+	padding: 0;
+	margin: 0;
+	background:#1547ac url(../images/skin/wfBigBG.jpg) repeat 0 0;
+}
+
+.container {
+ 	width: expression((document.body.clientWidth < 822)? "820px" : "auto"); /* min-width for IE6 */
+	min-width: 800px; /* min-width for all standards-compliant browsers */
+}
+
+.logoLeft {
+	float:left;
+	width:73px;
+	display: inline;
+	white-space:nowrap;
+}
+
+div.loginHeaderTxt {
+	font:bold 12px Arial, Verdana, Helvetica, sans-serif;
+	color:#ffffff;
+	padding-top: 8px;
+}
+
+

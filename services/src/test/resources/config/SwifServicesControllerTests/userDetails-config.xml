@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans" 
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+		
+	<bean id="authKey" class="java.lang.String">
+		<constructor-arg value="swifUser"/>
+	</bean>	
+	
+	<bean id="authDn" class="java.lang.String">
+		<constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
+	</bean>	
+
+	<bean id="authCredentials" class="java.lang.String">
+		<constructor-arg value="password"/>
+	</bean>	
+
+	<util:list id="authAuthorities">
+		<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+			<constructor-arg>
+				<value>ROLE1</value>
+			</constructor-arg>
+		</bean>
+	</util:list>
+	
+	<util:list id="classifications">
+	      <value>CLASS1</value>
+	</util:list>
+	
+	<util:list id="countrys">
+	     <value>USA</value>
+	</util:list>
+
+	<util:list id="sciMarkings">
+	      <value>SCI1</value>
+	</util:list>
+
+	<util:list id="sapMarkings">
+	      <value>SAP1</value>
+	</util:list>
+
+  	<util:map id="customAttrs" value-type="java.util.List">
+      <entry key="classification" value-ref="classifications" />
+      <entry key="country" value-ref="countrys" />
+      <entry key="sciMarking" value-ref="sciMarkings" />
+      <entry key="sapMarking" value-ref="sapMarkings" />
+   	</util:map>	
+	
+    <bean id="authUserDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+		<constructor-arg ref="authKey" />	    	 
+		<constructor-arg ref="authAuthorities" />
+		<constructor-arg ref="authDn" />
+     	<property name="customAttributes" ref="customAttrs" />
+     </bean>
+	
+	<bean id="authAssertion" class="org.jasig.cas.client.validation.AssertionImpl">
+		<constructor-arg value="foobar"/>
+	</bean>	
+	
+	<bean id="authToken" class="org.springframework.security.cas.authentication.CasAuthenticationToken" >
+		 <constructor-arg ref="authKey" />
+		 <constructor-arg ref="authUserDetails" />
+		 <constructor-arg ref="authCredentials" />
+		 <constructor-arg ref="authAuthorities" />
+		 <constructor-arg ref="authUserDetails" />
+		 <constructor-arg ref="authAssertion" />
+	</bean>
+	
+</beans>

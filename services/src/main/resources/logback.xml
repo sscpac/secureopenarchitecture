@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- console -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] [%-5level] %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!--daily rolling file -->
+	<appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${catalina.home}/logs/swif-services.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>swif-services.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] [%-5level] %logger{50} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+	
+	<!-- audit daily rolling file -->
+	<appender name="AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${catalina.home}/logs/swif-services-audit.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>swif-services-audit.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] [%-5level] %logger{50} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="mil.js" level="DEBUG" />
+	<logger name="org.jasig" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="net.sf.ehcache" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.springframework.transaction" level="WARN" />
+	<logger name="org.springframework.security" level="WARN" />
+	<logger name="org.springframework.web.servlet.mvc" level="WARN" />
+	
+	<logger name="org.springframework.security.authentication.event.LoggerListener" level="INFO" additivity="false">
+		<appender-ref ref="AUDIT" />
+	</logger> 
+	
+	<logger name="org.springframework.security.access.event.LoggerListener" level="INFO" additivity="false">
+		<appender-ref ref="AUDIT" />
+	</logger> 
+	
+	<root level="DEBUG">
+		<appender-ref ref="CONSOLE" />
+		<!-- <appender-ref ref="CONSOLE" /> -->
+	</root>
+
+</configuration>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="swif-core" default="dist" basedir=".">
+
+      	<!-- ====================================================================== -->
+      	<!-- Build environment properties                                           -->
+     	<!-- ====================================================================== -->
+	<property name="module.name" value="swif-core" />
+
+      	<property name="src.dir" location="src/main/java" />
+      	<property name="resource.dir" location="src/main/resources" />
+      	<property name="test.src.dir" location="src/test/java"/>
+      	<property name="resource.test,dir" location="src/test/resources"/>
+      	<property name="test.resource.dir" location="src/test/resources"/>
+
+	<property name="build.dir" location="build" />
+	<property name="dist.dir" location="${build.dir}/bin" />
+	<property name="swif.dist.dir" location="../dist" />
+
+	<property name="classes.dir" location="${build.dir}/classes" />
+     	<property name="test.dir" location="${build.dir}/test" />
+	<property name="test.classes.dir" location="${test.dir}/classes" />
+     	<property name="test.report.dir" location="${test.dir}/reports" />
+
+	<property name="lib.dir" location="lib" />
+
+
+      	<!-- ====================================================================== -->
+      	<!-- Defining classpaths                                                    -->
+      	<!-- ====================================================================== -->
+	  
+      	<path id="compile.classpath">
+	  	<fileset dir="${lib.dir}" includes="*.jar"/>
+      	</path>
+
+      	<path id="test.classpath">
+	  	<path refid="compile.classpath" />
+      	</path>
+
+      	<!-- ====================================================================== -->
+      	<!-- Cleaning up target                                                     -->
+      	<!-- ====================================================================== -->
+
+     	 <target name="clean" description="Clean the output directory">
+		<echo>removing ${build.dir} directory</echo>
+        	<delete dir="${build.dir}"/>
+      	</target>
+
+      	<!-- ====================================================================== -->
+      	<!-- Compilation target                                                     -->
+      	<!-- ====================================================================== -->
+
+     	<target name="compile" depends="clean" description="Compile the code">
+		<echo>compiling src</echo>
+		<mkdir dir="${classes.dir}" />
+       		<javac srcdir="${src.dir}" 
+			destdir="${classes.dir}" 
+			classpathref="compile.classpath"
+               		nowarn="false" 
+               		debug="true"
+               		optimize="false" 
+               		deprecation="true" 
+               		verbose="false" 
+               		fork="false" 
+               		includeantruntime="false">
+        	</javac>
+		<echo>Adding resources from: ${resource.dir} to: ${classes.dir}</echo>
+        	<copy todir="${classes.dir}">
+          		<fileset dir="${resource.dir}"/>
+       		</copy>
+    	</target>
+
+
+     	<!-- ====================================================================== -->
+     	<!-- compile unit tests                                                     -->
+      	<!-- ====================================================================== -->
+	<target name="compile-tests" depends="compile" description="compile unit tests"  >
+	    	<echo>compiling test src</echo>		
+	    	<mkdir dir="${test.classes.dir}"/>
+  	    	<javac destdir="${test.classes.dir}" 
+			classpathref="test.classpath"
+			classpath="${classes.dir}"
+              		nowarn="false" 
+               		debug="$true"
+               		optimize="false" 
+               		deprecation="true" 
+               		verbose="false" 
+               		fork="false" 
+               		includeantruntime="false">
+			<src path="${test.src.dir}" />
+			<src path="../security-modules/classification-module/src/main/java" />
+			<src path="../security-modules/sci-module/src/main/java" />
+			<src path="../security-modules/sap-module/src/main/java" />
+
+		 </javac>
+
+	   	<echo>copy test resources to ${test.classes.dir}</echo>	    
+	    	<copy todir="${test.classes.dir}">
+            		<fileset dir="${test.resource.dir}"/>
+       	    	</copy>
+
+	</target>
+
+      	<!-- ====================================================================== -->
+     	 <!-- run unit tests                                                        -->
+      	<!-- ====================================================================== -->
+
+	<target name="unit-tests" depends="compile-tests" description="run unit tests">
+		<mkdir dir="${test.report.dir}" />
+	        <echo>running unit tests</echo>		
+		<junit printsummary="yes" haltonfailure="yes">
+			<jvmarg value="-Dcatalina.home=${test.dir}/test-logs" />
+      			<classpath refid="test.classpath"/>
+      			<classpath path="${classes.dir}"/>
+      			<classpath path="${test.classes.dir}"/>
+ 			<formatter type="plain" />
+			<formatter type="xml" />
+			<batchtest fork="yes" todir="${test.report.dir}">
+				<fileset dir="${test.classes.dir}" >
+					<include name="**/*Test*" />
+				</fileset>
+			</batchtest>		
+		</junit>
+	</target>
+
+      	<!-- ====================================================================== -->
+      	<!-- create jar                                                		    -->
+      	<!-- ====================================================================== -->
+
+     	<target name="jar" depends="compile,unit-tests" description="create ${dist.dir}/${module.name}.jar">
+		<echo>create "${dist.dir}/${module.name}.jar</echo>
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/${module.name}.jar">
+			<fileset dir="${classes.dir}" >
+				<exclude name="**/*Test*" />
+				<exclude name="**/ldif-files/**" />
+				<exclude name="**/mongo-database-files/**" />
+			</fileset>
+		</jar>
+
+	   	<echo>copy resources to "${dist.dir}</echo>	    
+	    	<copy todir="${dist.dir}">
+            		<fileset dir="${resource.dir}" />
+       	    	</copy>
+
+      	</target>
+
+      	<!-- ====================================================================== -->
+     	<!-- dist module                                                            -->
+      	<!-- ====================================================================== -->
+      	<target name="dist" depends="jar" description="Package module">
+	   	<echo>copy files from "${dist.dir} to ${swif.dist.dir}</echo>	    
+		<mkdir dir="${swif.dist.dir}" />
+	    	<copy todir="${swif.dist.dir}">
+            		<fileset dir="${dist.dir}" />
+      	    	</copy>
+     	 </target>
+
+
+     	<!-- ====================================================================== -->
+      	<!-- Javadoc target                                                         -->
+      	<!-- ====================================================================== -->
+
+      	<target name="javadoc" description="Generates the Javadoc of the application">
+        	<javadoc sourcepath="${src.dir}" 
+			classpathref="compile.classpath"
+		         packagenames="*" 
+		         destdir="${build.dir}/javadocs" 
+		         access="protected" 
+		         old="false" 
+		         verbose="false" 
+		         version="true" 
+		         use="true" 
+		         author="true" 
+		         splitindex="false" 
+		         nodeprecated="false" 
+		         nodeprecatedlist="false" 
+		         notree="false" 
+		         noindex="false" 
+		         nohelp="false" 
+		         nonavbar="false" 
+		         serialwarn="false" 
+		         charset="ISO-8859-1" 
+		         linksource="false" 
+                 breakiterator="false"/>
+     	 </target>
+
+</project>

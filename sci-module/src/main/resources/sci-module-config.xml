@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+   		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+
+
+	<!-- 
+		sample SCIMongoQueryFilter config 
+		
+		the SCIMongoQueryFilter will build a mongo query where clause using security attrubutes
+		associated with the document being sought and the user doing the seeking (userdetails)
+		
+		databaseLabel is the security context attribute associated with the document
+		attributeConfig is the classification attribute config which defines the sci attr 
+			name in the document and the userdetails
+	-->
+	<bean id="sciPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoQueryFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="sciConfig" />
+	</bean>
+	
+	<!-- 
+		sample SCIMongoRecordFilter config
+		
+		the SCIMongoRecordFilter will examine a mongo query result set (documents) and
+		filter out any entries that do no satisfy the user security attribute (userdetails)   
+		
+		databaseLabel is the security context attribute associated with the document
+		attributeConfig is the classification attribute config which defines the sci attr 
+			name in the document and the userdetails
+	-->
+	<bean id="sciPostQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoRecordFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="sciConfig" />
+	</bean>
+		
+		
+</beans>

@@ -1,0 +1,129 @@
+{ 
+"secureDocs":
+[
+{
+	"_id":{"$oid": "000000000000000000000001"},
+	"name":"doc-1",
+	"comment" : "user should be able to read this record",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":["USA","CAN"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000002"},
+	"name":"doc-2",
+	"comment" : "user should not be able to read this record b/c of the classification",
+	"securityLabel":{
+		"classification":["S"],
+		"RELTO":[],
+		"SCI":[],
+		"SAP":[]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000003"},
+	"name":"doc-3",
+	"comment" : "user should not be able to read this record b/c of the classification",
+	"securityLabel":{
+		"classification":["S"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000004"},
+	"name":"doc-4",
+	"comment" : "user should not be able to read this record b/c of the sci",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA"],
+		"SCI" : ["COMINT"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000005"},
+	"name":"doc-5",
+	"comment" : "user should not be able to read this record b/c of the sap",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["SWAGGER"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000006"},
+	"name":"doc-6",
+	"comment" : "user should not be able to read this record b/c of the relto",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["CAN"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"
+},{
+	"_id":{"$oid": "000000000000000000000007"},
+	"name":"doc-7",
+	"comment" : "user should be able to read this record",
+	"securityLabel":{
+		"classification":["C"],
+		"RELTO":["USA"],
+		"SCI" : ["TK"],
+		"SAP" : ["BP"]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"	
+},{
+	"_id":{"$oid": "000000000000000000000008"},
+	"name":"doc-8",
+	"comment" : "user should be able to read this record",
+	"securityLabel":{
+		"classification":["U"],
+		"RELTO":[],
+		"SCI":[],
+		"SAP":[]
+	},
+	"foo-1":"bar-1",
+	"foo-2":"bar-2"		
+}
+],
+"classification":
+[
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1c9" }, "Key" : "TS", "Label" : "Top Secret", "securityLabel" : { "classification" : [ "TS" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1ca" }, "Key" : "S", "Label" : "Secret", "securityLabel" : { "classification" : [ "S" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1cb" }, "Key" : "C", "Label" : "Confidential", "securityLabel" : { "classification" : [ "C" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a847409199ee4f8e1cc" }, "Key" : "U", "Label" : "Unclassified", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } }
+],
+"RELTO":
+[
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d1" }, "Key" : "AUS", "Label" : "Australia", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d2" }, "Key" : "CAN", "Label" : "Canada", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d3" }, "Key" : "USA", "Label" : "USA", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6aef7409199ee4f8e1d4" }, "Key" : "GBR", "Label" : "United Kingdom", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [], "RELTO" : [] } }
+],
+"SAP":
+[
+{ "_id" : { "$oid" : "51dc6a347409199ee4f8e1c6" }, "Key" : "BP", "Label" : "BUTTERED POPCORN", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [ "BP" ], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a347409199ee4f8e1c7" }, "Key" : "SWAGGER", "Label" : "SWAGGER", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [ "SWAGGER" ], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc6a347409199ee4f8e1c8" }, "Key" : "MULTIPLE", "Label" : "MULTIPLE PROGRAMS", "securityLabel" : { "classification" : [ "U" ], "SCI" : [], "SAP" : [ "MULTIPLE" ], "RELTO" : [] } }
+],
+"SCI":
+[
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1be" }, "Key" : "HCS", "Label" : "HUMINT Control System", "securityLabel" : { "classification" : [ "U" ], "SCI" : [ "HCS" ], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1bf" }, "Key" : "KLONDIKE", "Label" : "KLONDIKE", "securityLabel" : { "classification" : [ "U" ], "SCI" : [ "KLONDIKE" ], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1c0" }, "Key" : "COMINT", "Label" : "COMINT", "securityLabel" : { "classification" : [ "U" ], "SCI" : [ "COMINT" ], "SAP" : [], "RELTO" : [] } },
+{ "_id" : { "$oid" : "51dc68797409199ee4f8e1c1" }, "Key" : "TK", "Label" : "TALENT KEYHOLE", "securityLabel" : { "classification" : [ "U" ], "SCI" : [ "TK" ], "SAP" : [], "RELTO" : [] } }
+]
+}

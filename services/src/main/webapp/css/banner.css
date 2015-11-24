@@ -1,0 +1,8 @@
+.swif-banner { height: 20px; width:100%; cursor:pointer; font-size: small; text-align:center }
+.swif-banner.U { color: white; background-color: green }
+.swif-banner.FOUO { color: white; background-color: green }
+.swif-banner.C { color: white; background-color: blue }
+.swif-banner.S { color: white; background-color: red }
+.swif-banner.TS { color: white; background-color: orange }
+.swif-banner.W { color: black; background-color: yellow }
+
