@@ -14,38 +14,6 @@
 
   <includeBaseDirectory>false</includeBaseDirectory>
 
-  <fileSets>
-
- 
-    <!-- copy cas webapp -->	
-<!--
-    <fileSet>
-      <outputDirectory>/cas</outputDirectory>	
-      <directory>${parent.basedir}/cas-server-swif-customization/target/swif-cas-server-owf-5.0</directory>
-    </fileSet>
--->
-
-    <!-- copy synapse webapp -->		
-    <fileSet>
-      <outputDirectory>/owf/synapse</outputDirectory>	
-      <directory>${parent.basedir}/synapse-owf-service</directory>
-    </fileSet>
-
-    <!-- copy owf config -->		
-    <fileSet>
-      <outputDirectory>/owf/owf-config</outputDirectory>	
-      <directory>${parent.basedir}/OwfSecurityCustomizations/owf-config</directory>
-    </fileSet>
-
-    <!-- copy fidl -->	
-    <fileSet>
-      <outputDirectory>/fidl</outputDirectory>	
-      <directory>${parent.basedir}/fidl/dist</directory>
-    </fileSet>
-
- 
-  </fileSets>
-
 
   <files>
 
@@ -54,13 +22,6 @@
       <source>${parent.basedir}/cas-server-swif-customization/target/swif-cas-server-owf-5.0.war</source>
       <outputDirectory>/cas</outputDirectory>
       <destName>cas.war</destName>
-    </file>
-
-    <!-- copy custom owf security module -->	
-    <file>
-      <source>${parent.basedir}/OwfSecurityCustomizations/target/swif-owf-security-customization-${project.version}.jar</source>
-      <outputDirectory>/owf</outputDirectory>
-      <destName>owf-security-customization.jar</destName>
     </file>
 
   </files>

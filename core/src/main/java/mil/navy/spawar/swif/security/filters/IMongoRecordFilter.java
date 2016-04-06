@@ -7,10 +7,10 @@ import com.mongodb.BasicDBList;
 
 public interface IMongoRecordFilter {
 	
-	public BasicDBList filter(BasicDBList objs, ISwifUserDetails userDetails);
-	public String getDatabaseLabel(); 
-	public void setDatabaseLabel(String attrName) ;
-	public SecurityAttributeConfig getAttributeConfig() ;
-	public void setAttributeConfig(SecurityAttributeConfig attrName) ;
+	BasicDBList filter(BasicDBList objs, ISwifUserDetails userDetails);
+	String getDatabaseLabel();
+	void setDatabaseLabel(String attrName) ;
+	SecurityAttributeConfig getAttributeConfig() ;
+	void setAttributeConfig(SecurityAttributeConfig attrName) ;
 
 }

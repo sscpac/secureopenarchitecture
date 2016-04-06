@@ -32,20 +32,6 @@
   -->
   <dependencies>
 
-	<!-- owf security module -->
-        <dependency>		
-           <groupId>mil.navy.spawar.swif</groupId>
-       	   <artifactId>swif-owf-security-customization</artifactId>
-	   <version>${project.version}</version>
-        </dependency>
-
-	<!-- fidl -->
-        <dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-fidl</artifactId>
-           <version>${project.version}</version>
-        </dependency>
-
 	<!-- cas -->
         <dependency>
            <groupId>mil.navy.spawar.swif</groupId>

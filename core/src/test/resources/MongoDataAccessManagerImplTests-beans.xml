@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" 
 	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:beans="http://www.springframework.org/schema/beans" 
-        xmlns:context="http://www.springframework.org/schema/context"
         xmlns:util="http://www.springframework.org/schema/util"
         xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
-       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		
 	
 	<bean id="securityContext" class="java.lang.String" >
@@ -24,10 +20,6 @@
     </bean>
 
     <bean id="authFilters" class="mil.navy.spawar.swif.security.MongoAuthDecisionManagerImpl">
-        <property name="unacknowledgedConfig" ref="unacknowledgedConfig"/>
-        <property name="aggregateLabel" ref="aggregateSecurityContext"/>
-        <property name="databaseLabel" ref="securityContext" />
-        <property name="idLabel" ref="idLabel"/>
 
 		<property name="queryFilters" >
 			<list>
@@ -69,43 +61,12 @@
 				</bean>
 			</list>
 		</property>
-        <property name="nodeFilters">
-            <list>
-                <!-- bean class="mil.navy.spawar.swif.security.filters.ClassificationMongoNodeFilter" >
-                    <property name="databaseLabel" ref="securityContext" />
-                    <property name="attributeConfig" ref="classificationConfig" />
-                </bean>
-                <bean class="mil.navy.spawar.swif.security.filters.SCIMongoNodeFilter" >
-                    <property name="databaseLabel" ref="securityContext" />
-                    <property name="attributeConfig" ref="sciConfig" />
-                </bean>
-                <bean class="mil.navy.spawar.swif.security.filters.SAPMongoNodeFilter" >
-                    <property name="databaseLabel" ref="securityContext" />
-                    <property name="attributeConfig" ref="sapConfig" />
-                </bean>
-                <bean class="mil.navy.spawar.swif.security.filters.RelToMongoNodeFilter" >
-                    <property name="databaseLabel" ref="securityContext" />
-                    <property name="attributeConfig" ref="relToConfig" />
-                </bean -->
-            </list>
-        </property>
 	</bean>
 			
     <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
         <property name="ldapAttributeName" value="swifUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
-        <property name="displayName" value="Classification"/>
-        <property name="valueType" value="single"/>
-        <property name="rank" value="1"/>
-        <property name="rankings">
-            <map>
-                <entry key="U" value="1" />
-                <entry key="C" value="2" />
-                <entry key="S" value="3" />
-                <entry key="TS" value="4" />
-            </map>
-        </property>
         <property name="secLabelRequirement" value="RECORD"/>
     </bean>
 
@@ -113,36 +74,18 @@
         <property name="ldapAttributeName" value="swifUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
-        <property name="displayName" value="SCI Marking"/>
-        <property name="valueType" value="multiple"/>
-        <property name="rank" value="2"/>
     </bean>
 
     <bean id="sapConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
         <property name="ldapAttributeName" value="swifUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
-        <property name="displayName" value="SAP Marking"/>
-        <property name="valueType" value="multiple"/>
-        <property name="rank" value="3"/>
     </bean>
     
    <bean id="relToConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
         <property name="ldapAttributeName" value="swifUserCountry"/>
         <property name="dbAttributeName" value="RELTO"/>
         <property name="userDetailsName" value="country"/>
-        <property name="displayName" value="Release To"/>
-        <property name="valueType" value="multiple"/>
-        <property name="rank" value="4"/>
-    </bean>
-
-    <!-- acknowledged attribute config -->
-    <bean id="unacknowledgedConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="dbAttributeName" value="unacknowledged"/>
-        <property name="displayName" value="Unacknowledged"/>
-        <property name="valueType" value="boolean"/>
-        <property name="defaultValue" value="false"/>
-        <property name="rank" value="5"/>
     </bean>
 
 	<bean id="authKey" class="java.lang.String">

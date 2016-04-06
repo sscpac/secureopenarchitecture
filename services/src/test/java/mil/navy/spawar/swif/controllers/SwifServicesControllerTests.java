@@ -10,7 +10,6 @@ import mil.navy.spawar.swif.data.DataAccessException;
 import mil.navy.spawar.swif.data.IMongoDataAccessManager;
 import mil.navy.spawar.swif.data.RecordNotFoundException;
 import mil.navy.spawar.swif.security.SwifUserDetailsImpl;
-import mil.navy.spawar.swif.security.dialog.ISecurityDialogManager;
 
 import org.bson.types.ObjectId;
 import org.hamcrest.Matchers;
@@ -59,9 +58,6 @@ public class SwifServicesControllerTests {
 	
 	@Mock
 	private IMongoDataAccessManager mockDataAccessManager;
-	
-	@Mock
-	private ISecurityDialogManager mockSecurityDialogManager;
 
 	@Mock
 	private Map<String,List<String>> mockFullTextColumnMapping;

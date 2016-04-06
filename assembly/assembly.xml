@@ -24,14 +24,6 @@
     </fileSet>
     -->
 
-    <!-- copy widgets webapp -->
-    <!--		
-    <fileSet>
-      <outputDirectory>/swif/widgets</outputDirectory>	
-      <directory>${parent.basedir}/widgets/target/swif-widgets-webapp-${project.version}</directory>
-    </fileSet>
-    -->
-
     <!-- copy mongo data import files -->	
     <fileSet>
       <outputDirectory>/mongo/data-import</outputDirectory>	
@@ -50,13 +42,6 @@
       <directory>${parent.basedir}/core/src/main/resources/ldif-files</directory>
     </fileSet>
 
-    <!--copy owf files-->
-    <fileSet>
-      <outputDirectory>/owf-configuration</outputDirectory>	
-      <directory>${parent.basedir}/third-party/OwfSecurityCustomizations/owf-config</directory>
-    </fileSet>        
-
-
   </fileSets>
 
 
@@ -70,9 +55,9 @@
     </file>
 
     <file>
-      <source>${parent.basedir}/widgets/target/swif-widgets-webapp-${project.version}.war</source>
+      <source>${parent.basedir}/examples/target/swif-examples-webapp-${project.version}.war</source>
       <outputDirectory>/swif</outputDirectory>
-      <destName>widgets.war</destName>
+      <destName>examples.war</destName>
     </file>
    
   </files>

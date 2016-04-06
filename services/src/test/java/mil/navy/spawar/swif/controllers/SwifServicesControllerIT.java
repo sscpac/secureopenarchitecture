@@ -19,7 +19,6 @@ import javax.annotation.Resource;
 import mil.navy.spawar.swif.data.IMongoDataAccessManager;
 import mil.navy.spawar.swif.security.ISwifUserDetails;
 import mil.navy.spawar.swif.security.SwifUserDetailsImpl;
-import mil.navy.spawar.swif.security.dialog.ISecurityDialogManager;
 import mil.navy.spawar.swif.testutils.EmbeddedMongoServer;
 
 import org.bson.types.ObjectId;
@@ -74,9 +73,6 @@ public class SwifServicesControllerIT {
 	@Autowired(required=true)
 	private IMongoDataAccessManager dataAccessManager;
 
-	@Autowired(required=true)
-	private ISecurityDialogManager secDialogManager;
-
 	@Resource(name="fullTextQueryColumnMapping")
 	private Map<String,List<String>> fullTextColumnMapping;
 
@@ -88,7 +84,6 @@ public class SwifServicesControllerIT {
 		
 		// manually inject required beans into the controller being tested
 		controller.dataAccessMgr = dataAccessManager;
-		controller.secDialogManager = secDialogManager;
 		controller.fullTextColumnMapping = fullTextColumnMapping;
 		
 		// verify we have an auth token w/ userDetails 
@@ -156,55 +151,6 @@ public class SwifServicesControllerIT {
         	.andReturn();
 	}
 
-
-	@Test
-    @UsingDataSet(locations={"/data/SwifServicesControllerIT/dialog/data-load.json"},loadStrategy=LoadStrategyEnum.CLEAN_INSERT)
-    @ShouldMatchDataSet(location="/data/SwifServicesControllerIT/dialog/data-expected.json")
-	public void testDialog() throws Exception {
-
-		RequestBuilder request = MockMvcRequestBuilders.get("/dialog")
-			.accept(MediaType.APPLICATION_JSON);
-		
-        mockMvc.perform(request) 
-        	.andDo(print())
-        	.andExpect(status().isOk())
-        	.andExpect(content().contentType("application/json"))
-        	// should get back label data that the user has access to
-        	.andExpect(jsonPath("$.SecurityLabel.SAP.valueSet",hasSize(1)))
-        	.andExpect(jsonPath("$.SecurityLabel.SAP.valueSet[0].value").value("BP"))
-        	.andExpect(jsonPath("$.SecurityLabel.SAP.valueSet[0].label").value("BUTTERED POPCORN"))
-        	.andExpect(jsonPath("$.SecurityLabel.SAP.rank").value("3"))
-        	.andExpect(jsonPath("$.SecurityLabel.SAP.multiple").value("true"))
-        	.andExpect(jsonPath("$.SecurityLabel.SAP.displayName").value("SAP Marking"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.valueSet",hasSize(2)))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.valueSet[0].value").value("U"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.valueSet[0].label").value("Unclassified"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.valueSet[1].value").value("C"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.valueSet[1].label").value("Confidential"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.rank").value("1"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.multiple").value("false"))
-        	.andExpect(jsonPath("$.SecurityLabel.classification.displayName").value("Classification"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet",hasSize(4)))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[1].value").value("AUS"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[1].label").value("Australia"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[2].value").value("CAN"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[2].label").value("Canada"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[0].value").value("USA"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[0].label").value("USA"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[3].value").value("GBR"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.valueSet[3].label").value("United Kingdom"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.rank").value("4"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.multiple").value("true"))
-        	.andExpect(jsonPath("$.SecurityLabel.RELTO.displayName").value("Release To"))
-        	.andExpect(jsonPath("$.SecurityLabel.SCI.valueSet",hasSize(1)))
-        	.andExpect(jsonPath("$.SecurityLabel.SCI.valueSet[0].value").value("TK"))
-        	.andExpect(jsonPath("$.SecurityLabel.SCI.valueSet[0].label").value("TALENT KEYHOLE"))
-        	.andExpect(jsonPath("$.SecurityLabel.SCI.rank").value("2"))
-        	.andExpect(jsonPath("$.SecurityLabel.SCI.multiple").value("true"))
-        	.andExpect(jsonPath("$.SecurityLabel.SCI.displayName").value("SCI Marking"))
-        	.andReturn();
-	}
-	
     @Test
     @UsingDataSet(locations={"/data/SwifServicesControllerIT/readCollection/data-load.json"},loadStrategy=LoadStrategyEnum.CLEAN_INSERT)
     @ShouldMatchDataSet(location="/data/SwifServicesControllerIT/readCollection/data-expected.json")

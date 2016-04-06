@@ -7,22 +7,12 @@
  */
 /*jslint plusplus: true */
 
-
 jQuery(function ($, undefined) {
 
-    var bannerContainer = 'body';
-    var securityLabelName = 'securityLabel';
-//    var securityAggregateName = 'securityAggregate';
-    var securityAggregateName = 'securityLabel'; //configured for record level MAC, aggregate is same as reg label
     var _Settings = {};
 
-    $.widget("swif.securityLabelRest", $.swif.securityLabel, {
-        //className:'swif-security',
-        body: $('body'),
-//        $security:$.noop(),
-        defaultLabel: ['U'],
+    $.widget("swif.securityLabelRest", {
         options: {
-//            dialogEventId: 'securityDialog',
             ajaxTimeout: 120,
             baseURL: "",
             restPath: "/swif/svcs/",
@@ -33,8 +23,6 @@ jQuery(function ($, undefined) {
                 //find: "/find",
                 data: "/data",
                 securityLabel: "securitylabel",
-                //"classifications":"classifications",
-//                labelUser : "label/user/"
                 retrieveUsers: "retrieveUsers",
                 retrieveGroups: "retrieveGroups"
             },
@@ -43,21 +31,15 @@ jQuery(function ($, undefined) {
             }
         },
         _create: function () {
-            //this.element.addClass( this.className );
             console.log("SWIF_REST_CREATE()");
             this._super();
             _Settings = this.options;
-            if (mil.js.swif.restPath !== undefined) {
-                _Settings.restPath = mil.js.swif.restPath;
-            }
             $.securityLabelRest = this.element.data("swifSecurityLabelRest");
-            //this._update();
         },
         _destroy: function () {
             console.log("SWIF_REST_DESTROY()");
             return this._super();
         },
-        //// REST private function ////
         _ajax: function (url, options) {
             var settings = [];
 
@@ -75,10 +57,9 @@ jQuery(function ($, undefined) {
             });
             return $.ajax(settings).fail(function (jqXHR, textStatus, context) {
                 if (textStatus === 'parsererror') {
-                    //alert('Error Sending/Receiving data: You may need to sign out and login in!');
-                    //window.top.location.href = "/owf/j_spring_cas_security_logout";
+                    console.log('Error Sending/Receiving data: You may need to sign out and login in!');
                 } else {
-                    SWIF.displayMessage('Error Sending/Receiving data: ' + textStatus, 'Server Error');
+                    console.log('Error Sending/Receiving data: ' + textStatus, 'Server Error');
                 }
             });
         },
@@ -102,119 +83,19 @@ jQuery(function ($, undefined) {
             $.extend(options, {type: 'DELETE'});
             return this._ajax(_Settings.restPath + url, options);
         },
-        getDialogLabel: function (SecurityLabel, title) {
-            var dfd;
-            //console.log('REST getDialogLabel: CALL this.getDialogLabel() ');
-            dfd = this._super(SecurityLabel, title);
-            return dfd;
-        },
 
-        getLabel: function () {
-            if ($.securityLabelBanner) {
-                return $.securityLabelBanner.getLabel();
-            }
-        },
-
-        setLabel: function (label) {
-            if ($.securityLabelBanner) {
-                $.securityLabelBanner.setLabel(label);
-            }
-        },
-
-        addLabel: function (label) {
-            if ($.securityLabelBanner) {
-                $.securityLabelBanner.addLabel(label);
-            }
-        },
-
-        formatLabel: function (label) {
-            if ($.securityLabelBanner) {
-                return $.securityLabelBanner.getBanner(label).text;
-            } else {
-                return "";
-            }
-
-        },
-
-        addRecord: function (record) {
-            if ($.securityLabelBanner && record && record[securityAggregateName]) {
-                $.securityLabelBanner.addLabel(record[securityAggregateName]);
-            }
-        },
-
-        addRecords: function (records) {
-            if ($.securityLabelBanner && records) {
-                var securityLabel = {};
-                for (var i = 0; i < records.length; i++) {
-                    if (records[i] && records[i][securityAggregateName]) {
-                        securityLabel = $.securityLabelBanner.addLabelDest(records[i][securityAggregateName], securityLabel);
-                    }
-                }
-                $.securityLabelBanner.addLabel(securityLabel);
-            }
-        },
-        labelCollection: function (collectionName, collection, clear) {
-
-            var $this = this;
-            var dfd = $.Deferred();
-
-            if ($.securityLabelBanner) {
-                collection[securityLabelName] = $.securityLabelBanner.getLabel();
-            }
-
-            if (collection[securityLabelName] === undefined) {
-                collection[securityLabelName] = this.defaultLabel;
-            }
-
-            var routine;
-            if (!collection._id || !collection._id.$oid) {
-                routine = this.createCollection
-            } else {
-                routine = this.updateCollection
-            }
-            //id = collection._id.$oid;
-
-            $.securityLabelRest.getDialogLabel(collection[securityLabelName], collectionName).done(function (label) {
-                if (label) {
-                    collection[securityLabelName] = label;
-                    if (clear) {
-                        $.securityLabelRest.clearLabel();
-                    }
-
-                    if ($.securityLabelBanner) {
-                        collection[securityAggregateName] = $.securityLabelBanner.aggregateLabels(collection);
-                    }
-
-                    routine.call($this, collectionName, collection)
-                        .fail(function (jqXHR, textStatus, context) {
-                            //--- If the AJAX fails, don't die here. Inform the pending promise.
-                            dfd.reject();
-                        })
-                        .done(function (data, textStatus, jqXHR) {
-                            if (data && data._id) {
-                                collection._id = {};
-                                collection._id.$oid = data._id;
-                            }
-
-                            dfd.resolve(collectionName, collection);
-                        });
-                }
-            });
-            return dfd.promise();
-        },
-
-        getCollection: function (collectionName, ids) {
+        getRecords: function (collectionName, ids) {
             var id;
             var deferreds = [];
             var url = _Settings.restURLs.collection + collectionName;
+
+            //Retrieve Single Records from Collection
             if (typeof ids === 'string') {
                 url += '/' + ids;
-                return this._ajaxGetRest(url, {context: this})
-                    .done(function (data, textStatus, jqXHR) {
-                        $.securityLabelRest.addRecord(data);
-                    });
+                return this._ajaxGetRest(url, {context: this});
             }
 
+            //Retrieve Multiple Records from Collection
             for (id in ids) {
                 if (ids.hasOwnProperty(id)) {
                     var uri = url + '/' + ids[id];
@@ -228,7 +109,6 @@ jQuery(function ($, undefined) {
                     if (!ids || ids.length == 0) {
                         return json;
                     }
-
 
                     if (!$.securityLabelRest.isArray(a1)) {
                         json.push(a1);
@@ -246,70 +126,35 @@ jQuery(function ($, undefined) {
                         }
                     }
                     return json;
-                })
-                .done(function (data) {
-                    $.securityLabelRest.addRecords(data);
                 });
-        },
-        searchCollection: function (collectionName, queryString) {
-            var query = 'q=' + queryString.split(' ').join('+');
-            return $.securityLabelRest.queryCollection(collectionName, query);
         },
 
         queryCollection: function (collectionName, queryString) {
             var url = _Settings.restURLs.collection + collectionName + _Settings.restURLs.query;
             if (queryString) {
-                url += '?' + queryString;
+                url += '?q=' + queryString.split(' ').join('+');
             }
-            return this._ajaxGetRest(url, {context: this})
-                .done(function (data) {
-                    $.securityLabelRest.addRecords(data);
-                });
+            return this._ajaxGetRest(url, {context: this});
         },
 
 
-        //Find has been disabled until we fully assess the security risks of allowing users to perform mongo queries.
-        /*
-        findCollection: function (collectionName, query) {
-            var url = _Settings.restURLs.collection + collectionName + _Settings.restURLs.find;
-
-
-            if (query) {
-                var stringJSON = query;
-                if (typeof stringJSON === 'object') {
-                    stringJSON = JSON.stringify(stringJSON);
-                }
-
-                url += '?q=' + stringJSON;
-                //url += '?q=' + encodeURIComponent(stringJSON);
-            }
-
-
-            return this._ajaxGetRest(url, {context: this})
-                .done(function (data) {
-                    $.securityLabelRest.addRecords(data);
-                });
-        },*/
-
-        createCollection: function (collectionName, collectionJSON) {
+        createRecord: function (collectionName, collectionJSON) {
             var url = _Settings.restURLs.collection + collectionName;
+
             var stringJSON = collectionJSON;
             if (typeof stringJSON === 'object') {
                 stringJSON = JSON.stringify(collectionJSON);
-            } else {
-                collectionJSON = $.parseJSON(collectionJSON);
             }
 
             return this._ajaxPostRest(url, {data: stringJSON, context: this})
                 .done(function (data) {
                     if (!data._id) {
-                        alert('Create failed...');
-                    } else {
-                        $.securityLabelRest.addRecord(collectionJSON);
+                        console.log('Failed to create record: ' + stringJSON);
                     }
                 });
         },
-        updateCollection: function (collectionName, id, collectionJSON) {
+
+        updateRecord: function (collectionName, id, collectionJSON) {
             var url = _Settings.restURLs.collection + collectionName;
             if (id != null && typeof id !== 'string') {
                 collectionJSON = id;
@@ -329,14 +174,9 @@ jQuery(function ($, undefined) {
             var stringJSON = collectionJSON;
             if (typeof stringJSON === 'object') {
                 stringJSON = JSON.stringify(collectionJSON);
-            } else {
-                collectionJSON = $.parseJSON(collectionJSON);
             }
-            return this._ajaxPutRest(url, {data: stringJSON, context: this})
-                .done(function () {
-                    $.securityLabelRest.addRecord(collectionJSON);
-                }
-            );
+
+            return this._ajaxPutRest(url, {data: stringJSON, context: this});
         },
 
         updateData: function (updatedProperties) {
@@ -350,7 +190,7 @@ jQuery(function ($, undefined) {
             return this._ajaxPutRest(url, {data: stringJSON, context: this});
         },
 
-        deleteCollection: function (collectionName, id, childCollections) {
+        deleteRecord: function (collectionName, id, childCollections) {
             var url = _Settings.restURLs.collection + collectionName;
             if (id) {
                 url += '/' + id;
@@ -369,16 +209,14 @@ jQuery(function ($, undefined) {
             }
             return {};
         },
+
         getData: function (ids) {
             var id;
             var deferreds = [];
             var url = _Settings.restURLs.data;
             if (typeof ids === 'string') {
                 url += '/' + ids;
-                return this._ajaxGetRest(url, {context: this})
-                    .done(function (data) {
-                        $.securityLabelRest.addRecord(data);
-                    });
+                return this._ajaxGetRest(url, {context: this});
             }
             for (id in ids) {
                 if (ids.hasOwnProperty(id)) {
@@ -401,9 +239,6 @@ jQuery(function ($, undefined) {
                         }
                     }
                     return json;
-                })
-                .done(function (data) {
-                    $.securityLabelRest.addRecords(data);
                 });
         },
 
@@ -414,10 +249,7 @@ jQuery(function ($, undefined) {
                 contentType: 'multipart/form-data',
                 processData: false,
                 context: this
-            })
-                .done(function () {
-                    $.securityLabelRest.setLabel(securityLabel);
-                });
+            });
         },
         deleteData: function (id) {
             var url = _Settings.restURLs.data;
@@ -426,58 +258,6 @@ jQuery(function ($, undefined) {
                 return this._ajaxDeleteRest(url, {context: this});
             }
             return {};
-        },
-        clearLabel: function () {
-            if ($.securityLabelBanner) {
-                $.securityLabelBanner.clearLabel();
-            }
-        },
-
-
-        labelAll: function (obj, label) {
-            var k;
-            if (obj instanceof Object) {
-                obj.securityLabel = label;
-                for (k in obj) {
-                    if (obj.hasOwnProperty(k)) {  //make sure that the property isn't coming from the prototype
-                        if (k != "securityLabel" && k != "_id") {
-                            labelAll(obj[k], label);
-                        }
-                    }
-                }
-            }
-        },
-
-        labelAllNotAlreadyLabeled: function (obj, label) {
-            var k;
-            if (obj instanceof Object) {
-                if (!("securityLabel" in obj)) {
-                    obj.securityLabel = label;
-                }
-                for (k in obj) {
-                    if (obj.hasOwnProperty(k)) {  //make sure that the property isn't coming from the prototype
-                        if (k != "securityLabel" && k != "_id") {
-                            labelAllNotAlreadyLabeled(obj[k], label);
-                        }
-                    }
-                }
-            }
-        },
-
-        labelInheritFromParentifNotLabeled: function (obj, label) {
-            var k;
-            if (obj instanceof Object) {
-                if (!("securityLabel" in obj)) {
-                    obj.securityLabel = label;
-                }
-                for (k in obj) {
-                    if (obj.hasOwnProperty(k)) {  //make sure that the property isn't coming from the prototype
-                        if (k != "securityLabel" && k != "_id") {
-                            labelInheritFromParentifNotLabeled(obj[k], obj.securityLabel);
-                        }
-                    }
-                }
-            }
         },
 
         isArray: function (a) {
@@ -525,9 +305,10 @@ jQuery(function ($, undefined) {
             return this._ajaxGetRest(url, {context: this});
         },
 
-        lastProperty: 'The END of Widget swif.security' // Do Not move, for convenience only
+        lastProperty: 'The END of Widget swif.securityLabelRest' // Do Not move, for convenience only
     });
+
 // Create a jQuery utility pointing to our widget
 // Initialize the WIDGET...........
-    $(bannerContainer).securityLabelRest();
+    $('body').securityLabelRest();
 });

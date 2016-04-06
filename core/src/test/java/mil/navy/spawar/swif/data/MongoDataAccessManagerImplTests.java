@@ -70,7 +70,6 @@ public class MongoDataAccessManagerImplTests {
 		assertNotNull(authFilters);
 		assertEquals(4,authFilters.getQueryFilters().size());
 		assertEquals(4,authFilters.getRecordFilters().size());
-        assertEquals(0,authFilters.getNodeFilters().size());
 
 
         // verify we have an auth token w/ userDetails
@@ -107,8 +106,7 @@ public class MongoDataAccessManagerImplTests {
 		// tell dataAccessManager to use mock mongo
 	   	dataAccessManager = new MongoDataAccessManagerImpl();
 	   	dataAccessManager.setDatabase(mockDb);
-        dataAccessManager.setAggregateLabel("securityAggregate");
-	   	
+
 	   	// set filters
 	   	dataAccessManager.setAuthorizationManager(authFilters);
 	}

@@ -69,14 +69,11 @@ public class MongoAuthDecisionManagerImplTests {
         assertTrue(authManager.getQueryFilters().get(2) instanceof SAPMongoQueryFilter);
         assertTrue(authManager.getQueryFilters().get(3) instanceof RelToMongoQueryFilter);
 
-        assertEquals(0, authManager.getRecordFilters().size());
-
-        assertEquals(4, authManager.getNodeFilters().size());
-        assertTrue(authManager.getNodeFilters().get(0) instanceof ClassificationMongoNodeFilter);
-        assertTrue(authManager.getNodeFilters().get(1) instanceof SCIMongoNodeFilter);
-        assertTrue(authManager.getNodeFilters().get(2) instanceof SAPMongoNodeFilter);
-        assertTrue(authManager.getNodeFilters().get(3) instanceof RelToMongoNodeFilter);
-
+        assertEquals(4, authManager.getRecordFilters().size());
+        assertTrue(authManager.getRecordFilters().get(0) instanceof ClassificationMongoRecordFilter);
+        assertTrue(authManager.getRecordFilters().get(1) instanceof SCIMongoRecordFilter);
+        assertTrue(authManager.getRecordFilters().get(2) instanceof SAPMongoRecordFilter);
+        assertTrue(authManager.getRecordFilters().get(3) instanceof RelToMongoRecordFilter);
     }
 
     @Test
@@ -135,7 +132,6 @@ public class MongoAuthDecisionManagerImplTests {
 
         // do filter & check results
         BasicDBList result = authManager.execRecordFilters(inputData);
-        result = authManager.execNodeFilters(result);
 
         assertNotNull(result);
         assertEquals(3, result.size());
@@ -150,12 +146,10 @@ public class MongoAuthDecisionManagerImplTests {
         assertEquals("2", ((DBObject) result.get(1)).get("_id"));
         assertEquals("6", ((DBObject) result.get(2)).get("_id"));
 
-        // remove  filter
-        authManager.getNodeFilters().remove(0);
+        authManager.getRecordFilters().remove(0);
 
         // do filter & check results
         result = authManager.execRecordFilters(inputData);
-        result = authManager.execNodeFilters(result);
 
         assertNotNull(result);
         assertEquals(4, result.size());
@@ -171,15 +165,10 @@ public class MongoAuthDecisionManagerImplTests {
         assertEquals("3", ((DBObject) result.get(2)).get("_id"));
         assertEquals("6", ((DBObject) result.get(3)).get("_id"));
 
-        // remove   filter
-        authManager.getNodeFilters().remove(0);
-
+        authManager.getRecordFilters().remove(0);
 
         // do filter & check results
         result = authManager.execRecordFilters(inputData);
-        result = authManager.execNodeFilters(result);
-
-        authManager.getNodeFilters().remove(0);
 
         assertNotNull(result);
         assertEquals(5, result.size());
@@ -196,16 +185,13 @@ public class MongoAuthDecisionManagerImplTests {
         assertEquals("4", ((DBObject) result.get(3)).get("_id"));
         assertEquals("6", ((DBObject) result.get(4)).get("_id"));
 
-        // remove   filter
-        authManager.getNodeFilters().remove(0);
+        authManager.getRecordFilters().remove(0);
 
         // do filter & check results
         result = authManager.execRecordFilters(inputData);
-        result = authManager.execNodeFilters(result);
 
         assertNotNull(result);
         assertEquals(6, result.size());
-
     }
 
     @Test
@@ -213,12 +199,10 @@ public class MongoAuthDecisionManagerImplTests {
     public void testExecEmptyPostFilters() {
 
         authManager.getRecordFilters().clear();
-        authManager.getNodeFilters().clear();
         assertEquals(0, authManager.getRecordFilters().size());
 
         // do filter & check results
         BasicDBList result = authManager.execRecordFilters(inputData);
-        result = authManager.execNodeFilters(result);
         assertNotNull(result);
         assertEquals(6, result.size());
         for (int i = 0; i < 6; i++) {
@@ -253,17 +237,6 @@ public class MongoAuthDecisionManagerImplTests {
 
     }
 
-    @Test(expected = AuthenticationCredentialsNotFoundException.class)
-    @DirtiesContext
-    public void testExecNodeFilterExecutionsWithNoUserDetails() {
-
-        // clear userDetails
-        SecurityContextHolder.getContext().setAuthentication(null);
-
-        // do filter & expect error
-        authManager.execNodeFilters(inputData);
-    }
-
     @Test
     @DirtiesContext
     public void testExecPostFilterExecutionsUserHasAccessToEveryThing() {
@@ -286,7 +259,6 @@ public class MongoAuthDecisionManagerImplTests {
 
         // do filter & check results
         BasicDBList result = authManager.execRecordFilters(inputData);
-        result = authManager.execNodeFilters(result);
 
         assertNotNull(result);
         assertEquals(6, result.size());

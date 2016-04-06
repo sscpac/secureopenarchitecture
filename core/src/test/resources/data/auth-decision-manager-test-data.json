@@ -5,8 +5,7 @@
 		"classification":["CLASSIFICATION-1"],
 		"RELTO":["USA"],
 		"SCI" : ["SCI-1"],
-		"SAP" : ["SAP-1"],
-        "unacknowledged" : "true"
+		"SAP" : ["SAP-1"]
 	},
 	"foo-1":"bar-1",
 	"foo-2":"bar-2"
@@ -17,8 +16,7 @@
 		"classification":["CLASSIFICATION-1","CLASSIFICATION-2"],
 		"RELTO":["USA"],
 		"SCI" : ["SCI-1","SCI-2"],
-		"SAP" : ["SAP-1","SAP-2"],
-        "unacknowledged" : "true"
+		"SAP" : ["SAP-1","SAP-2"]
     },
 	"foo-1":"bar-1",
 	"foo-2":"bar-2"
@@ -29,8 +27,7 @@
 		"classification":["CLASSIFICATION-1","CLASSIFICATION-2","CLASSIFICATION-3"],
 		"RELTO":["USA"],
 		"SCI" : ["SCI-1"],
-		"SAP" : ["SAP-1"],
-        "unacknowledged" : "true"
+		"SAP" : ["SAP-1"]
     },
 	"foo-1":"bar-1",
 	"foo-2":"bar-2"
@@ -41,8 +38,7 @@
 		"classification":["CLASSIFICATION-1"],
 		"RELTO":["USA"],
 		"SCI" : ["SCI-1","SCI-2","SCI-3"],
-		"SAP" : ["SAP-1"],
-        "unacknowledged" : "true"
+		"SAP" : ["SAP-1"]
     },
 	"foo-1":"bar-1",
 	"foo-2":"bar-2"
@@ -53,8 +49,7 @@
 		"classification":["CLASSIFICATION-1"],
 		"RELTO":["USA"],
 		"SCI" : ["SCI-1"],
-		"SAP" : ["SAP-1","SAP-2","SAP-3"],
-        "unacknowledged" : "true"
+		"SAP" : ["SAP-1","SAP-2","SAP-3"]
     },
 	"foo-1":"bar-1",
 	"foo-2":"bar-2"
@@ -65,8 +60,7 @@
 		"classification":["CLASSIFICATION-1"],
 		"RELTO":["USA"],
 		"SCI" : ["SCI-2"],
-		"SAP" : ["SAP-1"],
-        "unacknowledged" : "true"
+		"SAP" : ["SAP-1"]
     },
 	"foo-1":"bar-1",
 	"foo-2":"bar-2"

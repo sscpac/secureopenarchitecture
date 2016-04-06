@@ -55,7 +55,7 @@
     <module>relto-module</module>
     <module>generic-module</module>
     <module>services</module>
-    <module>widgets</module>
+    <module>examples</module>
     <module>assembly</module>
   </modules>
 

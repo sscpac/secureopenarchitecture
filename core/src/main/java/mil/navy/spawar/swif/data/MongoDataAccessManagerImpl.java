@@ -14,7 +14,6 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
 
     private DB database;
     private IMongoAuthDecisionManager authManager;
-    private String aggregateLabel = null;
     private static final Logger log = (Logger) LoggerFactory.getLogger(MongoDataAccessManagerImpl.class);
     private static final String KEY = "Key";
     private static final String LABEL = "Label";
@@ -29,10 +28,6 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
     @Override
     public void setAuthorizationManager(IMongoAuthDecisionManager mgr) {
         authManager = mgr;
-    }
-
-    public void setAggregateLabel(String aggregateLabel) {
-        this.aggregateLabel = aggregateLabel;
     }
 
     @Override
@@ -79,12 +74,7 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
         BasicDBList results = doQuery(dbCollection, query);
 
         //apply results filters
-        BasicDBList filteredResults = authManager.execRecordFilters(results);
-        filteredResults = authManager.execNodeFilters(filteredResults);
-
-        // done
-        return filteredResults;
-//        return results;
+        return authManager.execRecordFilters(results);
     }
 
     @Override
@@ -122,7 +112,7 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
         }
 
         // if we can retrieve the record then the user has access and we should allow the delete to proceed
-        BasicDBObject record = (BasicDBObject) records.get(0);
+        //BasicDBObject record = (BasicDBObject) records.get(0);
 
         // remove the record
         try {
@@ -156,14 +146,10 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
             throw new DataAccessException("invalid record");
         }
 
-        //process any changes made by filters when writing
-        authManager.execNodeWriteProccesors(record);
-
         // apply any auth filters to see if the object changes
         BasicDBList recordsToFilter = new BasicDBList();
         recordsToFilter.add(record);
         BasicDBList filteredRecords = authManager.execRecordFilters(recordsToFilter);
-        filteredRecords = authManager.execNodeFilters(filteredRecords);
 
         //check record was returned after filtering
         if (filteredRecords.isEmpty()) {
@@ -174,12 +160,6 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
         //check record wasn't returned as null
         if (filteredRecord == null) {
             throw new DataAccessException("record not created, invalid security labeling");
-        }
-
-        //remove securityAggregate
-        if(aggregateLabel != null) {
-            filteredRecord.removeField(aggregateLabel);
-            record.removeField(aggregateLabel);
         }
 
         //check record was not modified during filtering
@@ -218,7 +198,7 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
 
         // create query using object key
         BasicDBObject query = new BasicDBObject();
-        query.put(COLLECTION_ID, (ObjectId) obj);
+        query.put(COLLECTION_ID, obj);
 
         // try to retrieve the record using query
         BasicDBList records = readRecord(collection, query);
@@ -228,15 +208,11 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
             throw new RecordNotFoundException();
         }
 
-        //process any changes made by filters when writing
-        authManager.execNodeWriteProccesors(record);
-
         // just in case authorize incommming rec
         BasicDBList recordsToFilter = new BasicDBList();
         recordsToFilter.add(record);
 
         BasicDBList filteredRecords = authManager.execRecordFilters(recordsToFilter);
-        filteredRecords = authManager.execNodeFilters(filteredRecords);
 
         // check record was not filtered out
 
@@ -249,12 +225,6 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
         //check record wasn't returned as null
         if (filteredRecord == null) {
             throw new DataAccessException("record not updated, invalid security labeling");
-        }
-
-        //remove securityAggregate
-        if(aggregateLabel != null) {
-            filteredRecord.removeField(aggregateLabel);
-            record.removeField(aggregateLabel);
         }
 
         //check record was not modified during filtering
@@ -287,8 +257,8 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
             if (!dbList.isEmpty()) {
 
                 securityAttributes = new HashMap<String, String>();
-                for (int i = 0; i < dbList.size(); i++) {
-                    BasicDBObject obj = (BasicDBObject) dbList.get(i);
+                for (Object aDbList : dbList) {
+                    BasicDBObject obj = (BasicDBObject) aDbList;
                     securityAttributes.put((String) obj.get(KEY), (String) obj.get(LABEL));
                 }
             }
@@ -328,7 +298,7 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
 
         try {
             // execute the query
-            DBCursor cursor = null;
+            DBCursor cursor;
             if (query != null) {
                 cursor = collection.find(query);
             } else {
@@ -368,11 +338,8 @@ public class MongoDataAccessManagerImpl implements IMongoDataAccessManager {
         }
 
         Set<String> collectionNames = database.getCollectionNames();
-        if (collectionNames.contains(collection)) {
-            return true;
-        }
+        return collectionNames.contains(collection);
 
-        return false;
     }
 
     private boolean isValidDocumentKey(String key) {

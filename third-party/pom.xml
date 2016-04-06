@@ -11,8 +11,6 @@
   <version>1.0.0-SNAPSHOT</version>
 
   <modules>
-    	<module>fidl</module>
-    	<module>OwfSecurityCustomizations</module>
 	<module>cas-server-swif-customization</module>
         <module>assembly</module>
   </modules>

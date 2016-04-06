@@ -7,6 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface ISwifUserDetails extends UserDetails {
 
-	public Map<String, Collection<String>> getCustomAttributes();
-	public String getDistinguishedName();
+	Map<String, Collection<String>> getCustomAttributes();
+	String getDistinguishedName();
 }

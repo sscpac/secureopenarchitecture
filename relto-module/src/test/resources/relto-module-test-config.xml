@@ -20,9 +20,6 @@
         <property name="ldapAttributeName" value="swifUserCountry"/>
         <property name="dbAttributeName" value="RELTO"/>
         <property name="userDetailsName" value="country"/>
-        <property name="displayName" value="Release To"/>
-        <property name="valueType" value="multiple"/>
-        <property name="rank" value="4"/>
         <property name="defaultValue" value="USA"/>
     </bean>
 

@@ -18,9 +18,6 @@
 		<property name="ldapAttributeName" value="swifUserClassification"/>
 		<property name="dbAttributeName" value="classification"/>
 		<property name="userDetailsName" value="classification"/>
-		<property name="displayName" value="Classification"/>
-		<property name="valueType" value="single"/>
-		<property name="rank" value="1"/>
     </bean>
        
 	<bean id="classificationPreQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoQueryFilter" >

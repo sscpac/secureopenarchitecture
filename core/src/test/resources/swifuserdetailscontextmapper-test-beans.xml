@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" 
 	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:beans="http://www.springframework.org/schema/beans" 
-        xmlns:context="http://www.springframework.org/schema/context"
         xmlns:util="http://www.springframework.org/schema/util"
         xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
-       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		
 	<!-- attr config -->		
     <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
         <property name="ldapAttributeName" value="swifUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
-        <property name="displayName" value="Classification"/>
-        <property name="valueType" value="false"/>
-        <property name="rank" value="1"/>
     </bean>
 
 	<!-- attr config -->
@@ -25,9 +18,6 @@
         <property name="ldapAttributeName" value="swifUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
-        <property name="displayName" value="SCI Marking"/>
-        <property name="valueType" value="true"/>
-        <property name="rank" value="2"/>
     </bean>
 
 	<!-- attr config -->
@@ -35,9 +25,6 @@
         <property name="ldapAttributeName" value="swifUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
-        <property name="displayName" value="SAP Marking"/>
-        <property name="valueType" value="true"/>
-        <property name="rank" value="3"/>
     </bean>
 
 	<!-- attr config -->
@@ -45,9 +32,6 @@
         <property name="ldapAttributeName" value="swifUserCountry"/>
         <property name="dbAttributeName" value="RELTO"/>
         <property name="userDetailsName" value="country"/>
-        <property name="displayName" value="Release To"/>
-        <property name="valueType" value="true"/>
-        <property name="rank" value="4"/>
     </bean>
       
     <!-- active attrs for mapper -->  

@@ -71,10 +71,10 @@
            <type>war</type>	
         </dependency>
 
-	<!-- widgets -->
+	<!-- examples -->
         <dependency>		
            <groupId>mil.navy.spawar.swif</groupId>
-       	   <artifactId>swif-widgets-webapp</artifactId>
+       	   <artifactId>swif-examples-webapp</artifactId>
 	   <version>${project.version}</version>
            <type>war</type>		
         </dependency>

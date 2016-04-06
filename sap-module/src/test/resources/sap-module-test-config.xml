@@ -18,9 +18,6 @@
         <property name="ldapAttributeName" value="swifUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
-        <property name="displayName" value="SAP Marking"/>
-        <property name="valueType" value="multiple"/>
-        <property name="rank" value="3"/>
     </bean>
 
 	<bean id="sapPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SAPMongoQueryFilter" >
