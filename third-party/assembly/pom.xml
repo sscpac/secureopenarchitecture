@@ -35,7 +35,7 @@
 	<!-- cas -->
         <dependency>
            <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-cas-server</artifactId>
+       	    <artifactId>cas-overlay</artifactId>
            <version>${project.version}</version>
 	   <type>war</type>	
         </dependency>

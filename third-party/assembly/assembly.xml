@@ -19,7 +19,7 @@
 
     <!-- copy cas war -->	
     <file>
-      <source>${parent.basedir}/cas-server-swif-customization/target/swif-cas-server-owf-5.0.war</source>
+      <source>${parent.basedir}/cas/target/cas.war</source>
       <outputDirectory>/cas</outputDirectory>
       <destName>cas.war</destName>
     </file>
