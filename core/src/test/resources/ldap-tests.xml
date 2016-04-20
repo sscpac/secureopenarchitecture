@@ -10,9 +10,7 @@
     <bean id="ldapService" class="mil.navy.spawar.swif.ldap.SwifLdapServiceImpl">
         <constructor-arg ref="ldapContextSource"/>
         <property name="swifUserContextMapper" ref="swifUserConextMapper"/>
-        <property name="swifGroupContextMapper" ref="swifGroupContextMapper"/>
         <property name="userBaseDN"  value="ou=Users,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil"/>
-        <property name="groupBaseDN"  value="ou=owfGroups,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil"/>
     </bean>
 
     <bean id="swifUserConextMapper" class="mil.navy.spawar.swif.ldap.SwifUserContextMapper">
@@ -21,12 +19,6 @@
         <property name="emailMapping" value="mail"/>
         <property name="phoneMapping" value="telephoneNumber"/>
         <property name="organizationMapping" value="o"/>
-    </bean>
-
-    <bean id="swifGroupContextMapper" class="mil.navy.spawar.swif.ldap.SwifGroupContextMapper">
-        <property name="ldapService" ref="ldapService"/>
-        <property name="groupNameMapping" value="cn"/>
-        <property name="memberMapping" value="member"/>
     </bean>
 
     <bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">

@@ -103,17 +103,6 @@ public class SwifServicesController {
         }
     }
 
-    @RequestMapping(value = "/retrieveGroups", method = RequestMethod.GET, produces = "application/json")
-    public
-    @ResponseBody
-    String retrieveGroups(@RequestParam(value = "group") List<String> groups, HttpServletResponse response) {
-
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        return ldapService.getGroups(groups).toString();
-    }
-
-
     // read all document(s) in collection
     @RequestMapping(value = "/{collection}", method = RequestMethod.GET, produces = "application/json")
     public

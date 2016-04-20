@@ -1,13 +1,11 @@
 package mil.navy.spawar.swif.security;
 
-
 public class SecurityAttributeConfig {
 
     private String ldapAttributeName;
     private String dbAttributeName;
     private String userDetailsName;
     private String defaultValue;
-    private SecurityLabelRequirement secLabelRequirement = SecurityLabelRequirement.NONE;   //TODO remove when removing cell level MAC
 
     public String getLdapAttributeName() {
         return ldapAttributeName;
@@ -33,20 +31,8 @@ public class SecurityAttributeConfig {
         this.userDetailsName = userDetailsName;
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
-    }
+    public String getDefaultValue() { return defaultValue; }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
+    public void setDefaultValue(String defaultValue) { this.defaultValue = defaultValue; }
 
-    public SecurityLabelRequirement getSecLabelRequirement() {
-        return secLabelRequirement;
-    }
-
-
-    public void setSecLabelRequirement(SecurityLabelRequirement secLabelRequirement) {
-        this.secLabelRequirement = secLabelRequirement;
-    }
 }

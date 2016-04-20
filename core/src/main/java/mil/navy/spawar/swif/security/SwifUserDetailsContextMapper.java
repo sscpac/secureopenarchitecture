@@ -54,13 +54,6 @@ public class SwifUserDetailsContextMapper implements UserDetailsContextMapper {
 				
 				// add entries to list
 				Collections.addAll(attrValueList, attrValues);
-				
-				// create a list of the entries
-				//Collection<String> attrValueList = new ArrayList<String>();
-				//Collections.addAll(attrValueList, attrValues);
-			
-				// add the list to the userdetails 
-				//userDetails.getCustomAttributes().put(userdetailName, attrValueList);
 			}
 			
 			// add the list to the userdetails

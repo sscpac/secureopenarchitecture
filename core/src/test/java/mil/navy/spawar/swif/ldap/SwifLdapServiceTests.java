@@ -30,12 +30,6 @@ public class SwifLdapServiceTests {
 
     }
 
-    @Test
-    public void testGetGroups()  {
-        ArrayList<String> groups = new ArrayList<String>();
-        groups.add("Planner");
-        System.out.println(ldapService.getGroups(groups));
 
-    }
 
 }

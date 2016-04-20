@@ -36,7 +36,6 @@
         <property name="ldapAttributeName" value="swifUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
-        <property name="secLabelRequirement" value="RECORD"/>
     </bean>
 
     <!-- sci attribute config -->
@@ -155,9 +154,7 @@
     <bean id="ldapService" class="mil.navy.spawar.swif.ldap.SwifLdapServiceImpl">
         <constructor-arg ref="ldapContextSource"/>
         <property name="swifUserContextMapper" ref="swifUserConextMapper"/>
-        <property name="swifGroupContextMapper" ref="swifGroupContextMapper"/>
         <property name="userBaseDN"  value="${ldap.user.base.dn}"/>
-        <property name="groupBaseDN"  value="${ldap.group.base.dn}"/>
     </bean>
 
     <bean id="swifUserConextMapper" class="mil.navy.spawar.swif.ldap.SwifUserContextMapper">
@@ -166,12 +163,6 @@
         <property name="emailMapping" value="mail"/>
         <property name="phoneMapping" value="telephoneNumber"/>
         <property name="organizationMapping" value="o"/>
-    </bean>
-
-    <bean id="swifGroupContextMapper" class="mil.navy.spawar.swif.ldap.SwifGroupContextMapper">
-        <property name="ldapService" ref="ldapService"/>
-        <property name="groupNameMapping" value="cn"/>
-        <property name="memberMapping" value="member"/>
     </bean>
 
     <!-- binary collection full text searchable attrs -->

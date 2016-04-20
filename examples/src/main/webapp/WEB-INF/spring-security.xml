@@ -103,23 +103,12 @@
 	
     	<bean id="ldapUserDetailService" class="org.springframework.security.ldap.userdetails.LdapUserDetailsService">
          	<constructor-arg ref="ldapUserSearch" />
-         	<constructor-arg ref="ldapRoleSearch" />
     	</bean>
 
     	<bean id="ldapUserSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
           	<constructor-arg value="${ldap.user.base.dn}" />
        		<constructor-arg value="(uid={0})"/>
        		<constructor-arg ref="ldapContextSource" />
-    	</bean>
-    
-    	<bean id="ldapRoleSearch" class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">
-        	<constructor-arg ref="ldapContextSource" />
-          	<constructor-arg value="${ldap.role.base.dn}" />
-          	<property name="groupRoleAttribute" value="cn"/>
-          	<property name="groupSearchFilter" value="(member={0})"/>
-          	<property name="rolePrefix" value="ROLE_"/>
-          	<property name="searchSubtree" value="true"/>
-          	<property name="convertToUpperCase" value="true"/>
     	</bean>
     
   	<bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">

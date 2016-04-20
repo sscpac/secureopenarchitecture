@@ -16,11 +16,8 @@ public class SwifLdapServiceImpl implements ISwifLdapService {
 
     private LdapTemplate ldapTemplate;
     private SwifUserContextMapper swifUserContextMapper;
-    private SwifGroupContextMapper swifGroupContextMapper;
     private String userBaseDN;
-    private String groupBaseDN;
     private String swifUserObjClass = "person";
-    private String groupObjClass = "groupOfNames";
 
 
     public SwifLdapServiceImpl(LdapContextSource contextSource) {
@@ -48,20 +45,6 @@ public class SwifLdapServiceImpl implements ISwifLdapService {
     }
 
     @Override
-    public Collection<SwifGroup> getGroups(Collection<String> groups) {
-        ArrayList<SwifGroup> swifGroups = new ArrayList<SwifGroup>();
-
-        for(String group : groups) {
-            SwifGroup swifGroup = getGroup(group);
-            if(swifGroup != null) {
-                swifGroups.add(swifGroup);
-            }
-        }
-
-        return swifGroups;
-    }
-
-    @Override
     public SwifUser lookUpUser(String dn) {
         try {
             return (SwifUser) ldapTemplate.lookup(dn, swifUserContextMapper);
@@ -76,26 +59,8 @@ public class SwifLdapServiceImpl implements ISwifLdapService {
     }
 
     @Required
-    public void setSwifGroupContextMapper(SwifGroupContextMapper swifGroupContextMapper) {
-        this.swifGroupContextMapper = swifGroupContextMapper;
-    }
-
-    @Required
     public void setUserBaseDN(String userBaseDN) {
         this.userBaseDN = userBaseDN;
-    }
-
-    @Required
-    public void setGroupBaseDN(String groupBaseDN) {
-        this.groupBaseDN = groupBaseDN;
-    }
-
-    public void setSwifUserObjClass(String swifUserObjClass) {
-        this.swifUserObjClass = swifUserObjClass;
-    }
-
-    public void setGroupObjClass(String groupObjClass) {
-        this.groupObjClass = groupObjClass;
     }
 
     private SwifUser getUser(String user) {
@@ -105,19 +70,6 @@ public class SwifLdapServiceImpl implements ISwifLdapService {
                 .build();
 
         return lookUpUser(dn.toString());
-    }
-
-    private SwifGroup getGroup(String group) {
-
-        LdapName dn = LdapNameBuilder.newInstance(groupBaseDN)
-                .add(swifGroupContextMapper.getGroupNameMapping(), group)
-                .build();
-
-        try {
-            return (SwifGroup) ldapTemplate.lookup(dn, swifGroupContextMapper);
-        } catch(NameNotFoundException e) {
-            return null;
-        }
     }
 
 }

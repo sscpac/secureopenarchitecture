@@ -67,7 +67,6 @@
         <property name="ldapAttributeName" value="swifUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
-        <property name="secLabelRequirement" value="RECORD"/>
     </bean>
 
     <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
