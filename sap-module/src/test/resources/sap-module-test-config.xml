@@ -14,18 +14,18 @@
 		<constructor-arg value="securityLabel" />
 	</bean>
 
-    <bean id="sapConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserSapmarking"/>
+    <bean id="sapConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
     </bean>
 
-	<bean id="sapPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SAPMongoQueryFilter" >
+	<bean id="sapPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SAPMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sapConfig" />
 	</bean>
 	
-	<bean id="sapPostQueryFilter" class="mil.navy.spawar.swif.security.filters.SAPMongoRecordFilter" >
+	<bean id="sapPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.SAPMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sapConfig" />
 	</bean>
@@ -48,9 +48,9 @@
 	      <value>LEVEL-THREE</value>
 	</util:list>
 	
-    <bean id="userDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+    <bean id="userDetails" class="mil.navy.spawar.soaf.security.SoafUserDetailsImpl" >
 		<constructor-arg>
-			<bean class="java.lang.String"><constructor-arg value="swifUser"/></bean>	
+			<bean class="java.lang.String"><constructor-arg value="soafUser"/></bean>
 		</constructor-arg>
 		<constructor-arg>
 			<util:list>
@@ -59,7 +59,7 @@
 			</util:list>
 		</constructor-arg>
 		<constructor-arg>
-			<bean class="java.lang.String"><constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>	
+			<bean class="java.lang.String"><constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>
 		</constructor-arg>
      	<property name="customAttributes">
    			<util:map value-type="java.util.List">

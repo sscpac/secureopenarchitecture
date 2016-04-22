@@ -4,15 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>mil.navy.spawar.swif</groupId>
-    <artifactId>swif-parent</artifactId>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>swif-sap-security-module</artifactId>
+  <artifactId>soaf-sap-security-module</artifactId>
   <packaging>jar</packaging>
-  <name>SWIF SAP Security Module</name>
-  <description>SWIF SAP Security Module</description>
+  <name>SOAF SAP Security Module</name>
+  <description>SOAF SAP Security Module</description>
 
   <properties>
     <root.dir>${project.parent.basedir}</root.dir>
@@ -21,8 +21,8 @@
     <dependencies>
 	
         <dependency>		
-           <groupId>mil.navy.spawar.swif</groupId>
-       	   <artifactId>swif-core</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	   <artifactId>soaf-core</artifactId>
 	   <version>${project.version}</version>
         </dependency>
 

@@ -10,18 +10,18 @@
 		<constructor-arg value="securityLabel" />
 	</bean>
 
-    <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserScimarking"/>
+    <bean id="sciConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
     </bean>
 
-	<bean id="sciPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoQueryFilter" >
+	<bean id="sciPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
 	</bean>
 
-	<bean id="sciPostQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoRecordFilter" >
+	<bean id="sciPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
 	</bean>
@@ -32,9 +32,9 @@
 	      <value>SCI-3</value>
 	</util:list>
    
-    <bean id="userDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+    <bean id="userDetails" class="mil.navy.spawar.soaf.security.SoafUserDetailsImpl" >
 		<constructor-arg>
-			<bean class="java.lang.String"><constructor-arg value="swifUser"/></bean>	
+			<bean class="java.lang.String"><constructor-arg value="soafUser"/></bean>
 		</constructor-arg>
 		<constructor-arg>
 			<util:list>
@@ -43,7 +43,7 @@
 			</util:list>
 		</constructor-arg>
 		<constructor-arg>
-			<bean class="java.lang.String"><constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>	
+			<bean class="java.lang.String"><constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>
 		</constructor-arg>
      	<property name="customAttributes">
    			<util:map value-type="java.util.List">

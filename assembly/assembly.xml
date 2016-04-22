@@ -1,7 +1,7 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
 
   <!-- 
-	create swif distribution 
+	create soaf distribution 
 
 	packages up various files and directories for deployment
   -->
@@ -15,14 +15,6 @@
   <includeBaseDirectory>false</includeBaseDirectory>
 
   <fileSets>
-
-    <!-- copy swif webapp -->	
-    <!--
-    <fileSet>
-      <outputDirectory>/swif/swif</outputDirectory>	
-      <directory>${parent.basedir}/services/target/swif-services-webapp-${project.version}</directory>
-    </fileSet>
-    -->
 
     <!-- copy mongo data import files -->	
     <fileSet>
@@ -49,14 +41,14 @@
 	
     <!-- copy war files -->
     <file>
-      <source>${parent.basedir}/services/target/swif-services-webapp-${project.version}.war</source>
-      <outputDirectory>/swif</outputDirectory>
-      <destName>swif.war</destName>
+      <source>${parent.basedir}/services/target/soaf-services-webapp-${project.version}.war</source>
+      <outputDirectory>/soaf</outputDirectory>
+      <destName>soaf.war</destName>
     </file>
 
     <file>
-      <source>${parent.basedir}/examples/target/swif-examples-webapp-${project.version}.war</source>
-      <outputDirectory>/swif</outputDirectory>
+      <source>${parent.basedir}/examples/target/soaf-examples-webapp-${project.version}.war</source>
+      <outputDirectory>/soaf</outputDirectory>
       <destName>examples.war</destName>
     </file>
    

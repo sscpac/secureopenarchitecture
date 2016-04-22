@@ -26,7 +26,7 @@
     	</sec:authentication-manager>
         
     	<bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">
-        	<property name="service" value="${swif.endpoint}/j_spring_cas_security_check"/>
+        	<property name="service" value="${soaf.endpoint}/j_spring_cas_security_check"/>
         	<property name="authenticateAllArtifacts" value="true"/>
     	</bean>
     
@@ -55,7 +55,7 @@
 	
     	<bean id="casAuthProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
         	<property name="serviceProperties" ref="serviceProperties" />
-        	<property name="key" value="swif"/>
+        	<property name="key" value="soaf"/>
 			<property name="userDetailsService" ref="ldapUserDetailService" />
 			<property name="ticketValidator" ref="casTicketValidator" />
     	</bean>
@@ -66,7 +66,7 @@
     	
     	<bean id="ldapUserDetailService" class="org.springframework.security.ldap.userdetails.LdapUserDetailsService">
          	<constructor-arg ref="ldapUserSearch" />
-         	<property name="userDetailsMapper" ref="swifUserDetailsMapper" />
+         	<property name="userDetailsMapper" ref="soafUserDetailsMapper" />
     	</bean>
  
     	<bean id="ldapUserSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">

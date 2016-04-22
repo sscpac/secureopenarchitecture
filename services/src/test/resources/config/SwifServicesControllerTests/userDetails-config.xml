@@ -7,11 +7,11 @@
 			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		
 	<bean id="authKey" class="java.lang.String">
-		<constructor-arg value="swifUser"/>
+		<constructor-arg value="soafUser"/>
 	</bean>	
 	
 	<bean id="authDn" class="java.lang.String">
-		<constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
+		<constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
 	</bean>	
 
 	<bean id="authCredentials" class="java.lang.String">
@@ -49,7 +49,7 @@
       <entry key="sapMarking" value-ref="sapMarkings" />
    	</util:map>	
 	
-    <bean id="authUserDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+    <bean id="authUserDetails" class="mil.navy.spawar.soaf.security.SoafUserDetailsImpl" >
 		<constructor-arg ref="authKey" />	    	 
 		<constructor-arg ref="authAuthorities" />
 		<constructor-arg ref="authDn" />

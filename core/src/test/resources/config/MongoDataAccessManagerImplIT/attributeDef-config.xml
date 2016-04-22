@@ -12,29 +12,29 @@
     </bean>
     
     <!-- classification attribute config -->
-    <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserClassification"/>
+    <bean id="classificationConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
     </bean>
 
     <!-- sci attribute config -->
-    <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserScimarking"/>
+    <bean id="sciConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
     </bean>
 
     <!-- sap attribute config -->
-    <bean id="sapConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserSapmarking"/>
+    <bean id="sapConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
     </bean>
 
     <!-- relto attribute config -->
-    <bean id="relToConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserCountry"/>
+    <bean id="relToConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserCountry"/>
         <property name="dbAttributeName" value="RELTO"/>
         <property name="userDetailsName" value="country"/>
     </bean>

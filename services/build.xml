@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="swif-services" default="dist" basedir=".">
+<project name="soaf-services" default="dist" basedir=".">
 
 	<!-- ====================================================================== -->
       	<!-- Build environment properties                                           -->
       	<!-- ====================================================================== -->
-	<property name="war.name" value="swif"/>
+	<property name="war.name" value="soaf"/>
 	
 	<property name="build.dir" location="build" />
 	<property name="dist.dir" location="${build.dir}/bin" />
@@ -16,11 +16,11 @@
 	<property name="test.resource.dir" location="src/test/resources"/>
 	<property name="test.report.dir" location="${build.dir}/test-reports" />
 
-	<property name="swif.dist.dir" location="../dist" />
-	<property name="swif.core" location="${swif.dist.dir}/swif-core.jar" />
-	<property name="class.module" location="${swif.dist.dir}/security-modules/swif-classification-module.jar" />
-	<property name="sci.module" location="${swif.dist.dir}/security-modules/swif-sci-module.jar" />
-	<property name="sap.module" location="${swif.dist.dir}/security-modules/swif-sap-module.jar" />
+	<property name="soaf.dist.dir" location="../dist" />
+	<property name="soaf.core" location="${soaf.dist.dir}/soaf-core.jar" />
+	<property name="class.module" location="${soaf.dist.dir}/security-modules/soaf-classification-module.jar" />
+	<property name="sci.module" location="${soaf.dist.dir}/security-modules/soaf-sci-module.jar" />
+	<property name="sap.module" location="${soaf.dist.dir}/security-modules/soaf-sap-module.jar" />
 
 	<property name="classes.dir" location="${build.dir}/classes" />
      	<property name="test.dir" location="${build.dir}/test" />
@@ -34,7 +34,7 @@
 	<path id="compile.classpath">
 		<fileset dir="src/main/webapp/WEB-INF/lib" includes="*.jar"/>
 		<fileset dir="lib" includes="*.jar"/>
-		<pathelement location="${swif.core}" />
+		<pathelement location="${soaf.core}" />
 	</path>
 
       	<path id="test.classpath">
@@ -46,9 +46,9 @@
       	<!-- ====================================================================== -->
 
 	<target name="check-dependencies">
-		<echo>check for ${swif.core} dependency</echo>
+		<echo>check for ${soaf.core} dependency</echo>
 		<fail message="core dependency check failed" >
-			<condition><not><available file="${swif.core}" type="file" /></not></condition>
+			<condition><not><available file="${soaf.core}" type="file" /></not></condition>
 		</fail>
 		<fail message="classification module dependency check failed" >
 			<condition><not><available file="${class.module}" type="file" /></not></condition>
@@ -179,7 +179,7 @@
 		<war destfile="${dist.dir}/${war.name}.war">
   			<fileset dir="${webapp.dir}"/>
   			<classes dir="${classes.dir}"/>
-			<lib file="${swif.core}" />
+			<lib file="${soaf.core}" />
 			<lib file="${class.module}" />
 			<lib file="${sci.module}" />
 			<lib file="${sap.module}" />
@@ -193,9 +193,9 @@
 	<!-- ====================================================================== -->
 
 	<target name="dist" depends="war" description="copy to dist">
-	   	<echo>copy files from "${dist.dir} to ${swif.dist.dir}</echo>	   
-		<mkdir dir="${swif.dist.dir}" />
-	    	<copy todir="${swif.dist.dir}">
+	   	<echo>copy files from "${dist.dir} to ${soaf.dist.dir}</echo>	   
+		<mkdir dir="${soaf.dist.dir}" />
+	    	<copy todir="${soaf.dist.dir}">
             		<fileset dir="${dist.dir}" />
       	    	</copy>
      	</target>

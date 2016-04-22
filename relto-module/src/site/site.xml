@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SWIF ${project.version}">
+<project name="SOAF ${project.version}">
 
     <skin>
         <groupId>org.apache.maven.skins</groupId>

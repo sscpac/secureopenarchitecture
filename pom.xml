@@ -7,11 +7,11 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>mil.navy.spawar.swif</groupId>
-  <artifactId>swif-parent</artifactId>
+  <groupId>mil.navy.spawar.soaf</groupId>
+  <artifactId>soaf-parent</artifactId>
   <packaging>pom</packaging>
-  <name>SWIF Build</name>
-  <description>SWIF Build</description>
+  <name>SOAF Build</name>
+  <description>SOAF Build</description>
   <version>1.0.0-SNAPSHOT</version>
 
 

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:beans="http://www.springframework.org/schema/beans"
-       xmlns:sec="http://www.springframework.org/schema/security"
        xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 
-    <bean id="ldapService" class="mil.navy.spawar.swif.ldap.SwifLdapServiceImpl">
+    <bean id="ldapService" class="mil.navy.spawar.soaf.ldap.SoafLdapServiceImpl">
         <constructor-arg ref="ldapContextSource"/>
-        <property name="swifUserContextMapper" ref="swifUserConextMapper"/>
-        <property name="userBaseDN"  value="ou=Users,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil"/>
+        <property name="soafUserContextMapper" ref="soafUserConextMapper"/>
+        <property name="userBaseDN"  value="ou=Users,dc=soaf,dc=sd,dc=spawar,dc=navy,dc=mil"/>
     </bean>
 
-    <bean id="swifUserConextMapper" class="mil.navy.spawar.swif.ldap.SwifUserContextMapper">
+    <bean id="soafUserConextMapper" class="mil.navy.spawar.soaf.ldap.SoafUserContextMapper">
         <property name="userNameMapping" value="cn"/>
         <property name="userRealNameMapping" value="givenName"/>
         <property name="emailMapping" value="mail"/>
@@ -23,8 +20,8 @@
 
     <bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
         <constructor-arg value="ldap://localhost:389"/>
-        <property name="userDn" value="cn=manager,dc=swif2,dc=sd,dc=spawar,dc=navy,dc=mil"/>
-        <property name="password" value="swif123"/>
+        <property name="userDn" value="cn=manager,dc=soaf,dc=sd,dc=spawar,dc=navy,dc=mil"/>
+        <property name="password" value="soaf123"/>
     </bean>
 
 

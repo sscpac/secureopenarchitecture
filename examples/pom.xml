@@ -4,15 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>mil.navy.spawar.swif</groupId>
-    <artifactId>swif-parent</artifactId>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>swif-examples-webapp</artifactId> 
+  <artifactId>soaf-examples-webapp</artifactId> 
   <packaging>war</packaging>
-  <name>SWIF Examples Web Application</name>
-  <description>SWIF Examples Web Application</description>
+  <name>SOAF Examples Web Application</name>
+  <description>SOAF Examples Web Application</description>
   
   <properties>
     <root.dir>${project.parent.basedir}</root.dir>

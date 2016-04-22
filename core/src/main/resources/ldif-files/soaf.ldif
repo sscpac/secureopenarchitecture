@@ -1,0 +1,140 @@
+#
+# Defines the custom SOAF Ldap schema for import into Apache Directory Server 2.x
+# The custom schema contains a few new attributeTypes and one new objectClass
+#
+
+# SCHEMA "SOAF"
+dn: cn=soaf, ou=schema
+objectclass: metaSchema
+objectclass: top
+cn: soaf
+m-dependencies: system
+m-dependencies: inetorgperson
+m-dependencies: core
+
+dn: ou=attributeTypes, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: attributetypes
+
+dn: m-oid=1.1.1.1.1.9999.9999.1.1, ou=attributetypes, cn=soaf, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.1.1.1.1.9999.9999.1.1
+m-name: soafUserClassification
+m-description: DoD 520 classification marking(s) the user has access to
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-length: 0
+
+dn: m-oid=1.1.1.1.1.9999.9999.1.2, ou=attributetypes, cn=soaf, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.1.1.1.1.9999.9999.1.2
+m-name: soafUserCountry
+m-description: Soaf user country code
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-length: 0
+m-singleValue: TRUE
+
+dn: m-oid=1.1.1.1.1.9999.9999.1.3, ou=attributetypes, cn=soaf, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.1.1.1.1.9999.9999.1.3
+m-name: soafUserSciMarking
+m-description: sci markings user has access to
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-length: 0
+
+dn: m-oid=1.1.1.1.1.9999.9999.1.4, ou=attributetypes, cn=soaf, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.1.1.1.1.9999.9999.1.4
+m-name: soafUserSapMarking
+m-description: sap marking the user has access to
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-length: 0
+
+dn: m-oid=1.1.1.1.1.9999.9999.1.5, ou=attributetypes, cn=soaf, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.1.1.1.1.9999.9999.1.5
+m-name: soafUserDacRole
+m-description: assigned dac  roles
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
+m-length: 0
+
+dn: ou=comparators, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: comparators
+
+dn: ou=ditContentRules, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: ditcontentrules
+
+dn: ou=ditStructureRules, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: ditstructurerules
+
+dn: ou=matchingRules, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: matchingrules
+
+dn: ou=matchingRuleUse, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: matchingruleuse
+
+dn: ou=nameForms, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: nameforms
+
+dn: ou=normalizers, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: normalizers
+
+dn: ou=objectClasses, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: objectClasses
+
+dn: m-oid=1.1.1.1.9999.9999.1.0, ou=objectclasses, cn=soaf, ou=schema
+objectclass: metaObjectClass
+objectclass: metaTop
+objectclass: top
+m-oid: 1.1.1.1.9999.9999.1.0
+m-name: soafUser
+m-description: defines soaf user object type
+m-supObjectClass: inetOrgPerson
+m-must: cn
+m-must: givenName
+m-must: mail
+m-must: sn
+m-must: soafUserClassification
+m-must: soafUserCountry
+m-must: uid
+m-must: userPassword
+m-may: soafUserDacRole
+m-may: soafUserSapMarking
+m-may: soafUserSciMarking
+
+dn: ou=syntaxCheckers, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: syntaxcheckers
+
+dn: ou=syntaxes, cn=soaf, ou=schema
+objectclass: organizationalUnit
+objectclass: top
+ou: syntaxes
+

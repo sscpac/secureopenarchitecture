@@ -10,9 +10,9 @@
 	
 	<!--daily rolling file -->
 	<appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${catalina.home}/logs/swif-services.log</File>
+		<File>${catalina.home}/logs/soaf-services.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>swif-services.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>soaf-services.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<maxHistory>10</maxHistory>
 		</rollingPolicy>
 		<encoder>
@@ -22,9 +22,9 @@
 	
 	<!-- audit daily rolling file -->
 	<appender name="AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${catalina.home}/logs/swif-services-audit.log</File>
+		<File>${catalina.home}/logs/soaf-services-audit.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>swif-services-audit.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>soaf-services-audit.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<maxHistory>10</maxHistory>
 		</rollingPolicy>
 		<encoder>

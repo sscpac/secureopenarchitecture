@@ -6,26 +6,24 @@
         xmlns:util="http://www.springframework.org/schema/util"
         xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
-       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 	<bean id="securityContext" class="java.lang.String" >
 		<constructor-arg value="securityLabel" />
 	</bean>
 
-    <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-		<property name="ldapAttributeName" value="swifUserClassification"/>
+    <bean id="classificationConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+		<property name="ldapAttributeName" value="soafUserClassification"/>
 		<property name="dbAttributeName" value="classification"/>
 		<property name="userDetailsName" value="classification"/>
     </bean>
        
-	<bean id="classificationPreQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoQueryFilter" >
+	<bean id="classificationPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="classificationConfig" />
 	</bean>
        
-	<bean id="classificationPostQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoRecordFilter" >
+	<bean id="classificationPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="classificationConfig" />
 	</bean>
@@ -36,10 +34,10 @@
 	      <value>LEVEL-THREE</value>
 	</util:list>
 	
-    <bean id="userDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+    <bean id="userDetails" class="mil.navy.spawar.soaf.security.SoafUserDetailsImpl" >
 		<constructor-arg>
 			<bean class="java.lang.String">
-				<constructor-arg value="swifUser"/>
+				<constructor-arg value="soafUser"/>
 			</bean>	
 		</constructor-arg>
 		<constructor-arg>
@@ -54,7 +52,7 @@
 		</constructor-arg>
 		<constructor-arg>
 			<bean class="java.lang.String">
-				<constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
+				<constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
 			</bean>	
 		</constructor-arg>
      	<property name="customAttributes">

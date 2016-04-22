@@ -19,22 +19,22 @@
     </bean>
 
     <!--  auth decision manager -->
-    <bean id="authDecisionManager" class="mil.navy.spawar.swif.security.MongoAuthDecisionManagerImpl">
+    <bean id="authDecisionManager" class="mil.navy.spawar.soaf.security.MongoAuthDecisionManagerImpl">
 		<property name="queryFilters" >
 			<list>
-				<bean class="mil.navy.spawar.swif.security.filters.ClassificationMongoQueryFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.ClassificationMongoQueryFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="classificationConfig" />
 				</bean>
-				<bean class="mil.navy.spawar.swif.security.filters.SCIMongoQueryFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.SCIMongoQueryFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="sciConfig" />
 				</bean>
-				<bean class="mil.navy.spawar.swif.security.filters.SAPMongoQueryFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.SAPMongoQueryFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="sapConfig" />
 				</bean>
-				<bean class="mil.navy.spawar.swif.security.filters.RelToMongoQueryFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.RelToMongoQueryFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="relToConfig" />
 				</bean>
@@ -42,19 +42,19 @@
 		</property>
 		<property name="recordFilters" >
 			<list>
-				<bean class="mil.navy.spawar.swif.security.filters.ClassificationMongoRecordFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.ClassificationMongoRecordFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="classificationConfig" />
                 </bean>
-				<bean class="mil.navy.spawar.swif.security.filters.SCIMongoRecordFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.SCIMongoRecordFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="sciConfig" />
 				</bean>
-				<bean class="mil.navy.spawar.swif.security.filters.SAPMongoRecordFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.SAPMongoRecordFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="sapConfig" />
 				</bean>
-				<bean class="mil.navy.spawar.swif.security.filters.RelToMongoRecordFilter" >
+				<bean class="mil.navy.spawar.soaf.security.filters.RelToMongoRecordFilter" >
 					<property name="databaseLabel" ref="securityContext" />
 					<property name="attributeConfig" ref="relToConfig" />
 				</bean>
@@ -63,28 +63,28 @@
 	</bean>
 
     <!--  attr config -->
-    <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserClassification"/>
+    <bean id="classificationConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
     </bean>
 
 	<!--  attr config -->				
-    <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserScimarking"/>
+    <bean id="sciConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
     </bean>
 
 	<!--  attr config -->				
-    <bean id="sapConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserSapmarking"/>
+    <bean id="sapConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
     </bean>
 
-   <bean id="relToConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserCountry"/>
+   <bean id="relToConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserCountry"/>
         <property name="dbAttributeName" value="RELTO"/>
         <property name="userDetailsName" value="country"/>
     </bean>
@@ -92,11 +92,11 @@
 	<!-- auth token / userdetails -->
 		
 	<bean id="authKey" class="java.lang.String">
-		<constructor-arg value="swifUser"/>
+		<constructor-arg value="soafUser"/>
 	</bean>	
 	
 	<bean id="authDn" class="java.lang.String">
-		<constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
+		<constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
 	</bean>	
 
 	<bean id="authCredentials" class="java.lang.String">
@@ -143,7 +143,7 @@
       <entry key="sapMarking" value-ref="sapMarkings" />
    	</util:map>	
 	
-    <bean id="authUserDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+    <bean id="authUserDetails" class="mil.navy.spawar.soaf.security.SoafUserDetailsImpl" >
 		<constructor-arg ref="authKey" />	    	 
 		<constructor-arg ref="authAuthorities" />
 		<constructor-arg ref="authDn" />

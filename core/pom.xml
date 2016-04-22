@@ -4,15 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>mil.navy.spawar.swif</groupId>
-    <artifactId>swif-parent</artifactId>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>swif-core</artifactId>
+  <artifactId>soaf-core</artifactId>
   <packaging>jar</packaging>
-  <name>SWIF Core</name>
-  <description>SWIF core</description>
+  <name>SOAF Core</name>
+  <description>SOAF core</description>
 
   <properties>
     <root.dir>${project.parent.basedir}</root.dir>

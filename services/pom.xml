@@ -4,15 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>mil.navy.spawar.swif</groupId>
-    <artifactId>swif-parent</artifactId>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>swif-services-webapp</artifactId> 
+  <artifactId>soaf-services-webapp</artifactId> 
   <packaging>war</packaging>
-  <name>SWIF Services Web Application</name>
-  <description>SWIF Services Web Application</description>
+  <name>SOAF Services Web Application</name>
+  <description>SOAF Services Web Application</description>
   
   <properties>
     <root.dir>${project.parent.basedir}</root.dir>
@@ -20,41 +20,41 @@
 
     <dependencies>
 	
-	<!-- swif core -->
+	<!-- soaf core -->
         <dependency>		
-           <groupId>mil.navy.spawar.swif</groupId>
-       	   <artifactId>swif-core</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	   <artifactId>soaf-core</artifactId>
 	   <version>${project.version}</version>
         </dependency>
 
-	<!-- swif security modules -->
+	<!-- soaf security modules -->
 	<dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-generic-security-module</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	    <artifactId>soaf-generic-security-module</artifactId>
            <version>${project.version}</version>
         </dependency>
 
 	<dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-sci-security-module</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	    <artifactId>soaf-sci-security-module</artifactId>
            <version>${project.version}</version>
         </dependency>
 
        <dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-sap-security-module</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	    <artifactId>soaf-sap-security-module</artifactId>
            <version>${project.version}</version>
         </dependency>
 
        <dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-classification-security-module</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	    <artifactId>soaf-classification-security-module</artifactId>
            <version>${project.version}</version>
         </dependency>
 
        <dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-relto-security-module</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	    <artifactId>soaf-relto-security-module</artifactId>
            <version>${project.version}</version>
         </dependency>
 
@@ -178,7 +178,7 @@
             <configuration>
               <sources>
                 <source>src/test/java</source>
- 		<source>${project.parent.basedir}/core/src/test/java/mil/navy/spawar/swif/testutils</source>
+ 		<source>${project.parent.basedir}/core/src/test/java/mil/navy/spawar/soaf/testutils</source>
               </sources>
             </configuration>
           </execution>

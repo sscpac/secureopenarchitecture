@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+     <!-- classification attribute security pre-query filer -->
+    <bean id="classificationPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoQueryFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="classificationConfig" />
+    </bean>
+	
+    <!-- sci attribute security pre-query filer -->
+    <bean id="sciPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoQueryFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="sciConfig" />
+    </bean>
+
+    <!-- sap attribute security pre-query filer -->
+    <bean id="sapPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SAPMongoQueryFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="sapConfig" />
+    </bean>
+
+	<!-- relto -->
+    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.RelToMongoQueryFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="relToConfig" />
+	</bean>
+
+    <!-- classification attribute security post-query filer -->
+    <bean id="classificationPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoRecordFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="classificationConfig" />
+    </bean>
+    
+    <!-- sci attribute security post-query filer -->
+    <bean id="sciPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoRecordFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="sciConfig" />
+    </bean>
+	
+    <!-- sap attribute security post-query filer -->
+    <bean id="sapPostQueryFilter"  class="mil.navy.spawar.soaf.security.filters.SAPMongoRecordFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="sapConfig" />
+    </bean>
+
+	<!-- relto -->
+	<bean id="reltoPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.RelToMongoRecordFilter" >
+		<property name="databaseLabel" ref="securityContext" />
+		<property name="attributeConfig" ref="relToConfig" />
+	</bean>
+	
+    <!--  auth decision manager -->		
+    <bean id="authDecisionManager" class="mil.navy.spawar.soaf.security.MongoAuthDecisionManagerImpl">
+		<property name="queryFilters" >
+			<list>
+				<ref bean="classificationPreQueryFilter" />
+				<ref bean="sciPreQueryFilter" />
+				<ref bean="sapPreQueryFilter" />
+				<ref bean="reltoPreQueryFilter" />
+			</list>
+		</property>
+		<property name="resultFilters" >
+			<list>
+				<ref bean="classificationPostQueryFilter" />
+				<ref bean="sciPostQueryFilter" />
+				<ref bean="sapPostQueryFilter" />
+				<ref bean="reltoPostQueryFilter" />
+			</list>
+		</property>
+     </bean>
+
+  	<!-- dataAccessManager -->	
+    <bean id="dataAccessManager" class="mil.navy.spawar.soaf.data.MongoDataAccessManagerImpl" >
+        <property name="database" ref="embedMongoDb"/>
+        <property name="authorizationManager" ref="authDecisionManager"/>
+        <property name="aggregateLabel" value="securityAggregate"/>
+    </bean>
+ 
+</beans>

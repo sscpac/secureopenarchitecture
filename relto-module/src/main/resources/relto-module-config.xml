@@ -13,7 +13,7 @@
 		attributeConfig is the relto attribute config which defines the relto attr
 			name in the document and the userdetails
 	-->
-    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoQueryFilter" >
+    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.RelToMongoQueryFilter" >
         <property name="databaseLabel" ref="securityContext" />
         <property name="attributeConfig" ref="relToConfig" />
     </bean>
@@ -31,7 +31,7 @@
 			
 		defaultValue is applied to all objects	
 	-->
-    <bean id="reltoPostQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoRecordFilter" >
+    <bean id="reltoPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.RelToMongoRecordFilter" >
         <property name="databaseLabel" ref="securityContext" />
         <property name="attributeConfig" ref="relToConfig" />
     </bean>

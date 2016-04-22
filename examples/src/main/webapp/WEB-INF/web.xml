@@ -2,9 +2,9 @@
 <web-app>
 
 	<context-param>
-		<param-name>swif-url</param-name>
-		<param-value>/swif</param-value>
-		<description>SWIF REST service base URI</description>
+		<param-name>soaf-url</param-name>
+		<param-value>/soaf</param-value>
+		<description>SOAF REST service base URI</description>
 	</context-param>
    	 	
    	<context-param>        

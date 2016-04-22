@@ -12,7 +12,7 @@
     <mvc:annotation-driven/>
 
     <!-- register controllers service etc -->
-    <context:component-scan base-package="mil.navy.spawar.swif"/>
+    <context:component-scan base-package="mil.navy.spawar.soaf"/>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
@@ -32,29 +32,29 @@
     </bean>
 
     <!-- classification attribute config -->
-    <bean id="classificationConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserClassification"/>
+    <bean id="classificationConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserClassification"/>
         <property name="dbAttributeName" value="classification"/>
         <property name="userDetailsName" value="classification"/>
     </bean>
 
     <!-- sci attribute config -->
-    <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserScimarking"/>
+    <bean id="sciConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
     </bean>
 
     <!-- sap attribute config -->
-    <bean id="sapConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserSapmarking"/>
+    <bean id="sapConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserSapmarking"/>
         <property name="dbAttributeName" value="SAP"/>
         <property name="userDetailsName" value="sapMarking"/>
     </bean>
 
     <!-- relto attribute config -->
-    <bean id="relToConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserCountry"/>
+    <bean id="relToConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserCountry"/>
         <property name="dbAttributeName" value="RELTO"/>
         <property name="userDetailsName" value="country"/>
         <property name="defaultValue" value="USA"/>
@@ -70,54 +70,54 @@
 
     <!-- referenced from spring security config -->
     <!-- populates authenticated user detail object -->
-    <bean id="swifUserDetailsMapper" class="mil.navy.spawar.swif.security.SwifUserDetailsContextMapper">
+    <bean id="soafUserDetailsMapper" class="mil.navy.spawar.soaf.security.SoafUserDetailsContextMapper">
         <property name="attributeConfigs" ref="securityAttributeConfigs"/>
     </bean>
 
     <!-- classification attribute security pre-query filer -->
-    <bean id="classificationPreQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoQueryFilter" >
+    <bean id="classificationPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="classificationConfig" />
     </bean>
 
     <!-- sci attribute security pre-query filer -->
-    <bean id="sciPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoQueryFilter" >
+    <bean id="sciPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
     </bean>
 
     <!-- sap attribute security pre-query filer -->
-    <bean id="sapPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SAPMongoQueryFilter" >
+    <bean id="sapPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SAPMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sapConfig" />
     </bean>
 
     <!-- relto attribute security pre-query filer -->
-    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoQueryFilter" >
+    <bean id="reltoPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.RelToMongoQueryFilter" >
         <property name="databaseLabel" ref="securityContext" />
         <property name="attributeConfig" ref="relToConfig" />
     </bean>
 
     <!-- classification attribute security post-query filer -->
-    <bean id="classificationPostQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoRecordFilter" >
+    <bean id="classificationPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="classificationConfig" />
     </bean>
 
     <!-- sci attribute security post-query filer -->
-    <bean id="sciPostQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoRecordFilter" >
+    <bean id="sciPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
     </bean>
 
     <!-- sap attribute security post-query filer -->
-    <bean id="sapPostQueryFilter"  class="mil.navy.spawar.swif.security.filters.SAPMongoRecordFilter" >
+    <bean id="sapPostQueryFilter"  class="mil.navy.spawar.soaf.security.filters.SAPMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sapConfig" />
     </bean>
 
     <!-- relto attribute security post-query filer -->
-    <bean id="reltoPostQueryFilter" class="mil.navy.spawar.swif.security.filters.RelToMongoRecordFilter" >
+    <bean id="reltoPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.RelToMongoRecordFilter" >
         <property name="databaseLabel" ref="securityContext" />
         <property name="attributeConfig" ref="relToConfig" />
     </bean>
@@ -125,7 +125,7 @@
     <!-- auth decision manager configuration -->
     <!-- this will tell the auth mgr which security filters to apply for -->
     <!-- docs going into the database and docs retrieved from the database () -->
-    <bean id="authDecisionManager" class="mil.navy.spawar.swif.security.MongoAuthDecisionManagerImpl">
+    <bean id="authDecisionManager" class="mil.navy.spawar.soaf.security.MongoAuthDecisionManagerImpl">
         <property name="queryFilters" >
               <list>
                   <ref bean="classificationPreQueryFilter" />
@@ -146,18 +146,18 @@
 
     <!-- data access manager configuration -->
     <!-- needs references to the database instance & the auth mgr -->
-    <bean id="dataAccessManager" class="mil.navy.spawar.swif.data.MongoDataAccessManagerImpl">
+    <bean id="dataAccessManager" class="mil.navy.spawar.soaf.data.MongoDataAccessManagerImpl">
         <property name="database" ref="mongodb"/>
         <property name="authorizationManager" ref="authDecisionManager"/>
     </bean>
 
-    <bean id="ldapService" class="mil.navy.spawar.swif.ldap.SwifLdapServiceImpl">
+    <bean id="ldapService" class="mil.navy.spawar.soaf.ldap.SoafLdapServiceImpl">
         <constructor-arg ref="ldapContextSource"/>
-        <property name="swifUserContextMapper" ref="swifUserConextMapper"/>
+        <property name="soafUserContextMapper" ref="soafUserConextMapper"/>
         <property name="userBaseDN"  value="${ldap.user.base.dn}"/>
     </bean>
 
-    <bean id="swifUserConextMapper" class="mil.navy.spawar.swif.ldap.SwifUserContextMapper">
+    <bean id="soafUserConextMapper" class="mil.navy.spawar.soaf.ldap.SoafUserContextMapper">
         <property name="userNameMapping" value="cn"/>
         <property name="userRealNameMapping" value="givenName"/>
         <property name="emailMapping" value="mail"/>
@@ -179,7 +179,7 @@
 
     <!-- production properties -->
     <beans profile="production">
-        <context:property-placeholder location="classpath*:swif-production.properties"/>
+        <context:property-placeholder location="classpath*:soaf-production.properties"/>
     </beans>
 
 
