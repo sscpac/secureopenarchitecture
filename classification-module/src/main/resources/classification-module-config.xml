@@ -12,7 +12,7 @@
 		attributeConfig is the classification attribute config which defines the classification attr 
 			name in the document and the userdetails
 	-->
-	<bean id="classificationPreQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoQueryFilter" >
+	<bean id="classificationPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="classificationConfig" />
 	</bean>
@@ -27,7 +27,7 @@
 		attributeConfig is the classification attribute config which defines the classification attr 
 			name in the document and the userdetails
 	-->
-	<bean id="classificationPostQueryFilter" class="mil.navy.spawar.swif.security.filters.ClassificationMongoRecordFilter" >
+	<bean id="classificationPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.ClassificationMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="classificationConfig" />
 	</bean>

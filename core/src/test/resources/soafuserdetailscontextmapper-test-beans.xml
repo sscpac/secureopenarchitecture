@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+		
+	<!-- attr config -->		
+    <bean id="classificationConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserClassification"/>
+        <property name="dbAttributeName" value="classification"/>
+        <property name="userDetailsName" value="classification"/>
+    </bean>
+
+	<!-- attr config -->
+    <bean id="sciConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserScimarking"/>
+        <property name="dbAttributeName" value="SCI"/>
+        <property name="userDetailsName" value="sciMarking"/>
+    </bean>
+
+	<!-- attr config -->
+    <bean id="sapConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserSapmarking"/>
+        <property name="dbAttributeName" value="SAP"/>
+        <property name="userDetailsName" value="sapMarking"/>
+    </bean>
+
+	<!-- attr config -->
+    <bean id="relToConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserCountry"/>
+        <property name="dbAttributeName" value="RELTO"/>
+        <property name="userDetailsName" value="country"/>
+    </bean>
+      
+    <!-- active attrs for mapper -->  
+    <util:list id="securityAttributes">
+      	<ref bean="classificationConfig" />
+      	<ref bean="sciConfig" />
+      	<ref bean="sapConfig" />
+      	<ref bean="relToConfig" />
+	</util:list>
+	
+	<!-- context mapper -->
+    <bean id="mapper" class="mil.navy.spawar.soaf.security.SoafUserDetailsContextMapper" >
+		<property name="attributeConfigs" ref="securityAttributes" />
+	</bean>
+
+	<!--  user roles -->
+	<util:list id="authorities">
+		<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+			<constructor-arg><value>ADMIN</value></constructor-arg>
+		</bean>
+		<bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+			<constructor-arg><value>DEVELOPER</value></constructor-arg>
+		</bean>
+	</util:list>
+	
+</beans>

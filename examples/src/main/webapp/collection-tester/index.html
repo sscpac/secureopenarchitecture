@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>Collection Tester</title>
+    <link rel="stylesheet" type="text/css" href="css/pretty-json.css"/>
+    <link rel="stylesheet" type="text/css" href="css/collection-tester.css?r=1"/>
+
+    <!-- SOAF Dependencies -->
+    <script type="text/javascript" src="/soaf/js/jquery.js"></script>
+    <script type="text/javascript" src="/soaf/js/jquery-ui-1.10.3.core.widgets.min.js"></script>
+
+    <!-- Application Dependencies -->
+    <script type="text/javascript" src="libs/underscore-min.js"></script>
+    <script type="text/javascript" src="libs/backbone-min.js"></script>
+    <script type="text/javascript" src="libs/pretty-json-min.js"></script>
+
+    <!-- SOAF API Libraries -->
+    <script src="/soaf/js/soaf-rest.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<script>
+    $(document).ready(function () {
+
+        var el = {
+            btnSearch: $('#search'),
+            btnCreate: $('#create'),
+            btnUpdate: $('#update'),
+            btnDelete: $('#delete'),
+            result: $('#result'),
+            collection: $('#collection'),
+            keyword: $('#keyword'),
+            json: $('#json'),
+            id: $("#id")
+        };
+
+        el.btnSearch.on('click', function () {
+            console.log("Search");
+            var col = el.collection.val();
+            var key = el.keyword.val();
+
+            if (!col) {
+                alert("Please Enter Collection Name");
+                return;
+            }
+
+            $.securityLabelRest.queryCollection(col, key).done(function (data) {
+                new PrettyJSON.view.Node({
+                    el: el.result,
+                    data: data,
+                });
+            });
+        });
+
+        el.btnCreate.on('click', function () {
+            console.log("Create");
+            var col = el.collection.val();
+
+            if (!col) {
+                alert("Please Enter Collection Name");
+                return;
+            }
+
+            var data = parse(el.json.val());
+
+            if (data) {
+                $.securityLabelRest.createRecord(col, data).done(
+                        function (id) {
+                            data._id = { $oid : id._id };
+                            new PrettyJSON.view.Node({
+                                el: el.result,
+                                data: data,
+                            });
+                        });
+
+            }
+        });
+
+        el.btnUpdate.on('click', function () {
+            console.log("Update");
+            var col = el.collection.val();
+
+            if (!col) {
+                alert("Please Enter Collection Name");
+                return;
+            }
+
+            var data = parse(el.json.val());
+
+            if (data) {
+                //Check that record data provided includes an ID
+                if (!data._id || !data._id.$oid) {
+                    alert("Record data does not contain an ID")
+                } else {
+                    //Prompts for security label before update
+                    $.securityLabelRest.updateRecord(col, data).done(
+                            function () {
+                                new PrettyJSON.view.Node({
+                                    el: el.result,
+                                    data: data,
+                                });
+                            });
+                }
+            }
+        });
+
+        el.btnDelete.on('click', function () {
+            console.log("Delete");
+            var col = el.collection.val();
+            var id = el.id.val();
+
+            if (!col || !id) {
+                alert("Please Enter Collection Name and ID");
+                return;
+            }
+
+            $.securityLabelRest.deleteRecord(col, id).done(
+                    function () {
+                        el.result.text("Record " + id + " has been removed.");
+                    });
+            ;
+        });
+    });
+
+    function parse(data) {
+        try {
+            var r = $.parseJSON(data);
+            return r;
+        }
+        catch (err) {
+            alert("Unable to Parse Record Data");
+            return null;
+        }
+
+    }
+</script>
+
+
+
+  <table><tr >
+    <td class=header>Input</td>
+    <td class=logout><a href="/cas/logout">Sign Out</a></td> 
+  </tr></table>     
+
+<div class="content">
+    <label>Collection Name:</label> <input type="text" id="collection"><br>
+    <label>Search String:</label> <input type="text" id="keyword"><br>
+    <label>Collection ID:</label> <input type="text" id="id"><br>
+
+    <table>
+        <tr>
+            <td><label>Record Data: </label></td>
+            <td width="100%"><textarea rows="4" id="json"></textarea></td>
+        </tr>
+    </table>
+
+</div>
+<div class="buttons">
+    <button id="search">search</button>
+    <button id="create">create</button>
+    <button id="update">update</button>
+    <button id="delete">delete</button>
+</div>
+
+<div class="header">Results</div>
+
+<div class="content">
+    <span id="result"></span>
+</div>
+</body>
+</html>

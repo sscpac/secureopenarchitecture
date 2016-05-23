@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 
-	<display-name>swif</display-name>
+	<display-name>soaf</display-name>
 
   	<filter>
        <filter-name>CAS Single Sign Out Filter</filter-name>
@@ -29,14 +29,8 @@
 		<param-value>classpath:contextConfig.xml</param-value>
 	</context-param>
 	
-	<!-- 
-		supported profiles [ development | testing | production ]
-		please use only one profiles
-	-->
 	<context-param>
 		<param-name>spring.profiles.active</param-name>
-		<!-- <param-value>development</param-value> -->
-		<!-- <param-value>testing</param-value> -->
 		<param-value>production</param-value>
 	</context-param>
 	

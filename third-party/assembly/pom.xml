@@ -10,19 +10,19 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <groupId>mil.navy.spawar.swif</groupId>
-    <artifactId>swif-thirdparty-parent</artifactId>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-thirdparty-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
 
-  <artifactId>swif-thirdparty-distribution-assembly</artifactId> 
-  <name>SWIF Third Party Distribution Assembly</name>
-  <description>SWIF Third Party Distribution Assembly</description>
+  <artifactId>soaf-thirdparty-distribution-assembly</artifactId> 
+  <name>SOAF Third Party Distribution Assembly</name>
+  <description>SOAF Third Party Distribution Assembly</description>
   <packaging>pom</packaging>
 
   <properties>
-    <distro.name>swif-latest-release</distro.name>
+    <distro.name>soaf-latest-release</distro.name>
   </properties>
 
   
@@ -32,24 +32,10 @@
   -->
   <dependencies>
 
-	<!-- owf security module -->
-        <dependency>		
-           <groupId>mil.navy.spawar.swif</groupId>
-       	   <artifactId>swif-owf-security-customization</artifactId>
-	   <version>${project.version}</version>
-        </dependency>
-
-	<!-- fidl -->
-        <dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-fidl</artifactId>
-           <version>${project.version}</version>
-        </dependency>
-
 	<!-- cas -->
         <dependency>
-           <groupId>mil.navy.spawar.swif</groupId>
-       	    <artifactId>swif-cas-server</artifactId>
+           <groupId>mil.navy.spawar.soaf</groupId>
+       	    <artifactId>cas-overlay</artifactId>
            <version>${project.version}</version>
 	   <type>war</type>	
         </dependency>

@@ -3,17 +3,15 @@
 
  <modelVersion>4.0.0</modelVersion>
 
-  <groupId>mil.navy.spawar.swif</groupId>
-  <artifactId>swif-thirdparty-parent</artifactId>
+  <groupId>mil.navy.spawar.soaf</groupId>
+  <artifactId>soaf-thirdparty-parent</artifactId>
   <packaging>pom</packaging>
-  <name>SWIF Third Party Build</name>
-  <description>SWIF Third Party Build</description>
+  <name>SOAF Third Party Build</name>
+  <description>SOAF Third Party Build</description>
   <version>1.0.0-SNAPSHOT</version>
 
   <modules>
-    	<module>fidl</module>
-    	<module>OwfSecurityCustomizations</module>
-	<module>cas-server-swif-customization</module>
+	<module>cas</module>
         <module>assembly</module>
   </modules>
 

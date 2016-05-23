@@ -14,21 +14,18 @@
 		<constructor-arg value="securityLabel" />
 	</bean>
 
-    <bean id="sciConfig" class="mil.navy.spawar.swif.security.SecurityAttributeConfig">
-        <property name="ldapAttributeName" value="swifUserScimarking"/>
+    <bean id="sciConfig" class="mil.navy.spawar.soaf.security.SecurityAttributeConfig">
+        <property name="ldapAttributeName" value="soafUserScimarking"/>
         <property name="dbAttributeName" value="SCI"/>
         <property name="userDetailsName" value="sciMarking"/>
-        <property name="displayName" value="SCI Marking"/>
-        <property name="valueType" value="multiple"/>
-        <property name="rank" value="2"/>
     </bean>
 
-	<bean id="sciPreQueryFilter" class="mil.navy.spawar.swif.security.filters.GenericMongoQueryFilter" >
+	<bean id="sciPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.GenericMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
 	</bean>
 
-	<bean id="sciPostQueryFilter" class="mil.navy.spawar.swif.security.filters.GenericMongoRecordFilter" >
+	<bean id="sciPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.GenericMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
 	</bean>
@@ -39,9 +36,9 @@
 	      <value>SCI-3</value>
 	</util:list>
    
-    <bean id="userDetails" class="mil.navy.spawar.swif.security.SwifUserDetailsImpl" >
+    <bean id="userDetails" class="mil.navy.spawar.soaf.security.SoafUserDetailsImpl" >
 		<constructor-arg>
-			<bean class="java.lang.String"><constructor-arg value="swifUser"/></bean>	
+			<bean class="java.lang.String"><constructor-arg value="soafUser"/></bean>
 		</constructor-arg>
 		<constructor-arg>
 			<util:list>
@@ -50,7 +47,7 @@
 			</util:list>
 		</constructor-arg>
 		<constructor-arg>
-			<bean class="java.lang.String"><constructor-arg value="cn=swifUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>	
+			<bean class="java.lang.String"><constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/></bean>
 		</constructor-arg>
      	<property name="customAttributes">
    			<util:map value-type="java.util.List">

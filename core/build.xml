@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="swif-core" default="dist" basedir=".">
+<project name="soaf-core" default="dist" basedir=".">
 
       	<!-- ====================================================================== -->
       	<!-- Build environment properties                                           -->
      	<!-- ====================================================================== -->
-	<property name="module.name" value="swif-core" />
+	<property name="module.name" value="soaf-core" />
 
       	<property name="src.dir" location="src/main/java" />
       	<property name="resource.dir" location="src/main/resources" />
@@ -14,7 +14,7 @@
 
 	<property name="build.dir" location="build" />
 	<property name="dist.dir" location="${build.dir}/bin" />
-	<property name="swif.dist.dir" location="../dist" />
+	<property name="soaf.dist.dir" location="../dist" />
 
 	<property name="classes.dir" location="${build.dir}/classes" />
      	<property name="test.dir" location="${build.dir}/test" />
@@ -148,9 +148,9 @@
      	<!-- dist module                                                            -->
       	<!-- ====================================================================== -->
       	<target name="dist" depends="jar" description="Package module">
-	   	<echo>copy files from "${dist.dir} to ${swif.dist.dir}</echo>	    
-		<mkdir dir="${swif.dist.dir}" />
-	    	<copy todir="${swif.dist.dir}">
+	   	<echo>copy files from "${dist.dir} to ${soaf.dist.dir}</echo>	    
+		<mkdir dir="${soaf.dist.dir}" />
+	    	<copy todir="${soaf.dist.dir}">
             		<fileset dir="${dist.dir}" />
       	    	</copy>
      	 </target>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>soaf-examples-webapp</artifactId> 
+  <packaging>war</packaging>
+  <name>SOAF Examples Web Application</name>
+  <description>SOAF Examples Web Application</description>
+  
+  <properties>
+    <root.dir>${project.parent.basedir}</root.dir>
+  </properties>
+
+
+  <dependencies>
+
+	<!--
+        most of the dependencies are defined in the parent pom
+	-->
+
+       <!-- logging -->	
+       <dependency>
+         <groupId>log4j</groupId>
+         <artifactId>log4j</artifactId>
+       </dependency>
+
+        <!-- servlet api -->	
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+	  <scope>provided</scope>
+        </dependency>
+
+  </dependencies>	 
+
+
+ 
+</project>

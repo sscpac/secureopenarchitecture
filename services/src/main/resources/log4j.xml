@@ -9,7 +9,7 @@
 	</appender>
 
  	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="file" value="${catalina.home}/logs/swif.log" />
+        <param name="file" value="${catalina.home}/logs/soaf.log" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %c - %m%n" />
@@ -28,11 +28,11 @@
    		<level value="INFO" />
     </logger>
 
-    <logger name="mil.js.swif.rest" >
+    <logger name="mil.js.soaf.rest" >
     	<level value="WARN" />
     </logger>
 
-    <logger name="mil.navy.spawar.swif" >
+    <logger name="mil.navy.spawar.soaf" >
     	<level value="INFO" />
     </logger>
     

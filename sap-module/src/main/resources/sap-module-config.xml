@@ -13,7 +13,7 @@
 		attributeConfig is the classification attribute config which defines the sap attr 
 			name in the document and the userdetails
 	-->
-	<bean id="sapPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SAPMongoQueryFilter" >
+	<bean id="sapPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SAPMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sapConfig" />
 	</bean>
@@ -28,7 +28,7 @@
 		attributeConfig is the classification attribute config which defines the sap attr 
 			name in the document and the userdetails
 	-->
-	<bean id="sapPostQueryFilter" class="mil.navy.spawar.swif.security.filters.SAPMongoRecordFilter" >
+	<bean id="sapPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.SAPMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sapConfig" />
 	</bean>

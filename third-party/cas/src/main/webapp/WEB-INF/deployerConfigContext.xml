@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="authenticationManager" class="org.jasig.cas.authentication.AuthenticationManagerImpl">
+		<property name="credentialsToPrincipalResolvers">
+			<list>
+				<bean class="org.jasig.cas.authentication.principal.CredentialsToLDAPAttributePrincipalResolver">
+					<property name="credentialsToPrincipalResolver">
+						<bean class="org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver" />
+					</property>
+					<property name="filter" value="(uid=%u)" />
+ 					<property name="principalAttributeName" value="uid" />
+ 					<property name="searchBase" value="${ldap.user.searchBase}" />
+					<property name="contextSource" ref="casContextSource" />
+ 					<property name="attributeRepository">
+						<ref bean="attributeRepository" />
+					</property>
+ 				</bean>		
+
+				<bean class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />
+			</list>
+		</property>
+
+		<property name="authenticationHandlers">
+			<list>
+				<bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler" p:httpClient-ref="httpClient" />
+
+				<bean class="org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler" >
+					<property name="filter" value="uid=%u" />
+					<property name="searchBase" value="${ldap.user.searchBase}" />
+					<property name="contextSource" ref="casContextSource" />
+				</bean>     
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userDetailsService" class="org.springframework.security.userdetails.memory.InMemoryDaoImpl">
+		<property name="userMap">
+			<value></value>
+		</property>
+	</bean> 
+	
+	<bean id="attributeRepository" class="org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao">
+		<property name="contextSource" ref="casContextSource" />
+		<property name="baseDN" value="${ldap.user.searchBase}" />
+		<property name="query" value="(uid={0})" />
+		<property name="ldapAttributesToPortalAttributes">
+			<map>
+				<entry key="dn" value="dn"/>
+			</map>
+		</property>		
+	</bean>           
+	
+	<bean id="serviceRegistryDao" class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl" />
+
+       	<bean id="casContextSource" class="org.jasig.cas.adaptors.ldap.util.AuthenticatedLdapContextSource">
+		<property name="pooled" value="true"/>
+		<property name="urls">
+            		<list>
+                		<value>${ldap.endpoint}</value>
+            		</list>
+        	</property>
+		<property name="userDn" value="${ldap.user.dn}"/>
+		<property name="password" value="${ldap.user.pwd}" />
+		<property name="baseEnvironmentProperties">
+			<map>
+				<entry>
+					<key><value>java.naming.security.authentication</value></key>
+					<value>simple</value>
+				</entry>
+				<entry>
+					<key><value>com.sun.jndi.ldap.connect.timeout</value></key>
+					<value>2000</value>
+				</entry>
+				<entry>
+					<key><value>com.sun.jndi.ldap.read.timeout</value></key>
+					<value>2000</value>
+				</entry>
+			</map>
+		</property>
+    	</bean>
+
+</beans>

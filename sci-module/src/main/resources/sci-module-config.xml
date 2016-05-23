@@ -13,7 +13,7 @@
 		attributeConfig is the classification attribute config which defines the sci attr 
 			name in the document and the userdetails
 	-->
-	<bean id="sciPreQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoQueryFilter" >
+	<bean id="sciPreQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoQueryFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
 	</bean>
@@ -28,7 +28,7 @@
 		attributeConfig is the classification attribute config which defines the sci attr 
 			name in the document and the userdetails
 	-->
-	<bean id="sciPostQueryFilter" class="mil.navy.spawar.swif.security.filters.SCIMongoRecordFilter" >
+	<bean id="sciPostQueryFilter" class="mil.navy.spawar.soaf.security.filters.SCIMongoRecordFilter" >
 		<property name="databaseLabel" ref="securityContext" />
 		<property name="attributeConfig" ref="sciConfig" />
 	</bean>
