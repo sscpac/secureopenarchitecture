@@ -10,6 +10,7 @@ sap-module/target/
 sci-module/target/
 services/target/
 deploy/docker/tomcat/release/
+deploy/vagrant/.vagrant
 *.swp
 *.iml
-*.*~
+*~
