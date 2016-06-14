@@ -11,7 +11,8 @@
 	</bean>	
 	
 	<bean id="authDn" class="java.lang.String">
-		<constructor-arg value="cn=soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
+		<constructor-arg value="cn=
+		soafUser,ou=Users,dc=spawar,dc=navy,dc=mil"/>
 	</bean>	
 
 	<bean id="authCredentials" class="java.lang.String">

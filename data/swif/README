@@ -1,9 +1,0 @@
-# To re-dump the DB
-In this directory:
-
-    mongodump --db soafDB
-
-# To restore the DB
-In this directory:
-
-    mongorestore --db soafDB dump/soafDB

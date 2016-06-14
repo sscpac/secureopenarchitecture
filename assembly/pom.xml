@@ -21,7 +21,8 @@
   <packaging>pom</packaging>
 
   <properties>
-    <distro.name>soaf-latest-release</distro.name>
+    <distro.path>deploy/docker/tomcat/</distro.path>	  
+    <distro.name>release</distro.name>
   </properties>
 
   
@@ -112,7 +113,7 @@
                 <descriptor>assembly.xml</descriptor>
               </descriptors>
 	      <finalName>${distro.name}</finalName>	
-              <outputDirectory>${project.parent.basedir}</outputDirectory>	
+	      <outputDirectory>${project.parent.basedir}/${distro.path}</outputDirectory>	
             </configuration>
           </execution>
         </executions>
@@ -126,7 +127,7 @@
 		<configuration>
 			<filesets>
 				<fileset>
-					<directory>${project.parent.basedir}/${distro.name}</directory>	
+					<directory>${project.parent.basedir}/${distro.path}/${distro.name}</directory>	
 				</fileset>
 			</filesets>
 		</configuration>
