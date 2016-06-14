@@ -12,7 +12,7 @@
 
   <modules>
 	<module>cas</module>
-        <module>assembly</module>
+        <!--module>assembly</module-->
   </modules>
 
   <build>

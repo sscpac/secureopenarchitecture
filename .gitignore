@@ -1,0 +1,15 @@
+.idea/
+swif-latest-release/
+third-party/cas/target/
+classification-module/target/
+core/target/
+examples/target/
+generic-module/target/
+relto-module/target/
+sap-module/target/
+sci-module/target/
+services/target/
+deploy/docker/tomcat/release/
+*.swp
+*.iml
+*.*~

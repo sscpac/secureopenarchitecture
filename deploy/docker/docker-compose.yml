@@ -1,0 +1,27 @@
+version: "2"
+services:
+    soaf-mongo:
+        build: ./mongodb
+        container_name: mongo
+
+    soaf-ldap:
+        build: ./ldap
+        container_name: ldap
+   
+    soaf-tomcat:
+        build: ./tomcat
+        container_name: tomcat
+        ports:
+         - "8443:8443"
+        depends_on:
+         - soaf-mongo
+         - soaf-ldap
+        links:
+         - "soaf-mongo:mongo"
+         - "soaf-ldap:ldap"
+              
+
+
+
+
+
