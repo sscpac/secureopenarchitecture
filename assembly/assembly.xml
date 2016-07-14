@@ -14,9 +14,25 @@
 
   <includeBaseDirectory>false</includeBaseDirectory>
 
-  <files>
-	
-    <!-- copy war files -->
+  <fileSets>
+    <fileSet>
+      <directory>${parent.basedir}/services/target/soaf-services-webapp-${project.version}</directory>
+      <outputDirectory>/soaf</outputDirectory>
+    </fileSet>  
+
+    <fileSet>
+      <directory>${parent.basedir}/examples/target/soaf-examples-webapp-${project.version}</directory>
+      <outputDirectory>/examples</outputDirectory>
+    </fileSet>  
+
+    <fileSet>
+      <directory>${parent.basedir}/third-party/cas/target/cas</directory>
+      <outputDirectory>/cas</outputDirectory>
+    </fileSet>  
+  </fileSets> 
+
+  <!-- copy war files -->
+  <!--files>
     <file>
       <source>${parent.basedir}/services/target/soaf-services-webapp-${project.version}.war</source>
       <outputDirectory>/</outputDirectory>
@@ -35,7 +51,5 @@
       <destName>cas.war</destName>
     </file>
 
-  </files>
-
-
+  </files-->
 </assembly>

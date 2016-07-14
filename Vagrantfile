@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+dev_mode = 'true'
 
 unless Vagrant.has_plugin?("vagrant-docker-compose")
   system("vagrant plugin install vagrant-docker-compose")
@@ -37,13 +38,13 @@ Vagrant.configure(2) do |config|
   # config.vm.network "forwarded_port", guest: 80, host: 8080
   # Docker 
   config.vm.network "forwarded_port", guest: 8443, host: 8443
-  config.vm.network "forwarded_port", guest: 10389, host: 10390
+  #config.vm.network "forwarded_port", guest: 10389, host: 10390
 
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.network "private_network", ip: "192.168.56.3"
+  config.vm.network "private_network", ip: "192.168.56.4"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -56,8 +57,7 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   # don't share the normally default /vagrant folder
-  config.vm.synced_folder "../..", "/vagrant"
-  # share the owncloud calendar folder
+  config.vm.synced_folder ".", "/opt/soaf"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -89,13 +89,17 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
   # install jdk and maven
-  config.vm.provision "shell", path:"./provisioning/install-maven.sh"
+  #config.vm.provision "shell", path:"./provisioning/install-maven.sh"
   # build source
-  config.vm.provision "shell", inline:"mvn clean install -f /vagrant/pom.xml -P no-test"
+  #config.vm.provision "shell", inline:"mvn clean install -f /vagrant/pom.xml -P no-test"
   #install docker
   config.vm.provision :docker
   #install docker-compose and start containers
-  config.vm.provision :docker_compose, rebuild: true, run: "always", yml: "/vagrant/deploy/docker/docker-compose.yml"  
 
+  if dev_mode == 'true' 
+    config.vm.provision :docker_compose, run: "always", yml: "/opt/soaf/docker-compose-dev.yml"  
+  else
+    config.vm.provision :docker_compose, run: "always", yml: "/opt/soaf/docker-compose.yml"  
+  end
 
 end

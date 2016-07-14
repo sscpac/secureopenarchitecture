@@ -1,0 +1,27 @@
+version: "2"
+services:
+    soaf-mongo:
+        image: justinansari/alpine-mongo
+        container_name: mongo
+
+    soaf-ldap:
+        image: justinansari/soaf-ldap
+        container_name: ldap
+   
+    soaf-tomcat:
+        image: justinansari/soaf-tomcat
+        container_name: tomcat
+        ports:
+         - "8443:8443"
+        depends_on:
+         - soaf-mongo
+         - soaf-ldap
+        links:
+         - "soaf-mongo:mongo"
+         - "soaf-ldap:ldap"
+               
+
+
+
+
+

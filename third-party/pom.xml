@@ -8,15 +8,24 @@
   <packaging>pom</packaging>
   <name>SOAF Third Party Build</name>
   <description>SOAF Third Party Build</description>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <modules>
 	<module>cas</module>
-        <!--module>assembly</module-->
   </modules>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>    
+  </distributionManagement>
 
   <build>
         <plugins />
- 
   </build>
 </project>

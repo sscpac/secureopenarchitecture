@@ -1,15 +1,15 @@
 version: "2"
 services:
     soaf-mongo:
-        build: ./mongodb
+        image: justinansari/alpine-mongo
         container_name: mongo
 
     soaf-ldap:
-        build: ./ldap
+        image: justinansari/soaf-ldap
         container_name: ldap
    
     soaf-tomcat:
-        build: ./tomcat
+        image: justinansari/soaf-tomcat
         container_name: tomcat
         ports:
          - "8443:8443"
@@ -19,7 +19,8 @@ services:
         links:
          - "soaf-mongo:mongo"
          - "soaf-ldap:ldap"
-              
+        volumes:
+         - /opt/soaf/soaf-latest-release:/usr/local/tomcat/webapps                 
 
 
 
