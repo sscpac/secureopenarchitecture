@@ -1,27 +1,46 @@
 version: "2"
 services:
     soaf-mongo:
-        image: justinansari/alpine-mongo
+        image: sscpac/mongo:alpine
         container_name: mongo
 
     soaf-ldap:
-        image: justinansari/soaf-ldap
+        image: sscpac/soaf-ldap
         container_name: ldap
-   
-    soaf-tomcat:
-        image: justinansari/soaf-tomcat
-        container_name: tomcat
-        ports:
-         - "8443:8443"
+  
+    soaf-cas:
+        image: sscpac/soaf-cas
+        container_name: cas
         depends_on:
-         - soaf-mongo
          - soaf-ldap
         links:
-         - "soaf-mongo:mongo"
-         - "soaf-ldap:ldap"
-               
+         - "soaf-ldap"        
+        extra_hosts:
+         - "jedis-dev.spawar.navy.mil:192.168.56.4"
 
-
-
-
+    soaf-server:
+        image: sscpac/soaf-server
+        container_name: soaf
+        depends_on:
+         - soaf-mongo                
+         - soaf-ldap
+        links:
+         - "soaf-mongo"                
+         - "soaf-ldap"        
+        extra_hosts:
+         - "jedis-dev.spawar.navy.mil:192.168.56.4"
+           
+    soaf-proxy:
+        image: sscpac/soaf-proxy
+        container_name: proxy
+        ports:
+         - "443:443"
+        depends_on:
+         - soaf-cas
+         - soaf-server
+        links:
+         - "soaf-cas"
+         - "soaf-server"
+   
+             
 

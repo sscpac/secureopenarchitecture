@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-dev_mode = 'true'
+dev_mode = 'false'
 
 unless Vagrant.has_plugin?("vagrant-docker-compose")
   system("vagrant plugin install vagrant-docker-compose")
@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.hostname = "soaf-dev"
+  config.vm.hostname = "jedis-dev"
 
   #don't worry abou replacing the insecure key
   config.ssh.insert_key = false  
@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
   # Docker 
-  config.vm.network "forwarded_port", guest: 8443, host: 8443
+  config.vm.network "forwarded_port", guest: 443, host: 443
   #config.vm.network "forwarded_port", guest: 10389, host: 10390
 
 

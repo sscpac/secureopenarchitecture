@@ -17,17 +17,17 @@
   <fileSets>
     <fileSet>
       <directory>${parent.basedir}/services/target/soaf-services-webapp-${project.version}</directory>
-      <outputDirectory>/soaf</outputDirectory>
+      <outputDirectory>/soaf-server/soaf</outputDirectory>
     </fileSet>  
 
     <fileSet>
       <directory>${parent.basedir}/examples/target/soaf-examples-webapp-${project.version}</directory>
-      <outputDirectory>/examples</outputDirectory>
+      <outputDirectory>/soaf-server/examples</outputDirectory>
     </fileSet>  
 
     <fileSet>
       <directory>${parent.basedir}/third-party/cas/target/cas</directory>
-      <outputDirectory>/cas</outputDirectory>
+      <outputDirectory>/soaf-cas/cas</outputDirectory>
     </fileSet>  
   </fileSets> 
 

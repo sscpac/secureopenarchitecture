@@ -2,26 +2,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>mil.navy.spawar.soaf</groupId>
     <artifactId>cas-overlay</artifactId>
     <name>SOAF CAS-Overlay</name>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <description>SOAF CAS Overlay</description>
+    <version>1.0.4</version>
 
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>    
-  </distributionManagement>
+    <url>https://github.com/sscpac/secureopenarchitecture</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/sscpac/secureopenarchitecture</url>
+        <connection>scm:git:git://github.com/sscpac/secureopenarchitecture.git</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <email>justin.ansari.ctr@navy.mil</email>
+            <name>Justin Ansari</name>
+            <id>justinansari</id>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 
     <build>
-        <plugins>          
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -33,8 +59,8 @@
                             <groupId>org.jasig.cas</groupId>
                             <artifactId>cas-server-webapp</artifactId>
                             <excludes>
-				    <exclude>WEB-INF/cas.properties</exclude>
-				    <exclude>WEB-INF/deployerConfigContext.xml</exclude>
+                                <exclude>WEB-INF/cas.properties</exclude>
+                                <exclude>WEB-INF/deployerConfigContext.xml</exclude>
                             </excludes>
                         </overlay>
                     </overlays>
@@ -49,6 +75,62 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
         <finalName>cas</finalName>
     </build>
@@ -60,19 +142,19 @@
             <version>${cas.version}</version>
             <type>war</type>
             <scope>runtime</scope>
-    	</dependency>
+        </dependency>
 
         <dependency>
-          <groupId>org.springframework.ldap</groupId>
-	  <artifactId>spring-ldap-core</artifactId>
-	  <version>1.3.0.RELEASE</version>
- 	 </dependency>
+            <groupId>org.springframework.ldap</groupId>
+            <artifactId>spring-ldap-core</artifactId>
+            <version>1.3.0.RELEASE</version>
+        </dependency>
 
         <dependency>
-          <groupId>org.jasig.cas</groupId>
-	  <artifactId>cas-server-support-ldap</artifactId>
-          <version>${cas.version}</version>	  
-  	</dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-server-support-ldap</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
 
     </dependencies>
 

@@ -3,29 +3,22 @@
 
  <modelVersion>4.0.0</modelVersion>
 
-  <groupId>mil.navy.spawar.soaf</groupId>
   <artifactId>soaf-thirdparty-parent</artifactId>
   <packaging>pom</packaging>
   <name>SOAF Third Party Build</name>
   <description>SOAF Third Party Build</description>
-  <version>1.0.0</version>
+
+  <parent>
+    <groupId>mil.navy.spawar.soaf</groupId>
+    <artifactId>soaf-parent</artifactId>
+    <version>${my-project-version}</version>
+  </parent>
 
   <modules>
 	<module>cas</module>
   </modules>
 
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>    
-  </distributionManagement>
-
   <build>
-        <plugins />
+    <plugins/>
   </build>
 </project>

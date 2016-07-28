@@ -12,9 +12,9 @@
   <packaging>pom</packaging>
   <name>SOAF Build</name>
   <description>SOAF Build</description>
-  <version>1.0.0</version>
   <url>https://github.com/sscpac/secureopenarchitecture</url>
   
+  <version>${my-project-version}</version>
 
   <licenses>
     <license>
@@ -39,6 +39,8 @@
 
 	
   <properties>
+    <my-project-version>1.0.1</my-project-version>
+
     <root.dir>${project.basedir}</root.dir>
     <mongo.java.driver.version>3.0.0-rc0</mongo.java.driver.version>
     <spring.version>4.0.3.RELEASE</spring.version>
