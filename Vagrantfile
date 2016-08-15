@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
 
-  config.vm.hostname = "jedis-dev"
+  config.vm.hostname = "jedis-dev.spawar.navy.mil"
 
   #don't worry abou replacing the insecure key
   config.ssh.insert_key = false  
@@ -58,6 +58,7 @@ Vagrant.configure(2) do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   # don't share the normally default /vagrant folder
   config.vm.synced_folder ".", "/opt/soaf"
+  config.vm.synced_folder "pki", "/etc/tls/pki"   
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -91,7 +92,7 @@ Vagrant.configure(2) do |config|
   # install jdk and maven
   #config.vm.provision "shell", path:"./provisioning/install-maven.sh"
   # build source
-  #config.vm.provision "shell", inline:"mvn clean install -f /vagrant/pom.xml -P no-test"
+  config.vm.provision "shell", inline:"echo 'export HOSTNAME=jedis-dev.spawar.navy.mil' >> ~/.profile"
   #install docker
   config.vm.provision :docker
   #install docker-compose and start containers

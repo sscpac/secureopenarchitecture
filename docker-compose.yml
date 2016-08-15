@@ -17,6 +17,8 @@ services:
          - "soaf-ldap"        
         extra_hosts:
          - "jedis-dev.spawar.navy.mil:192.168.56.4"
+        environment:
+         - SERVERHOST=$HOSTNAME              
 
     soaf-server:
         image: sscpac/soaf-server
@@ -29,6 +31,8 @@ services:
          - "soaf-ldap"        
         extra_hosts:
          - "jedis-dev.spawar.navy.mil:192.168.56.4"
+        environment:
+         - SERVERHOST=$HOSTNAME              
            
     soaf-proxy:
         image: sscpac/soaf-proxy
@@ -41,6 +45,8 @@ services:
         links:
          - "soaf-cas"
          - "soaf-server"
+        volumes:
+         - /etc/tls/pki:/usr/local/apache2/pki                  
    
              
 

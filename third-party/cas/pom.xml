@@ -9,7 +9,7 @@
     <name>SOAF CAS-Overlay</name>
     <packaging>war</packaging>
     <description>SOAF CAS Overlay</description>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <url>https://github.com/sscpac/secureopenarchitecture</url>
 
