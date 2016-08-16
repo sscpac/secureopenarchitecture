@@ -16,10 +16,10 @@ import com.mongodb.DB;
 @ContextConfiguration(locations={"classpath:MongoDatabaseFactoryTests-beans.xml"})
 public class MongoDatabaseFactoryTests {
 
-    @Autowired(required = true)
+    //@Autowired(required = true)
    //private DB mongodb;
 
-    @Autowired(required = true)
+    //@Autowired(required = true)
     //private DB secureMongodb;
 
 	@Test

@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"classpath:ldap-tests.xml"})
 public class SoafLdapServiceTests {
 
-    @Autowired(required=true)
+    //@Autowired(required=true)
     //private ISoafLdapService ldapService;
 
     @Test
