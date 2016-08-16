@@ -16,11 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class SoafLdapServiceTests {
 
     @Autowired(required=true)
-    private ISoafLdapService ldapService;
+    //private ISoafLdapService ldapService;
 
     @Test
     public void testGetAllUsers()  {
-        System.out.println(ldapService.getAllUsers());
+        //System.out.println(ldapService.getAllUsers());
     }
 
     @Test

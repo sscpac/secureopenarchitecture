@@ -39,7 +39,7 @@
 
 	
   <properties>
-    <my-project-version>1.0.2</my-project-version>
+    <my-project-version>1.0.3</my-project-version>
 
     <root.dir>${project.basedir}</root.dir>
     <mongo.java.driver.version>3.0.0-rc0</mongo.java.driver.version>
