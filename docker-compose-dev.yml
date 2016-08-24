@@ -50,7 +50,7 @@ services:
          - "soaf-cas"
          - "soaf-server"
         volumes:
-         - /etc/tls/pki:/usr/local/apache2/pki            
+         - /etc/pki/tls:/usr/local/apache2/pki            
    
              
 

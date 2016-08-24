@@ -58,7 +58,7 @@ Vagrant.configure(2) do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   # don't share the normally default /vagrant folder
   config.vm.synced_folder ".", "/opt/soaf"
-  config.vm.synced_folder "pki", "/etc/tls/pki"   
+  config.vm.synced_folder "pki", "/etc/pki/tls"   
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
