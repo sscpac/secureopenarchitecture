@@ -1,8 +1,16 @@
 version: "2"
 services:
     soaf-mongo:
-        image: sscpac/mongo:alpine
+        image: mongo
         container_name: mongo
+
+    soaf-db-seed:
+        image: sscpac/soaf-db-seed
+        container_name: db-seed
+        depends_on:
+         - soaf-mongo 
+        links:
+         - "soaf-mongo" 
 
     soaf-ldap:
         image: sscpac/soaf-ldap
@@ -48,5 +56,3 @@ services:
         volumes:
          - /etc/pki/tls:/usr/local/apache2/pki                  
    
-             
-

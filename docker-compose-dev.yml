@@ -1,8 +1,16 @@
 version: "2"
 services:
     soaf-mongo:
-        image: sscpac/mongo:alpine
+        image: mongo
         container_name: mongo
+
+    soaf-db-seed:
+        image: sscpac/soaf-db-seed
+        container_name: db-seed
+        depends_on:
+         - soaf-mongo 
+        links:
+         - "soaf-mongo"                 
 
     soaf-ldap:
         image: sscpac/soaf-ldap
@@ -37,7 +45,6 @@ services:
          - SERVERHOST=$HOSTNAME              
         volumes:
          - /opt/soaf/soaf-latest-release/soaf-server:/usr/local/tomcat/webapps           
-
     soaf-proxy:
         image: sscpac/soaf-proxy
         container_name: proxy

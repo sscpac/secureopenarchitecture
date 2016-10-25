@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
   # Docker 
-  config.vm.network "forwarded_port", guest: 443, host: 443
+  #config.vm.network "forwarded_port", guest: 443, host: 443
   #config.vm.network "forwarded_port", guest: 10389, host: 10390
 
 
